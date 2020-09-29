@@ -43,4 +43,64 @@ public class Question implements Serializable{
 //    reference to QuestionOfExamtitle
     @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
     List<QuestionOfExamtitle> listQuestionOfExamtitle;
+
+    public Question() {
+    }
+
+    public int getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getHinte() {
+        return hinte;
+    }
+
+    public void setHinte(String hinte) {
+        this.hinte = hinte;
+    }
+
+    public int getCorrectAnswerId() {
+        return correctAnswerId;
+    }
+
+    public void setCorrectAnswerId(int correctAnswerId) {
+        this.correctAnswerId = correctAnswerId;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<Answer> getListAnswer() {
+        return listAnswer;
+    }
+
+    public void setListAnswer(List<Answer> listAnswer) {
+        this.listAnswer = listAnswer;
+    }
+
+    public List<QuestionOfExamtitle> getListQuestionOfExamtitle() {
+        return listQuestionOfExamtitle;
+    }
+
+    public void setListQuestionOfExamtitle(List<QuestionOfExamtitle> listQuestionOfExamtitle) {
+        this.listQuestionOfExamtitle = listQuestionOfExamtitle;
+    }
+    
 }

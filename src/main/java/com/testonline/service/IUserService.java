@@ -5,10 +5,10 @@
  */
 package com.testonline.service;
 
-/**
- *
- * @author ADMIN
- */
-public class NewClass {
-    
+import com.testonline.entity.User;
+import java.util.List;
+
+
+public interface IUserService{
+    List<User> getAll();
 }

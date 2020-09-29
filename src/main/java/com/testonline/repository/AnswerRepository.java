@@ -7,11 +7,9 @@ package com.testonline.repository;
 
 import com.testonline.entity.Answer;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author ADMIN
- */
+@Repository
 public interface AnswerRepository extends CrudRepository<Answer, Integer>{
     
 }

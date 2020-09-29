@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,6 +32,43 @@ public class Category implements Serializable{
     
 //  reference to Question
     @OneToMany(mappedBy = "category")
-    List<Category> listCategory;
+    List<Question> listQuestion;
+
+    public Category() {
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Question> getListQuestion() {
+        return listQuestion;
+    }
+
+    public void setListQuestion(List<Question> listQuestion) {
+        this.listQuestion = listQuestion;
+    }
+
+   
     
 }

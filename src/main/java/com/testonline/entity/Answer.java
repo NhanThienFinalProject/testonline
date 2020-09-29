@@ -26,4 +26,32 @@ public class Answer implements Serializable{
     @ManyToOne
     @JoinColumn(name = "QUESTIONID")
     Question question;
+
+    public Answer() {
+    }
+
+    public int getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(int answerId) {
+        this.answerId = answerId;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+    
 }

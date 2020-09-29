@@ -40,6 +40,41 @@ public class Examtitle implements Serializable{
 //    reference to QuestionOfExamtitle
     @OneToMany(mappedBy = "examtitle",fetch = FetchType.LAZY)
     List<QuestionOfExamtitle> listQuestionOfExamtitle;
+
+    public Examtitle() {
+    }
+
+    public int getExamtitleId() {
+        return examtitleId;
+    }
+
+    public void setExamtitleId(int examtitleId) {
+        this.examtitleId = examtitleId;
+    }
+
+    public User getStudent() {
+        return student;
+    }
+
+    public void setStudent(User student) {
+        this.student = student;
+    }
+
+    public Exam getExam() {
+        return exam;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
+    }
+
+    public List<QuestionOfExamtitle> getListQuestionOfExamtitle() {
+        return listQuestionOfExamtitle;
+    }
+
+    public void setListQuestionOfExamtitle(List<QuestionOfExamtitle> listQuestionOfExamtitle) {
+        this.listQuestionOfExamtitle = listQuestionOfExamtitle;
+    }
     
     
 }
