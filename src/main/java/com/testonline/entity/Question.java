@@ -37,10 +37,10 @@ public class Question implements Serializable{
     Category category;
     
 //    reference to Answer
-    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
     List<Answer> listAnswer;
     
 //    reference to QuestionOfExamtitle
-    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
     List<QuestionOfExamtitle> listQuestionOfExamtitle;
 }

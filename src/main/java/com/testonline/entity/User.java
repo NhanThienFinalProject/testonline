@@ -56,16 +56,16 @@ public class User implements Serializable{
     Roles role;
     
 //    reference to Exam
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     List<Exam> listExam;
     
 //    reference to Category
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     List<Category> listCategory;
     
 //    reference to Examtitle
-    @OneToOne(mappedBy = "student",fetch = FetchType.EAGER)
-    Examtitle examtitle;
+    @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
+    List<Examtitle> listExamtitle;
     
     
 }

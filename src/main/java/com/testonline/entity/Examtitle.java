@@ -28,7 +28,7 @@ public class Examtitle implements Serializable{
     private int examtitleId;
     
 //    reference to User by UserId(studentID)
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "STUDENTID")
     User student;
     
@@ -38,7 +38,7 @@ public class Examtitle implements Serializable{
     Exam exam;
     
 //    reference to QuestionOfExamtitle
-    @OneToMany(mappedBy = "examtitle",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "examtitle",fetch = FetchType.LAZY)
     List<QuestionOfExamtitle> listQuestionOfExamtitle;
     
     

@@ -5,7 +5,13 @@
  */
 package com.testonline.repository;
 
+import com.testonline.entity.Answer;
+import org.springframework.data.repository.CrudRepository;
 
-public class NewClass {
+/**
+ *
+ * @author ADMIN
+ */
+public interface AnswerRepository extends CrudRepository<Answer, Integer>{
     
 }

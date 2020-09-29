@@ -21,6 +21,6 @@ public class Roles implements Serializable{
     private String nameRole;
     
 //    reference to User
-    @OneToMany(mappedBy = "role",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
     List<User> listUser;
 }

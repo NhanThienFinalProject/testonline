@@ -29,7 +29,7 @@ public class Category implements Serializable{
     @JoinColumn(name = "CREATEBYID")
     User user;
     
-//    reference to Question
+//  reference to Question
     @OneToMany(mappedBy = "category")
     List<Category> listCategory;
     
