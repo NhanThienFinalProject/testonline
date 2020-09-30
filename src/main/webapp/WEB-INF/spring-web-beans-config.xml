@@ -20,7 +20,7 @@
     <jpa:repositories base-package="com.testonline.repository"/>
     <context:component-scan base-package="com.testonline" />
     <mvc:annotation-driven />
-    
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
     <bean id="dataSource" 
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -29,7 +29,9 @@
         <property name="username" value="root" />
         <property name="password" value="766692" />
     </bean>
-    
+     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
