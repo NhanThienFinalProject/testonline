@@ -25,5 +25,10 @@ public class HomeController {
 	theModel.addAttribute("listUser", listUser);
 	return "home";
     }
+    
+    @GetMapping("/teacher-home")
+    public String showTeacherHome(Model theModel) {
+	return "homepage";
+    }
 
 }

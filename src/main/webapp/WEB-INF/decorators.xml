@@ -7,8 +7,18 @@
 	<excludes>
 		<pattern>/bill*</pattern>
 	</excludes>
-	
-	<decorator name="web" page="web.jsp">
+	<decorator name="form" page="web/log-form.jsp">
+		<pattern>/form*</pattern>
+	</decorator>
+	<decorator name="student" page="student/web.jsp">
+		<pattern>/student*</pattern>
+	</decorator>
+        
+        <decorator name="teacher" page="teacher/web.jsp">
+		<pattern>/teacher*</pattern>
+	</decorator>
+        
+        <decorator name="web" page="student/web.jsp">
 		<pattern>/*</pattern>
 	</decorator>
 
