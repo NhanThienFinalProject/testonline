@@ -8,8 +8,8 @@
 <%@ include file="/common/tablibrary.jsp"%>
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="<c:url value="/template/student/vendor/bootstrap/css/bootstrap.css"/>" rel="stylesheet" type="text/css"/>
-<link href="<c:url value="/template/student/vendor/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css"/>
+<link href="<c:url value="template/student/vendor/bootstrap/css/bootstrap.css"/>" rel="stylesheet" type="text/css"/>
+<link href="<c:url value="template/student/vendor/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css"/>
   <!-- Custom Fonts -->
   <link href="<c:url value="template/student/vendor/fontawesome-free/css/all.css"/>" rel="stylesheet" type="text/css"/>
   <link href="<c:url value="template/student/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet" type="text/css"/>
