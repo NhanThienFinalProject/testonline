@@ -8,7 +8,9 @@ package com.testonline.service;
 import com.testonline.entity.User;
 import java.util.List;
 
+public interface IUserService {
 
-public interface IUserService{
     List<User> getAll();
+
+    void saveNewUser(User newUser);
 }
