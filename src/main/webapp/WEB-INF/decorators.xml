@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/decorators">
-	<!-- Any urls that are excluded will never be decorated by Sitemesh -->
+	<!-- Any urls that are excluded will never be decorated by Sitemesh 
 	<excludes>
 		<pattern>/api*</pattern>
 	</excludes>
 	<excludes>
 		<pattern>/bill*</pattern>
-	</excludes>
+	</excludes>-->
 	<decorator name="form" page="web/log-form.jsp">
 		<pattern>/form*</pattern>
 	</decorator>
