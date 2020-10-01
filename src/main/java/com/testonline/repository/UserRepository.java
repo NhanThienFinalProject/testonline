@@ -6,9 +6,10 @@
 package com.testonline.repository;
 
 import com.testonline.entity.User;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer>{
-    
+   User findOneByUserName(String userName);
 }
