@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService implements IUserService {
+
     @Autowired
     UserRepository userRP;
 
@@ -25,6 +26,10 @@ public class UserService implements IUserService {
     public List<User> getAll() {
         return (List<User>) userRP.findAll();
     }
-     
-    
+
+    @Override
+    public void saveNewUser(User newUser) {
+        userRP.save(newUser);
+    }
+
 }

@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,7 +24,7 @@ public class User implements Serializable{
     @Column(name = "ID")
     private int userId;
     
-    @Column(name = "FIRSTNAME")
+    @Column(name = "FIRTNAME")
     private String firstName;
     
     @Column(name = "LASTNAME")
