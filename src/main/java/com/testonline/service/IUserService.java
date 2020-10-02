@@ -13,4 +13,10 @@ public interface IUserService {
     List<User> getAll();
 
     void saveNewUser(User newUser);
+    
+    User findUserByUsername(String username);
+    
+    boolean isExistedUsername(String username);
+    
+    
 }

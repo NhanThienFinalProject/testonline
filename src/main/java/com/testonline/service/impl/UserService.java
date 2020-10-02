@@ -32,4 +32,20 @@ public class UserService implements IUserService {
         userRP.save(newUser);
     }
 
+    @Override
+    public User findUserByUsername(String username) {
+        return userRP.findOneByUserName(username);
+    }
+
+    @Override
+    public boolean isExistedUsername(String username) {
+        User user = new User();
+        user = userRP.findOneByUserName(username);
+        if (user != null){
+            return true;
+        }
+        return false;
+    }
+    
+    
 }
