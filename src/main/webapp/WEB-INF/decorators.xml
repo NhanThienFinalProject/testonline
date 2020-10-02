@@ -18,7 +18,7 @@
 		<pattern>/teacher*</pattern>
 	</decorator>
         
-        <decorator name="web" page="student/web.jsp">
+        <decorator name="web" page="web/web.jsp">
 		<pattern>/*</pattern>
 	</decorator>
 
