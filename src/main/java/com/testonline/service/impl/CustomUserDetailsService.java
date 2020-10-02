@@ -5,7 +5,7 @@
  */
 package com.testonline.service.impl;
  
-import com.testonline.entity.User;
+import com.testonline.entity.UserEntity;
 import com.testonline.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRP;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       User user = userRP.findOneByUserName(username);
+       UserEntity user = userRP.findOneByUserName(username);
         if (user == null) {
             throw new UsernameNotFoundException("tai khoan khong ton tai");
         }

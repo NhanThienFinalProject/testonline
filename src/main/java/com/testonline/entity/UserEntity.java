@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "user")
-public class User implements Serializable{
+public class UserEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -52,21 +52,21 @@ public class User implements Serializable{
 //    reference to Role by ROLEID
     @ManyToOne
     @JoinColumn(name = "ROLEID")
-    Roles role;
+    RolesEntity role;
     
-//    reference to Exam
+//    reference to ExamEntity
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-    List<Exam> listExam;
+    List<ExamEntity> listExam;
     
-//    reference to Category
+//    reference to CategoryEntity
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    List<Category> listCategory;
+    List<CategoryEntity> listCategory;
     
-//    reference to Examtitle
+//    reference to ExamtitleEntity
     @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
-    List<Examtitle> listExamtitle;
+    List<ExamtitleEntity> listExamtitle;
 
-    public User() {
+    public UserEntity() {
     }
 
     public int getUserId() {
@@ -141,35 +141,35 @@ public class User implements Serializable{
         this.createDate = createDate;
     }
 
-    public Roles getRole() {
+    public RolesEntity getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(RolesEntity role) {
         this.role = role;
     }
 
-    public List<Exam> getListExam() {
+    public List<ExamEntity> getListExam() {
         return listExam;
     }
 
-    public void setListExam(List<Exam> listExam) {
+    public void setListExam(List<ExamEntity> listExam) {
         this.listExam = listExam;
     }
 
-    public List<Category> getListCategory() {
+    public List<CategoryEntity> getListCategory() {
         return listCategory;
     }
 
-    public void setListCategory(List<Category> listCategory) {
+    public void setListCategory(List<CategoryEntity> listCategory) {
         this.listCategory = listCategory;
     }
 
-    public List<Examtitle> getListExamtitle() {
+    public List<ExamtitleEntity> getListExamtitle() {
         return listExamtitle;
     }
 
-    public void setListExamtitle(List<Examtitle> listExamtitle) {
+    public void setListExamtitle(List<ExamtitleEntity> listExamtitle) {
         this.listExamtitle = listExamtitle;
     }
     

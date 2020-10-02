@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "question")
-public class Question implements Serializable{
+public class QuestionEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -31,20 +31,20 @@ public class Question implements Serializable{
     @Column(name = "CORRECTANSWERID")
     private int correctAnswerId;
     
-//    reference to Category by CATEGORYID
+//    reference to CategoryEntity by CATEGORYID
     @ManyToOne
     @JoinColumn(name = "CATEGORYID")
-    Category category;
+    CategoryEntity category;
     
-//    reference to Answer
+//    reference to AnswerEntity
     @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
-    List<Answer> listAnswer;
+    List<AnswerEntity> listAnswer;
     
-//    reference to QuestionOfExamtitle
+//    reference to QuestionOfExamtitleEntity
     @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
-    List<QuestionOfExamtitle> listQuestionOfExamtitle;
+    List<QuestionOfExamtitleEntity> listQuestionOfExamtitle;
 
-    public Question() {
+    public QuestionEntity() {
     }
 
     public int getQuestionId() {
@@ -79,27 +79,27 @@ public class Question implements Serializable{
         this.correctAnswerId = correctAnswerId;
     }
 
-    public Category getCategory() {
+    public CategoryEntity getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryEntity category) {
         this.category = category;
     }
 
-    public List<Answer> getListAnswer() {
+    public List<AnswerEntity> getListAnswer() {
         return listAnswer;
     }
 
-    public void setListAnswer(List<Answer> listAnswer) {
+    public void setListAnswer(List<AnswerEntity> listAnswer) {
         this.listAnswer = listAnswer;
     }
 
-    public List<QuestionOfExamtitle> getListQuestionOfExamtitle() {
+    public List<QuestionOfExamtitleEntity> getListQuestionOfExamtitle() {
         return listQuestionOfExamtitle;
     }
 
-    public void setListQuestionOfExamtitle(List<QuestionOfExamtitle> listQuestionOfExamtitle) {
+    public void setListQuestionOfExamtitle(List<QuestionOfExamtitleEntity> listQuestionOfExamtitle) {
         this.listQuestionOfExamtitle = listQuestionOfExamtitle;
     }
     

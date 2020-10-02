@@ -5,12 +5,12 @@
  */
 package com.testonline.service;
 
-import com.testonline.entity.User;
+import com.testonline.entity.UserEntity;
 import java.util.List;
 
 public interface IUserService {
 
-    List<User> getAll();
+    List<UserEntity> getAll();
 
-    void saveNewUser(User newUser);
+    void saveNewUser(UserEntity newUser);
 }

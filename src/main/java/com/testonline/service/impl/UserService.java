@@ -5,7 +5,7 @@
  */
 package com.testonline.service.impl;
 
-import com.testonline.entity.User;
+import com.testonline.entity.UserEntity;
 import com.testonline.repository.UserRepository;
 import com.testonline.service.IUserService;
 import java.util.List;
@@ -23,12 +23,12 @@ public class UserService implements IUserService {
     UserRepository userRP;
 
     @Override
-    public List<User> getAll() {
-        return (List<User>) userRP.findAll();
+    public List<UserEntity> getAll() {
+        return (List<UserEntity>) userRP.findAll();
     }
 
     @Override
-    public void saveNewUser(User newUser) {
+    public void saveNewUser(UserEntity newUser) {
         userRP.save(newUser);
     }
 
