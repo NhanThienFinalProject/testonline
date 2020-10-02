@@ -18,11 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
      @Autowired
     private UserService userSV;
-    @GetMapping("/form-login")
-    public String showFormLogin(Model theModel) {
-	return "web/login";
-    }
-    @GetMapping(value = "/login")
+   
+    @GetMapping(value = "/form-login")
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout) {
 

@@ -23,7 +23,7 @@ public class HomeController {
 	List<User> listUser = new ArrayList<User>();
         listUser = userSV.getAll();
 	theModel.addAttribute("listUser", listUser);
-	return "home";
+	return "index";
     }
     
     @GetMapping("/teacher-home")
