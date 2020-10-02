@@ -21,27 +21,27 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "examtitle")
-public class Examtitle implements Serializable{
+public class ExamtitleEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int examtitleId;
     
-//    reference to User by UserId(studentID)
+//    reference to UserEntity by UserId(studentID)
     @ManyToOne
     @JoinColumn(name = "STUDENTID")
-    User student;
+    UserEntity student;
     
-//    reference to Exam by EXAMID
+//    reference to ExamEntity by EXAMID
     @ManyToOne
     @JoinColumn(name = "EXAMID")
-    Exam exam;
+    ExamEntity exam;
     
-//    reference to QuestionOfExamtitle
+//    reference to QuestionOfExamtitleEntity
     @OneToMany(mappedBy = "examtitle",fetch = FetchType.LAZY)
-    List<QuestionOfExamtitle> listQuestionOfExamtitle;
+    List<QuestionOfExamtitleEntity> listQuestionOfExamtitle;
 
-    public Examtitle() {
+    public ExamtitleEntity() {
     }
 
     public int getExamtitleId() {
@@ -52,27 +52,27 @@ public class Examtitle implements Serializable{
         this.examtitleId = examtitleId;
     }
 
-    public User getStudent() {
+    public UserEntity getStudent() {
         return student;
     }
 
-    public void setStudent(User student) {
+    public void setStudent(UserEntity student) {
         this.student = student;
     }
 
-    public Exam getExam() {
+    public ExamEntity getExam() {
         return exam;
     }
 
-    public void setExam(Exam exam) {
+    public void setExam(ExamEntity exam) {
         this.exam = exam;
     }
 
-    public List<QuestionOfExamtitle> getListQuestionOfExamtitle() {
+    public List<QuestionOfExamtitleEntity> getListQuestionOfExamtitle() {
         return listQuestionOfExamtitle;
     }
 
-    public void setListQuestionOfExamtitle(List<QuestionOfExamtitle> listQuestionOfExamtitle) {
+    public void setListQuestionOfExamtitle(List<QuestionOfExamtitleEntity> listQuestionOfExamtitle) {
         this.listQuestionOfExamtitle = listQuestionOfExamtitle;
     }
     

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "answer")
-public class Answer implements Serializable{
+public class AnswerEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -22,12 +22,12 @@ public class Answer implements Serializable{
     @Column(name = "ANSWER")
     private String answer;
     
-//    reference to Question by QUESTIONID
+//    reference to QuestionEntity by QUESTIONID
     @ManyToOne
     @JoinColumn(name = "QUESTIONID")
-    Question question;
+    QuestionEntity question;
 
-    public Answer() {
+    public AnswerEntity() {
     }
 
     public int getAnswerId() {
@@ -46,11 +46,11 @@ public class Answer implements Serializable{
         this.answer = answer;
     }
 
-    public Question getQuestion() {
+    public QuestionEntity getQuestion() {
         return question;
     }
 
-    public void setQuestion(Question question) {
+    public void setQuestion(QuestionEntity question) {
         this.question = question;
     }
     

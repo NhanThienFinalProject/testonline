@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
-public class Roles implements Serializable{
+public class RolesEntity implements Serializable{
     @Id
     @Column(name = "ID")
     private String roleId;
@@ -20,11 +20,11 @@ public class Roles implements Serializable{
     @Column(name = "NAMEROLE")
     private String nameRole;
     
-//    reference to User
+//    reference to UserEntity
     @OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
-    List<User> listUser;
+    List<UserEntity> listUser;
 
-    public Roles() {
+    public RolesEntity() {
     }
 
     public String getRoleId() {
@@ -43,11 +43,11 @@ public class Roles implements Serializable{
         this.nameRole = nameRole;
     }
 
-    public List<User> getListUser() {
+    public List<UserEntity> getListUser() {
         return listUser;
     }
 
-    public void setListUser(List<User> listUser) {
+    public void setListUser(List<UserEntity> listUser) {
         this.listUser = listUser;
     }
     

@@ -5,7 +5,7 @@
  */
 package com.testonline.controller;
 
-import com.testonline.entity.User;
+import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.UserService;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class HomeController {
     private UserService userSV;
     @GetMapping("/showhome")
     public String showFormForAdd(Model theModel) {
-	List<User> listUser = new ArrayList<User>();
+	List<UserEntity> listUser = new ArrayList<UserEntity>();
         listUser = userSV.getAll();
 	theModel.addAttribute("listUser", listUser);
 	return "index";

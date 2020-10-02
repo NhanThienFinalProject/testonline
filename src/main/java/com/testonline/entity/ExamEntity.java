@@ -17,7 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name ="exam")
-public class Exam implements Serializable{
+public class ExamEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -50,16 +50,16 @@ public class Exam implements Serializable{
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date createDate;
     
-//    reference to User by CREATEBYID
+//    reference to UserEntity by CREATEBYID
     @ManyToOne
     @JoinColumn(name = "CREATEBYID")
-    User user;
+    UserEntity user;
     
-//    reference to Examtitle
+//    reference to ExamtitleEntity
     @OneToMany(mappedBy = "exam")
-    List<Examtitle> listExamtitle;
+    List<ExamtitleEntity> listExamtitle;
 
-    public Exam() {
+    public ExamEntity() {
     }
 
     public int getExamId() {
@@ -134,19 +134,19 @@ public class Exam implements Serializable{
         this.createDate = createDate;
     }
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 
-    public List<Examtitle> getListExamtitle() {
+    public List<ExamtitleEntity> getListExamtitle() {
         return listExamtitle;
     }
 
-    public void setListExamtitle(List<Examtitle> listExamtitle) {
+    public void setListExamtitle(List<ExamtitleEntity> listExamtitle) {
         this.listExamtitle = listExamtitle;
     }
     

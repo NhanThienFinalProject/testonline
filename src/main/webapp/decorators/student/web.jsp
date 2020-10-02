@@ -16,11 +16,11 @@
         
     </head>
     <body>
-         <%@ include file="/common/student/menu.jsp"%>
+         <%@ include file="/common/web/menu.jsp"%>
          <%@ include file="/common/student/header.jsp"%>
          <dec:body />
-         <%@ include file="/common/student/footer.jsp"%>
+         <%@ include file="/common/web/footer.jsp"%>
          <%@ include file="/common/student/javascript.jsp"%>
-         <%@ include file="/common/student/scrol-top.jsp"%>
+         <%@ include file="/common/web/scrol-top.jsp"%>
     </body>
 </html>

@@ -5,10 +5,10 @@
  */
 package com.testonline.repository;
 
-import com.testonline.entity.Exam;
+import com.testonline.entity.ExamEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 @Repository
-public interface ExamRepository extends CrudRepository<Exam,Integer>{
+public interface ExamRepository extends CrudRepository<ExamEntity,Integer>{
     
 }

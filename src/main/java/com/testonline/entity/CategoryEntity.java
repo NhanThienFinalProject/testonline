@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
-public class Category implements Serializable{
+public class CategoryEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -25,16 +25,16 @@ public class Category implements Serializable{
     @Column(name = "Name")
     private String categoryName;
     
-//    reference to User by CREATEBYID
+//    reference to UserEntity by CREATEBYID
     @ManyToOne
     @JoinColumn(name = "CREATEBYID")
-    User user;
+    UserEntity user;
     
-//  reference to Question
+//  reference to QuestionEntity
     @OneToMany(mappedBy = "category")
-    List<Question> listQuestion;
+    List<QuestionEntity> listQuestion;
 
-    public Category() {
+    public CategoryEntity() {
     }
 
     public int getCategoryId() {
@@ -53,19 +53,19 @@ public class Category implements Serializable{
         this.categoryName = categoryName;
     }
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 
-    public List<Question> getListQuestion() {
+    public List<QuestionEntity> getListQuestion() {
         return listQuestion;
     }
 
-    public void setListQuestion(List<Question> listQuestion) {
+    public void setListQuestion(List<QuestionEntity> listQuestion) {
         this.listQuestion = listQuestion;
     }
 

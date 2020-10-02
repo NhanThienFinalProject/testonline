@@ -5,11 +5,11 @@
  */
 package com.testonline.repository;
 
-import com.testonline.entity.QuestionOfExamtitle;
+import com.testonline.entity.QuestionOfExamtitleEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface QuestionOfExamTitleRepository extends CrudRepository<QuestionOfExamtitle,Integer>{
+public interface QuestionOfExamTitleRepository extends CrudRepository<QuestionOfExamtitleEntity,Integer>{
     
 }

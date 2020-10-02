@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "questionofexamtitle")
-public class QuestionOfExamtitle implements Serializable{
+public class QuestionOfExamtitleEntity implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,18 +22,18 @@ public class QuestionOfExamtitle implements Serializable{
     @Column(name = "RESULTANSWERID")
     private int resultAnswerId;
     
-//    reference to Examtitle by ExamtitleId
+//    reference to ExamtitleEntity by ExamtitleId
 
     @ManyToOne
     @JoinColumn(name = "EXAMTITLEID")
-    Examtitle examtitle;
+    ExamtitleEntity examtitle;
     
-//    reference to Question by QuestionID
+//    reference to QuestionEntity by QuestionID
     @ManyToOne
     @JoinColumn(name = "QUESTIONID")
-    Question question;
+    QuestionEntity question;
 
-    public QuestionOfExamtitle() {
+    public QuestionOfExamtitleEntity() {
     }
 
     public int getResultAnswerId() {
@@ -44,19 +44,19 @@ public class QuestionOfExamtitle implements Serializable{
         this.resultAnswerId = resultAnswerId;
     }
 
-    public Examtitle getExamtitle() {
+    public ExamtitleEntity getExamtitle() {
         return examtitle;
     }
 
-    public void setExamtitle(Examtitle examtitle) {
+    public void setExamtitle(ExamtitleEntity examtitle) {
         this.examtitle = examtitle;
     }
 
-    public Question getQuestion() {
+    public QuestionEntity getQuestion() {
         return question;
     }
 
-    public void setQuestion(Question question) {
+    public void setQuestion(QuestionEntity question) {
         this.question = question;
     }
     
