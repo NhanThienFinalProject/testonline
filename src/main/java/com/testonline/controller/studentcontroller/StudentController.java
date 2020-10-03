@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.testonline.controller;
+package com.testonline.controller.studentcontroller;
 
 import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.UserService;
@@ -15,17 +10,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
+public class StudentController {
 
     @Autowired
     private UserService userSV;
 
-    @GetMapping("home")
-    public String showFormForAdd(Model theModel) {
-        return "web/home";
+    @GetMapping("student-home")
+    public String showStudentHome(Model theModel) {
+        List<UserEntity> listUser = new ArrayList<UserEntity>();
+        listUser = userSV.getAll();
+        theModel.addAttribute("listUser", listUser);
+        return "student/home";
     }
-
-  
-    
-
 }

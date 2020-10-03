@@ -32,4 +32,9 @@ public class UserService implements IUserService {
         userRP.save(newUser);
     }
 
+    @Override
+    public UserEntity getByUserName(String userName) {
+        return userRP.findOneByUserName(userName);
+    }
+
 }
