@@ -7,16 +7,16 @@
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="index.html">Working place</a></li>
         <li class="breadcrumb-item active">Create Question</li>
-        <form:form action="teacher-save-category" method="GET" modelAttribute="newCategory" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <form:form action="teacher-save-category" method="GET" modelAttribute="newCategory" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
                 <form:input path="categoryName" class="form-control" type="text" placeholder="Add category" />
                 <div class="input-group-append">
                     <form:button class="btn btn-dark" type="button"><i class="fas fa-plus-circle"></i></form:button>
+                    </div>
                 </div>
-            </div>
         </form:form>  
     </ol>
-    <form:form action="teacher-save-question" method="POST" modelAttribute="newQuestion">
+    <form:form action="teacher-save-question" method="POST" modelAttribute="newQuestion" onsubmit="return checkCorrectAnswerField()">
         <div class="contact-form">
             <div class="form-group">
                 <label class="control-label col-sm-2" for="content">Question's Content</label>
@@ -39,6 +39,8 @@
                 <label class="control-label col-sm-2" for="correctAnswer">Correct Answer</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="correctAnswer" placeholder="Enter correct answer" name="correctAnswer"/>
+                </div>
+                <div id="notice" class="col-sm-10">
                 </div>
             </div>
             <div class="form-group">
@@ -63,6 +65,13 @@
                     //                                x.setAttributeNode(classAtt);
                     document.getElementById("inputField").appendChild(x);
                 }
+                function checkCorrectAnswerField() {
+                    var x = document.getElementById("correctAnswer").value;
+                    if (x === null || x === "") {
+                        document.getElementById("correctAnswer").style.borderColor="#FF0000";
+                        return false;
+                    }
+                }
             </script>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="hinte">Hinte</label>
@@ -75,7 +84,7 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-default" 
                             style="background-color: #343a40; color:white ; width: 100%" onMouseOver="this.style.backgroundColor = '#062c33'"
-                                                                                         onMouseOut="this.style.backgroundColor = '#343a40'" >Submit</button>
+                            onMouseOut="this.style.backgroundColor = '#343a40'" >Submit</button>
                 </div>
             </div>
         </div>
