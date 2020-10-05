@@ -1,5 +1,5 @@
 
-package com.testonline.teachercontroller;
+package com.testonline.controller.teachercontroller;
 
 import com.testonline.entity.CategoryEntity;
 import com.testonline.entity.QuestionEntity;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class CreateQuestionController {
+public class QuestionController {
     @Autowired
     QuestionService questionSV;
     @Autowired

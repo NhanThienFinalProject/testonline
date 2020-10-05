@@ -1,5 +1,5 @@
 
-package com.testonline.teachercontroller;
+package com.testonline.controller.teachercontroller;
 
 import com.testonline.entity.AnswerEntity;
 import com.testonline.entity.QuestionEntity;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class ShowQuestionDetailsController {
+public class QuestionDetailsController {
     @Autowired
     QuestionService questionSV;
     @Autowired

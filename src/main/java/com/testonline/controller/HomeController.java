@@ -23,12 +23,12 @@ public class HomeController {
 	List<UserEntity> listUser = new ArrayList<UserEntity>();
         listUser = userSV.getAll();
 	theModel.addAttribute("listUser", listUser);
-	return "index";
+	return "teacher/home";
     }
     
-    @GetMapping("/teacher-home")
+    @GetMapping("/teacher-homepage")
     public String showTeacherHome(Model theModel) {
-	return "teacher/homepage";
+	return "teacher/home";
     }
 
 }

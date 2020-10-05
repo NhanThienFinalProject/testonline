@@ -1,5 +1,5 @@
 
-package com.testonline.teachercontroller;
+package com.testonline.controller.teachercontroller;
 
 import com.testonline.entity.CategoryEntity;
 import com.testonline.entity.UserEntity;

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ include file="/common/tablibrary.jsp"%>
 <!-- Exam -->
   <section class="content-section bg-light" id="about">
     <div class="container text-left">

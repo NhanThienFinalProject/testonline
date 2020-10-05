@@ -11,7 +11,7 @@ import java.util.List;
 public interface IUserService {
 
     List<UserEntity> getAll();
-
+   
     void saveNewUser(UserEntity newUser);
     
     UserEntity findUserByUsername(String username);

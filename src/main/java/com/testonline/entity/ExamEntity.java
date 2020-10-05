@@ -27,17 +27,17 @@ public class ExamEntity implements Serializable{
     private String content;
     
     @Column(name = "STATUS")
-    private String status;
+    private int status;
     
     @Column(name = "PASSWORD")
     private String password;
     
     @Column(name = "TIMESTART")
-    @DateTimeFormat(pattern = "yyyy-mm-dd hh-mm-ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date timeStart;
     
     @Column(name = "TIMEEND")
-    @DateTimeFormat(pattern = "yyyy-mm-dd hh-mm-ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date timeEnd;
     
     @Column(name = "POINT")
@@ -78,13 +78,14 @@ public class ExamEntity implements Serializable{
         this.content = content;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
+
 
     public String getPassword() {
         return password;
@@ -110,6 +111,7 @@ public class ExamEntity implements Serializable{
         this.timeEnd = timeEnd;
     }
 
+    
     public int getPointLadder() {
         return pointLadder;
     }
