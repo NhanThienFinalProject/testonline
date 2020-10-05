@@ -10,6 +10,10 @@ import com.testonline.repository.UserRepository;
 import com.testonline.service.IUserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 /**
@@ -41,11 +45,26 @@ public class UserService implements IUserService {
     public boolean isExistedUsername(String username) {
         UserEntity user = new UserEntity();
         user = userRP.findOneByUserName(username);
-        if (user != null){
+        if (user != null) {
             return true;
         }
         return false;
     }
-    
-    
+
+    @Override
+    public int getCurrentUserid() {
+        int userId = 0;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            UserDetails userDetail = (UserDetails) auth.getPrincipal();
+            userId = userRP.findOneByUserName(userDetail.getUsername()).getUserId();
+        }
+        return userId;
+    }
+
+    @Override
+    public UserEntity findUserByUserId(int userId) {
+        return userRP.findByUserId(userId);
+    }
+
 }

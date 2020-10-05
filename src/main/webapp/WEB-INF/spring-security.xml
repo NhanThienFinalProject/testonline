@@ -31,7 +31,7 @@
         <access-denied-handler error-page="/403" />
 		
         <form-login 
-            login-page="/login" 
+            login-page="/form-login" 
             default-target-url="/showhome" 
             authentication-failure-url="/form-login?error" 
             username-parameter="username"

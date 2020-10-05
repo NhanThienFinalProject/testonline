@@ -28,7 +28,7 @@ public class HomeController {
     
     @GetMapping("/teacher-home")
     public String showTeacherHome(Model theModel) {
-	return "homepage";
+	return "teacher/homepage";
     }
 
 }

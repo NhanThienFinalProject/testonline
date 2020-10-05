@@ -16,6 +16,10 @@ public interface IUserService {
     
     UserEntity findUserByUsername(String username);
     
+    UserEntity findUserByUserId(int userId);
+    
     boolean isExistedUsername(String username);
+    
+    int getCurrentUserid();
 
 }
