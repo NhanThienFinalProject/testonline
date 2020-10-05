@@ -1,12 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.testonline.formcontroller;
 
 import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.UserService;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,19 +28,29 @@ public class RegisterController {
     
     @PostMapping("/form-save")
     public String saveNewUser(Model theModel, @ModelAttribute("newUser") UserEntity newUser) {
+        if(userSV.isExistedUsername(newUser.getUserName())){
+            return "web/register";
+        }else{
+        String password = newUser.getPassword();
+        String passwordMD5 = md5(password);
+        newUser.setPassword(passwordMD5);
         newUser.setCreateDate(new Date());
-//        System.out.println(newUser.getFirstName());
-//        System.out.println(newUser.getLastName());
-//        System.out.println(newUser.getCity());
-//        System.out.println(newUser.getPhoneNumber());
-//        System.out.println(newUser.getPassword());
-//        System.out.println(newUser.getUserName());
-//        System.out.println(newUser.getRole().getRoleId());
-//        System.out.println(newUser.getUserId());
-//        System.out.println(newUser.getCreateDate());
-//        System.out.println(newUser.getEmail());
-        
         userSV.saveNewUser(newUser);
 	return "web/login";
+        }
+
     }
+    public static String md5(String str){
+		String result = "";
+		MessageDigest digest;
+		try {
+			digest = MessageDigest.getInstance("MD5");
+			digest.update(str.getBytes());
+			BigInteger bigInteger = new BigInteger(1,digest.digest());
+			result = bigInteger.toString(16);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

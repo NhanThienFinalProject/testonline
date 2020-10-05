@@ -14,6 +14,8 @@
                 <div class="card shadow-lg border-0 rounded-lg mt-0">
                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
                     <div class="card-body">
+                        <div id="alert">
+                        </div>
                         <form:form action="form-save"  method="POST" modelAttribute="newUser" onsubmit="return validateForm()">
                             <div class="form-row">
                                 <div class="col-md-6">
@@ -79,6 +81,7 @@
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputConfirmPassword">Confirm Password</label>
                                         <form:input path="password" class="form-control py-3" id="inputConfirmPassword" type="password" placeholder="Confirm password" />
+                                        <div id="message"></div>
                                     </div>
                                 </div>
                             </div>
@@ -119,11 +122,16 @@
         }
         ;
         if (check === 1) {
-            alert("You missed something?");
+            document.getElementById("alert").innerHTML = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>"
+                    + "<strong>Warning!</strong> You must fill out all the fields."
+                    + "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
+                    + "<span aria-hidden='true'>&times;</span>"
+                    + "</button>"
+                    + "</div>";
             return false;
         }
         if (password !== confirmPassword) {
-            alert("Password not the same!");
+            document.getElementById("message").innerHTML = "<p class='text-danger'><sup>* Not macth please!</sup></p>";
             return false;
         }
     }

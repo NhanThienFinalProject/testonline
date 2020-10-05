@@ -13,8 +13,8 @@
         <li class="breadcrumb-item active">Create Exam</li>
     </ol>
     <div class="contact-form">
-      
-            <form:form  action="saveExam" method="POST" modelAttribute="examModel" cssClass="form-row border font-weight-bold">
+
+        <form:form  action="saveExam" method="POST" modelAttribute="examModel" cssClass="form-row border font-weight-bold">
             <div class= "col-md-8 offset-md-2">
                 <div class="form-group">
                     <label class="control-label col-sm-2">Test's Content</label>
@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <div class="col-sm-10">
                         <form:input path="maxStudent" type="number" cssClass="form-control " placeholder="Enter Max Student"/>
-                        
+
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                     <label class="control-label col-sm-4" >Time Start</label>
                     <div class="col-sm-10">
                         <!-- type="datetime-local" -->
-                        <form:input path="timeStart" type="datetime-local"  cssClass="form-control " placeholder="Time Start Exam"/>
+                        <form:input path="timeStart" type="datetime"  cssClass="form-control " placeholder="Time Start Exam"/>
                     </div>
                 </div>
             </div>
@@ -51,14 +51,14 @@
                 <div class="form-group">
                     <label class="control-label col-sm-4">Time End</label>
                     <div class="col-sm-10">
-                       <form:input path="timeEnd" type="datetime-local" data-date-format="yyyy-MM-dd HH:mm:ss"  cssClass="form-control " placeholder="Time End Exam"/>
+                        <form:input path="timeEnd" type="datetime" data-date-format="yyyy-MM-dd HH:mm:ss"  cssClass="form-control " placeholder="Time End Exam"/>
                     </div>
                 </div>
             </div>
             <div class="col-md-8 offset-md-2">
                 <div class="form-group">
                     <div class="col-sm-11">
-                       <form:input path="password" type="text" cssClass="form-control "  placeholder="Enter password exam"/>
+                        <form:input path="password" type="text" cssClass="form-control "  placeholder="Enter password exam"/>
                     </div>
                 </div>
             </div>
@@ -66,11 +66,11 @@
                 <div class="form-group">
                     <div class="offset-md-4 col-md-4">
                         <form:button type="submit" class="btn btn-success" >Create Exam Now</form:button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            </form:form>
-  
+        </form:form>
+
     </div>
     <div class="col-md-10 offset-md-1">
         <div class="card mb-4">
@@ -93,7 +93,7 @@
                         </thead>
                         <tfoot>
                             <tr>
-                               <th>ID</th>
+                                <th>ID</th>
                                 <th>Content</th>
                                 <th>Start</th>
                                 <th>End</th>
@@ -103,16 +103,16 @@
                         </tfoot>
                         <tbody>
                             <c:forEach var="exam" items="${listExam}">
-                            <tr>
-                                <td><c:out value="${exam.examId}"/></td>
-                                <td><c:out value="${exam.content}"/></td>
-                                <td><c:out value="${exam.timeStart}"/></td>
-                                <td><c:out value="${exam.timeEnd}"/></td>
-                                <td><c:out value="${exam.maxStudent}"/></td>
-                                <td><c:out value="${exam.pointLadder}"/></td>
-                            </tr>
+                                <tr>
+                                    <td><c:out value="${exam.examId}"/></td>
+                                    <td><c:out value="${exam.content}"/></td>
+                                    <td><c:out value="${exam.timeStart}"/></td>
+                                    <td><c:out value="${exam.timeEnd}"/></td>
+                                    <td><c:out value="${exam.maxStudent}"/></td>
+                                    <td><c:out value="${exam.pointLadder}"/></td>
+                                </tr>
                             </c:forEach>
-                           
+
                         </tbody>
                     </table>
                 </div>

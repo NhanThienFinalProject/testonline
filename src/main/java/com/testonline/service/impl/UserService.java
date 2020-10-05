@@ -33,8 +33,24 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public UserEntity findUserByUsername(String username) {
+        return userRP.findOneByUserName(username);
+    }
+
+    @Override
+    public boolean isExistedUsername(String username) {
+        UserEntity user = new UserEntity();
+        user = userRP.findOneByUserName(username);
+        if (user != null){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public UserEntity getByUserName(String userName) {
         return userRP.findOneByUserName(userName);
     }
-
+    
+    
 }

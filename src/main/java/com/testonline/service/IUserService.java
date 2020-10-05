@@ -13,4 +13,9 @@ public interface IUserService {
     List<UserEntity> getAll();
     UserEntity getByUserName(String userName);
     void saveNewUser(UserEntity newUser);
+    
+    UserEntity findUserByUsername(String username);
+    
+    boolean isExistedUsername(String username);
+
 }
