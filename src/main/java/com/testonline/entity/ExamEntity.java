@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,7 +59,10 @@ public class ExamEntity implements Serializable{
 //    reference to ExamtitleEntity
     @OneToMany(mappedBy = "exam")
     List<ExamtitleEntity> listExamtitle;
-
+    //rêference to QuestionRandom
+    @OneToMany(mappedBy = "examQR",fetch = FetchType.LAZY)
+    List<QuestionRandomEntity> listQuestionRandom;
+    
     public ExamEntity() {
     }
 
@@ -146,6 +150,14 @@ public class ExamEntity implements Serializable{
 
     public List<ExamtitleEntity> getListExamtitle() {
         return listExamtitle;
+    }
+
+    public List<QuestionRandomEntity> getListQuestionRandom() {
+        return listQuestionRandom;
+    }
+
+    public void setListQuestionRandom(List<QuestionRandomEntity> listQuestionRandom) {
+        this.listQuestionRandom = listQuestionRandom;
     }
 
     public void setListExamtitle(List<ExamtitleEntity> listExamtitle) {

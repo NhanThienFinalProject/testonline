@@ -20,6 +20,6 @@ public interface IUserService {
     
     boolean isExistedUsername(String username);
     
-    int getCurrentUserid();
+    UserEntity getDetailUserCurrent();
 
 }

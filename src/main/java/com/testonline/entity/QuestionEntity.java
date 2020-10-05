@@ -43,7 +43,9 @@ public class QuestionEntity implements Serializable{
 //    reference to QuestionOfExamtitleEntity
     @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
     List<QuestionOfExamtitleEntity> listQuestionOfExamtitle;
-
+//      reference to QuestionRandom
+    @OneToMany(mappedBy = "questionQR",fetch = FetchType.LAZY)
+    List<QuestionRandomEntity> listQuestionRandom;
     public QuestionEntity() {
     }
 
@@ -101,6 +103,14 @@ public class QuestionEntity implements Serializable{
 
     public void setListQuestionOfExamtitle(List<QuestionOfExamtitleEntity> listQuestionOfExamtitle) {
         this.listQuestionOfExamtitle = listQuestionOfExamtitle;
+    }
+
+    public List<QuestionRandomEntity> getListQuestionRandom() {
+        return listQuestionRandom;
+    }
+
+    public void setListQuestionRandom(List<QuestionRandomEntity> listQuestionRandom) {
+        this.listQuestionRandom = listQuestionRandom;
     }
     
 }

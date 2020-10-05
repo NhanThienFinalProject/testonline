@@ -3,6 +3,7 @@ package com.testonline.controller.teachercontroller;
 
 import com.testonline.entity.CategoryEntity;
 import com.testonline.entity.QuestionEntity;
+import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.CategoryService;
 import com.testonline.service.impl.QuestionService;
 import com.testonline.service.impl.UserService;
@@ -26,16 +27,17 @@ public class QuestionController {
     
     @GetMapping(value = "/teacher-create-question")
     public String createQuestion(Model theModel){
-        int userID = userSV.getCurrentUserid();
+        UserEntity user = userSV.getDetailUserCurrent();
 //        get list questions for current user
-        List<QuestionEntity> listQuestionDB = questionSV.findQuestionByUserId(userID);
+        List<QuestionEntity> listQuestionDB = questionSV.findQuestionByUserId(user.getUserId());
         theModel.addAttribute("listQuestionDB",listQuestionDB);
 //        get list category for current user
-        List<CategoryEntity> listCategoryDB = categorySV.findListCategoryByUserId(userID);
+        List<CategoryEntity> listCategoryDB = categorySV.findListCategoryByUserId(user.getUserId());
         theModel.addAttribute("listCategoryDB", listCategoryDB);
         theModel.addAttribute("newQuestion", new QuestionEntity());
         theModel.addAttribute("newCategory", new CategoryEntity());
-        theModel.addAttribute("currentId", userID);
+        // cái attribute này để làm gì bác
+        //theModel.addAttribute("currentId", userID);
         return "teacher/create-question";
     }
     

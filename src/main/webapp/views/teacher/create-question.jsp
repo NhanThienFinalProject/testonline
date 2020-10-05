@@ -7,11 +7,11 @@
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="index.html">Working place</a></li>
         <li class="breadcrumb-item active">Create Question</li>
-        <form:form action="teacher-save-category" method="GET" modelAttribute="newCategory" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <form:form action="teacher-save-category" method="POST" modelAttribute="newCategory" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
                 <form:input path="categoryName" class="form-control" type="text" placeholder="Add category" />
                 <div class="input-group-append">
-                    <form:button class="btn btn-dark" type="button"><i class="fas fa-plus-circle"></i></form:button>
+                    <form:button class="btn btn-dark" type="submit"><i class="fas fa-plus-circle"></i></form:button>
                 </div>
             </div>
         </form:form>  
