@@ -11,4 +11,5 @@ public interface IQuestionService {
     QuestionEntity findQuestionByQuestionId(int questionId);
     QuestionEntity saveQuestion(QuestionEntity question);
     void saveFullQuestion(QuestionEntity question,String[] antherAnswers,String correctAnswer);
+    List<QuestionEntity> getListQuestionByExamtitleId(int examtitleId);
 }

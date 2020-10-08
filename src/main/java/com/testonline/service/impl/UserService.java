@@ -52,15 +52,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public int getCurrentUserid() {
-        int userId = 0;
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
+    public UserEntity getDetailUserCurrent() {
+        UserEntity user = new UserEntity();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();  
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            userId = userRP.findOneByUserName(userDetail.getUsername()).getUserId();
-        }
-        return userId;
-    }
+            user = userRP.findOneByUserName(userDetail.getUsername());
+        return user;
+    } 
 
     @Override
     public UserEntity findUserByUserId(int userId) {
