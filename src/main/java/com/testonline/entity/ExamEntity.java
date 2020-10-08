@@ -1,4 +1,3 @@
-
 package com.testonline.entity;
 
 import java.io.Serializable;
@@ -17,52 +16,54 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name ="exam")
-public class ExamEntity implements Serializable{
+@Table(name = "exam")
+public class ExamEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int examId;
-    
+
     @Column(name = "CONTENT")
     private String content;
-    
+
     @Column(name = "STATUS")
     private int status;
-    
+
     @Column(name = "PASSWORD")
     private String password;
-    
+
     @Column(name = "TIMESTART")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date timeStart;
-    
+
     @Column(name = "TIMEEND")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date timeEnd;
-    
+
     @Column(name = "POINT")
     private int pointLadder;
-    
+
     @Column(name = "MAXSTUDENT")
     private int maxStudent;
-    
+
     @Column(name = "CREATEDATE")
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date createDate;
-    
+
 //    reference to UserEntity by CREATEBYID
     @ManyToOne
     @JoinColumn(name = "CREATEBYID")
     UserEntity user;
-    
+
 //    reference to ExamtitleEntity
     @OneToMany(mappedBy = "exam")
     List<ExamtitleEntity> listExamtitle;
-    //rêference to QuestionRandom
-    @OneToMany(mappedBy = "examQR",fetch = FetchType.LAZY)
+
+//    reference to QuestionRandom
+    @OneToMany(mappedBy = "examQR", fetch = FetchType.LAZY)
     List<QuestionRandomEntity> listQuestionRandom;
-    
+
     public ExamEntity() {
     }
 
@@ -90,7 +91,6 @@ public class ExamEntity implements Serializable{
         this.status = status;
     }
 
-
     public String getPassword() {
         return password;
     }
@@ -115,7 +115,6 @@ public class ExamEntity implements Serializable{
         this.timeEnd = timeEnd;
     }
 
-    
     public int getPointLadder() {
         return pointLadder;
     }
@@ -163,5 +162,5 @@ public class ExamEntity implements Serializable{
     public void setListExamtitle(List<ExamtitleEntity> listExamtitle) {
         this.listExamtitle = listExamtitle;
     }
-    
+
 }

@@ -2,8 +2,10 @@ package com.testonline.service.impl;
 
 import com.testonline.entity.AnswerEntity;
 import com.testonline.entity.QuestionEntity;
+import com.testonline.entity.QuestionOfExamtitleEntity;
 import com.testonline.repository.QuestionRepository;
 import com.testonline.service.IQuestionService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class QuestionService implements IQuestionService {
     QuestionRepository questionRP;
     @Autowired
     AnswerService answerSV;
+    @Autowired
+    QuestionOfExamtitleService questionOfExamtitleSV;
 
     @Override
     public List<QuestionEntity> findAll() {
@@ -91,11 +95,22 @@ public class QuestionService implements IQuestionService {
 
     @Override
     public List<QuestionEntity> findQuestionByCategoryId(int categoryId) {
-        return  questionRP.findQuestionByCategoryId(categoryId);
+        return questionRP.findQuestionByCategoryId(categoryId);
     }
 
     @Override
     public List<QuestionEntity> findQuestionByCategoryIdAndExamIdAndNotInQuestionRandom(int categoryId, int examId) {
-        return  questionRP.findQuestionByCategoryIdAndExamIdAndNotInQuestionRandom(categoryId, examId);
+        return questionRP.findQuestionByCategoryIdAndExamIdAndNotInQuestionRandom(categoryId, examId);
+    
+    }
+    @Override
+    public List<QuestionEntity> getListQuestionByExamtitleId(int examtitleId) {
+        List<QuestionOfExamtitleEntity> listQuestionOfExamtitle = questionOfExamtitleSV.getListQuestionOfExamtitleByExamtitleId(examtitleId);
+        List<QuestionEntity> listQuestionInExamtitle = new ArrayList<QuestionEntity>();
+        for (QuestionOfExamtitleEntity qoe : listQuestionOfExamtitle) {
+            QuestionEntity question = qoe.getQuestion();
+            listQuestionInExamtitle.add(question);
+        }
+        return listQuestionInExamtitle;
     }
 }

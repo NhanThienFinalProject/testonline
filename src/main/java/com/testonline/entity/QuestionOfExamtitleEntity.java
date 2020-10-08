@@ -4,6 +4,7 @@ package com.testonline.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +20,15 @@ public class QuestionOfExamtitleEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int questionOfExamtitleID;
+
+    public int getQuestionOfExamtitleID() {
+        return questionOfExamtitleID;
+    }
+
+    public void setQuestionOfExamtitleID(int questionOfExamtitleID) {
+        this.questionOfExamtitleID = questionOfExamtitleID;
+    }
+    
     @Column(name = "RESULTANSWERID")
     private int resultAnswerId;
     
@@ -29,7 +39,7 @@ public class QuestionOfExamtitleEntity implements Serializable{
     ExamtitleEntity examtitle;
     
 //    reference to QuestionEntity by QuestionID
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QUESTIONID")
     QuestionEntity question;
 

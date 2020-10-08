@@ -6,7 +6,6 @@
 package com.testonline.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,16 +19,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "questionrandom")
 public class QuestionRandomEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int questionRandom;
+
     @ManyToOne
     @JoinColumn(name = "EXAMID")
     ExamEntity examQR;
+
     @ManyToOne
     @JoinColumn(name = "QUESTIONID")
     QuestionEntity questionQR;
+
     @Column(name = "CREATEDATE")
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate createDate;
@@ -61,7 +64,6 @@ public class QuestionRandomEntity {
         this.questionQR = questionQR;
     }
 
-    
     public LocalDate getCreateDate() {
         return createDate;
     }
@@ -69,5 +71,5 @@ public class QuestionRandomEntity {
     public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
     }
-    
+
 }

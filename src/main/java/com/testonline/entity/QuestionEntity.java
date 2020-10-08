@@ -1,4 +1,3 @@
-
 package com.testonline.entity;
 
 import java.io.Serializable;
@@ -16,36 +15,39 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "question")
-public class QuestionEntity implements Serializable{
+public class QuestionEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int questionId;
-    
+
     @Column(name = "CONTENT")
     private String content;
-    
+
     @Column(name = "HINTE")
     private String hinte;
-    
+
     @Column(name = "CORRECTANSWERID")
     private int correctAnswerId;
-    
+
 //    reference to CategoryEntity by CATEGORYID
     @ManyToOne
     @JoinColumn(name = "CATEGORYID")
     CategoryEntity category;
-    
+
 //    reference to AnswerEntity
-    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     List<AnswerEntity> listAnswer;
-    
+
 //    reference to QuestionOfExamtitleEntity
-    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     List<QuestionOfExamtitleEntity> listQuestionOfExamtitle;
+
 //      reference to QuestionRandom
-    @OneToMany(mappedBy = "questionQR",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionQR", fetch = FetchType.LAZY)
     List<QuestionRandomEntity> listQuestionRandom;
+
     public QuestionEntity() {
     }
 
@@ -112,5 +114,5 @@ public class QuestionEntity implements Serializable{
     public void setListQuestionRandom(List<QuestionRandomEntity> listQuestionRandom) {
         this.listQuestionRandom = listQuestionRandom;
     }
-    
+
 }
