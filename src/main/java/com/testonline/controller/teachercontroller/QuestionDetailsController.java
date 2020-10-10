@@ -24,6 +24,6 @@ public class QuestionDetailsController {
         theModel.addAttribute("currentQuesion", currentQuestion);
         List<AnswerEntity> listAnswerOfCurrentQuestion = answerSV.findAnswersByQuestionId(questionId);
         theModel.addAttribute("listAnswers", listAnswerOfCurrentQuestion);
-        return "teacher/show-question-details";
+        return "teacher/question-details";
     }
 }

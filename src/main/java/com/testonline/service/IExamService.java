@@ -15,4 +15,9 @@ import java.util.List;
 public interface IExamService {
     void saveExam(ExamEntity exam) ;
     List<ExamEntity> getAll();
+    List<ExamEntity> getAllByUserId(int userId);
+    ExamEntity getById(int id);
+    ExamEntity getByIdAndUserId(int examId,int userId);
+    ExamEntity getByStringExamIdAndTeacherId(String examId, int teacherId);
+    public boolean checkPasswordOfExam(String password, int examId, int teacherId);
 }

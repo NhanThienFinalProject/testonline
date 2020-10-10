@@ -10,4 +10,8 @@ public interface IExamtitleService {
     public List<ExamtitleEntity> getListExamtitleByStudentId(int studentId);
     public double markTheExam(int examtitleId);
     public ExamtitleEntity findExamtitleById(int examtitleId);
+    public boolean checkExamtitleIfCurrentUserHas(int examtitleId, int studentId);
+    public boolean checkIfExamIsFinished(int examtitleId);
+    public ExamtitleEntity saveNewExamtitleForStudent(ExamtitleEntity examtitle);
 }
+ 

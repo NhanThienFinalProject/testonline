@@ -105,7 +105,7 @@
                             <c:forEach var="exam" items="${listExam}">
                                 <tr>
                                     <td><c:out value="${exam.examId}"/></td>
-                                    <td><c:out value="${exam.content}"/></td>
+                                    <td><a href="<c:url value="teacher-detail-exam?examid=${exam.examId}"/>" target="_Blank"><c:out value="${exam.content}"/></a></td>
                                     <td><c:out value="${exam.timeStart}"/></td>
                                     <td><c:out value="${exam.timeEnd}"/></td>
                                     <td><c:out value="${exam.maxStudent}"/></td>

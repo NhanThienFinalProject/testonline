@@ -14,8 +14,8 @@
 		<pattern>/student*</pattern>
 	</decorator>
         
-        <decorator name="result" page="student/web.jsp">
-                <pattern>/student-result/*</pattern>
+        <decorator name="passwordvalidation" page="student/form-submit-password.jsp">
+                <pattern>/student-submit-password*</pattern>
 	</decorator>
         
         <decorator name="teacher" page="teacher/web.jsp">

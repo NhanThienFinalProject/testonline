@@ -21,5 +21,7 @@ public interface IUserService {
     boolean isExistedUsername(String username);
     
     UserEntity getDetailUserCurrent();
+    
+    String md5(String string);
 
 }

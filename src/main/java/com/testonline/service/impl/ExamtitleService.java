@@ -47,4 +47,35 @@ public class ExamtitleService implements IExamtitleService {
         return examtitleRP.findByExamtitleId(i);
     }
 
+    @Override
+    public boolean checkExamtitleIfCurrentUserHas(int examtitleId, int studentId) {
+        if (examtitleRP.findExamtitleByExamtitleIdAndStudentId(examtitleId, studentId) == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkIfExamIsFinished(int examtitleId) {
+//        ExamtitleEntity examtitle = examtitleRP.findByExamtitleId(examtitleId);
+//        LocalDate date = LocalDate.now();
+//        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+//        String dateString = df.format(date);
+//        Date currenDate;
+//        try {
+//            currenDate = df.parse(dateString);
+//            if (examtitle.getExam().getTimeEnd().before(currenDate)) {
+//                return true;
+//            }
+//        } catch (ParseException ex) {
+//            ex.printStackTrace();
+//        }
+        return true;
+    }
+
+    @Override
+    public ExamtitleEntity saveNewExamtitleForStudent(ExamtitleEntity examtitle) {
+        return examtitleRP.save(examtitle);
+    }
+
 }

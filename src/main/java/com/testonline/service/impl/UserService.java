@@ -8,6 +8,9 @@ package com.testonline.service.impl;
 import com.testonline.entity.UserEntity;
 import com.testonline.repository.UserRepository;
 import com.testonline.service.IUserService;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -54,15 +57,30 @@ public class UserService implements IUserService {
     @Override
     public UserEntity getDetailUserCurrent() {
         UserEntity user = new UserEntity();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();  
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            user = userRP.findOneByUserName(userDetail.getUsername());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+        user = userRP.findOneByUserName(userDetail.getUsername());
         return user;
-    } 
+    }
 
     @Override
     public UserEntity findUserByUserId(int userId) {
         return userRP.findByUserId(userId);
+    }
+
+    @Override
+    public String md5(String string) {
+        String result = "";
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("MD5");
+            digest.update(string.getBytes());
+            BigInteger bigInteger = new BigInteger(1, digest.digest());
+            result = bigInteger.toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }
