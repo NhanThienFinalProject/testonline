@@ -22,8 +22,11 @@ public class HomeController {
     public String showFormForAdd(Model theModel) {
 	List<UserEntity> listUser = new ArrayList<UserEntity>();
         listUser = userSV.getAll();
+        for (UserEntity userEntity : listUser) {
+            System.out.println("Name: "+ userEntity.getLastName() + " [" + userEntity.getCreateDate()+"]" );
+        }
 	theModel.addAttribute("listUser", listUser);
-	return "teacher/home";
+	return "web/showhome";
     }
     
     @GetMapping("/teacher-homepage")

@@ -8,6 +8,8 @@ package com.testonline.service.impl;
 import com.testonline.entity.ExamEntity;
 import com.testonline.repository.ExamRepository;
 import com.testonline.service.IExamService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,19 @@ public class ExamService implements IExamService{
     @Override
     public ExamEntity getByIdAndUserId(int examId, int userId) {
         return examRP.findExamByExamIdAndUserId(examId, userId);
+    }
+
+    @Override
+    public boolean isOnTime(int examId) {
+        //Get current date time
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatDateTime = now.format(formatter);
+        Optional<ExamEntity> examOp = examRP.findById(examId);
+        ExamEntity exam = examOp.isPresent()?examOp.get():null;
+       // if (now.isBefore(exam.getTimeEnd().format(formatter)) && now.isAfter(exam.getTimeStart().parse(formatter)) ) {
+       
+        return false;
     }
     
 }

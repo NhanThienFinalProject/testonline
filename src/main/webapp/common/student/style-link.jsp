@@ -19,3 +19,13 @@
   <!-- Custom CSS -->
   <link href="<c:url value="template/student/css/stylish-portfolio.css"/>" rel="stylesheet" type="text/css"/>
   <link href="<c:url value="template/student/css/stylish-portfolio.min.css"/>" rel="stylesheet" type="text/css"/>
+<!-- ver 2 / -->
+<link href="<c:url value="../template/student/vendor/bootstrap/css/bootstrap.css"/>" rel="stylesheet" type="text/css"/>
+<link href="<c:url value="../template/student/vendor/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css"/>
+  <!-- Custom Fonts -->
+  <link href="<c:url value="../template/student/vendor/fontawesome-free/css/all.css"/>" rel="stylesheet" type="text/css"/>
+  <link href="<c:url value="../template/student/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet" type="text/css"/>
+  <link href="<c:url value="../template/student/vendor/simple-line-icons/css/simple-line-icons.css"/>" rel="stylesheet" type="text/css"/>
+  <!-- Custom CSS -->
+  <link href="<c:url value="../template/student/css/stylish-portfolio.css"/>" rel="stylesheet" type="text/css"/>
+  <link href="<c:url value="../template/student/css/stylish-portfolio.min.css"/>" rel="stylesheet" type="text/css"/>

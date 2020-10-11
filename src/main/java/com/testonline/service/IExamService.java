@@ -18,4 +18,5 @@ public interface IExamService {
     List<ExamEntity> getAllByUserId(int userId);
     ExamEntity getById(int id);
     ExamEntity getByIdAndUserId(int examId,int userId);
+    boolean isOnTime(int examId);
 }

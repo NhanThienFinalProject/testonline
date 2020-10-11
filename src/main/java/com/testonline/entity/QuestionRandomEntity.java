@@ -6,6 +6,7 @@
 package com.testonline.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,8 +35,8 @@ public class QuestionRandomEntity {
     QuestionEntity questionQR;
 
     @Column(name = "CREATEDATE")
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private LocalDate createDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createDate;
 
     public QuestionRandomEntity() {
     }
@@ -64,11 +65,11 @@ public class QuestionRandomEntity {
         this.questionQR = questionQR;
     }
 
-    public LocalDate getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
