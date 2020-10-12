@@ -6,7 +6,9 @@
 package com.testonline.service.impl;
 
 import com.testonline.entity.ExamEntity;
+import com.testonline.entity.ExamtitleEntity;
 import com.testonline.repository.ExamRepository;
+import com.testonline.repository.ExamtitleRepository;
 import com.testonline.service.IExamService;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,9 @@ public class ExamService implements IExamService{
     
     @Autowired
     private UserService userSV;
+    
+    @Autowired
+    private ExamtitleRepository examtitleRP;
     
     @Override
     public void saveExam(ExamEntity exam) {
@@ -70,6 +75,15 @@ public class ExamService implements IExamService{
         }else{
             return exam.getPassword().equals(password);
         }
+    }
+
+    @Override
+    public boolean checkIfCurrentStudentHaveSummittedYet(ExamEntity exam, int studentId) {
+        ExamtitleEntity examtitle = examtitleRP.findExamtitleByExamIdAndStudentId(exam.getExamId(), studentId);
+        if(examtitle == null){
+            return false;
+        }
+        return true;
     }
     
 }

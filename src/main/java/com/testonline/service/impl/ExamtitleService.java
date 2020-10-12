@@ -78,4 +78,9 @@ public class ExamtitleService implements IExamtitleService {
         return examtitleRP.save(examtitle);
     }
 
+    @Override
+    public ExamtitleEntity findExamtitleByExamIdAndStudentId(int examId, int studentId) {
+        return examtitleRP.findExamtitleByExamIdAndStudentId(examId, studentId);
+    }
+
 }

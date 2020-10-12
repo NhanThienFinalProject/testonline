@@ -20,4 +20,5 @@ public interface IExamService {
     ExamEntity getByIdAndUserId(int examId,int userId);
     ExamEntity getByStringExamIdAndTeacherId(String examId, int teacherId);
     public boolean checkPasswordOfExam(String password, int examId, int teacherId);
+    public boolean checkIfCurrentStudentHaveSummittedYet(ExamEntity exam, int studentId);
 }

@@ -102,10 +102,19 @@ public class StudentController {
 //        get ExamID
         ExamEntity examNeedToJoin = examSV.getByStringExamIdAndTeacherId(stringExamId, teacherId);
         if (examNeedToJoin != null) {
-            int examId = examNeedToJoin.getExamId();
-            theModel.addAttribute("examId", examId);
-            theModel.addAttribute("teacherId", teacherId);
-            view = "student/form-submit-password";
+//        check if current student have submitted password to the exam
+            if (examSV.checkIfCurrentStudentHaveSummittedYet(examNeedToJoin, currentStudentId)) {
+                theModel.addAttribute("studentId", currentStudentId);
+                theModel.addAttribute("examId", examNeedToJoin.getExamId());
+                theModel.addAttribute("teacherId", teacherId);
+                theModel.addAttribute("examtitleId",examtitleSV.findExamtitleByExamIdAndStudentId(examNeedToJoin.getExamId(), currentStudentId).getExamtitleId());
+                view = "student/waitting-room";
+            } else {
+                int examId = examNeedToJoin.getExamId();
+                theModel.addAttribute("examId", examId);
+                theModel.addAttribute("teacherId", teacherId);
+                view = "student/form-submit-password";
+            }
         } else {
             theModel.addAttribute("message", "Something was wrong! You need to check your exam's link correctly!");
             view = "student/result-details";
@@ -130,13 +139,13 @@ public class StudentController {
             theModel.addAttribute("teacherId", teacherId);
             theModel.addAttribute("examtitleId", newExamtitleSaved.getExamtitleId());
         } else {
-//            give data back to password form submit to exam
+//            give data back to password form submit to exam when invalid password
             theModel.addAttribute("studentId", studentId);
             theModel.addAttribute("examId", examId);
             theModel.addAttribute("teacherId", teacherId);
             theModel.addAttribute("message", "not null");
             return "student/form-submit-password";
         }
-           return "student/waitting-room";
+        return "student/waitting-room";
     }
 }
