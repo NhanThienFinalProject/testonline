@@ -35,7 +35,7 @@
                                 <input type="hidden" name="${_csrf.parameterName}"
                                        value="${_csrf.token}" />
                                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                    <a class="small" href="password.html">Forgot Password?</a>
+                                    <a class="small" href="#">Forgot Password?</a>
                                     <!-- <a class="btn btn-primary" href="index.html">Login</a> -->
                                     <input type="submit" class="btn btn-primary" value="Login"/>
                                 </div>
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                        <div class="small"><a href="form-register">Need an account? Sign up!</a></div>
                     </div>
                 </div>
             </div>
