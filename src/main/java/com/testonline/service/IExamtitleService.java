@@ -14,5 +14,7 @@ public interface IExamtitleService {
     public boolean checkIfExamIsFinished(int examtitleId);
     public ExamtitleEntity saveNewExamtitleForStudent(ExamtitleEntity examtitle);
     public ExamtitleEntity findExamtitleByExamIdAndStudentId(int examId, int studentId);
+    public List<ExamtitleEntity> getExamtitleByTeacherIdAndExamId(int examId, int teacherId);
+    public boolean checkExamtitleIfTeacherIdCreated(int examtitleId,int examId, int teacherId);
 }
  

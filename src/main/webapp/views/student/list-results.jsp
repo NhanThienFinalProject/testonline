@@ -32,7 +32,7 @@
             <tbody>
                 <c:forEach var="item" items="${listExamtitleOfCurrentStudent}" varStatus="seq1">
                     <tr>
-                        <td><a href="student-result?examtitleId=${item.examtitleId}">${item.exam.content}</a></td>
+                        <td><a target="_blank" href="result-student?examtitleId=${item.examtitleId}&examId=${item.exam.examId}&teacherId=${item.exam.user.userId}">${item.exam.content}</a></td>
                         <td>${item.exam.timeStart}</td>
                         <td>${item.exam.timeEnd}</td>
                         <td><c:forEach var="item2" items="${listResult}">

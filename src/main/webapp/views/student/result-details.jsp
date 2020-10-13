@@ -81,7 +81,7 @@
                         </c:when>
                         <c:otherwise>
                             <li class="page-item">
-                                <c:url value="/student-result/previous?examtitleId=${examtitleId}" var="url" />   
+                                <c:url value="/result-student/previous?examtitleId=${examtitleId}&examId=${currentExamtitle.exam.examId}&teacherId=${currentExamtitle.exam.user.userId}" var="url" />   
                                 <a class="page-link" href='<c:out value="${url}" />'>
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
@@ -97,7 +97,7 @@
                                 </li>
                             </c:when>
                             <c:otherwise>
-                                <c:url value="/student-result/${tagStatus.index}?examtitleId=${examtitleId}" var="url" />  
+                                <c:url value="/result-student/${tagStatus.index}?examtitleId=${examtitleId}&examId=${currentExamtitle.exam.examId}&teacherId=${currentExamtitle.exam.user.userId}" var="url" />  
                                 <li class="page-item">
                                     <a class="page-link" href='<c:out value="${url}" />'>${tagStatus.index}</a>
                                 </li>
@@ -115,7 +115,7 @@
                         </c:when>
                         <c:otherwise>
                             <li class="page-item">
-                                <c:url value="/student-result/next?examtitleId=${examtitleId}" var="url" />                  
+                                <c:url value="/result-student/next?examtitleId=${examtitleId}&examId=${currentExamtitle.exam.examId}&teacherId=${currentExamtitle.exam.user.userId}" var="url" />                  
                                 <a class="page-link" href='<c:out value="${url}" />'>
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>

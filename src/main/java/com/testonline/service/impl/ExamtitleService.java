@@ -83,4 +83,17 @@ public class ExamtitleService implements IExamtitleService {
         return examtitleRP.findExamtitleByExamIdAndStudentId(examId, studentId);
     }
 
+    @Override
+    public List<ExamtitleEntity> getExamtitleByTeacherIdAndExamId(int examId, int teacherId) {
+        return examtitleRP.findExamtitleByTeacherIdAndExamId(examId, teacherId);
+    }
+
+    @Override
+    public boolean checkExamtitleIfTeacherIdCreated(int examtitleId, int examId, int teacherId) {
+        if(examtitleRP.findExamtitleByTeacherIdAndExamIdAndExamtitleId(examtitleId, examId, teacherId) == null){
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -25,5 +25,9 @@
         <decorator name="web" page="web/web.jsp">
 		<pattern>/*</pattern>
 	</decorator>
+        
+        <decorator name="result" page="web/web.jsp">
+		<pattern>/result*</pattern>
+	</decorator>
 
 </decorators>

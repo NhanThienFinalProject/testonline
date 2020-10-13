@@ -50,11 +50,12 @@ public class StudentController {
         return "student/result-details";
     }
 
-    @GetMapping(value = {"/student-result", "/student-result/{page}"})
-    public String checkResultAndMark(Model theModel, HttpSession session, HttpServletRequest req, @PathVariable Map<String, String> pathVariablesMap, @RequestParam("examtitleId") int examtitleId) {
-//      check examtitleId if this student has
-        boolean check = examtitleSV.checkExamtitleIfCurrentUserHas(examtitleId, userSV.getDetailUserCurrent().getUserId());
-        if (check == true) {
+    @GetMapping(value = {"/result-student", "/result-student/{page}"})
+    public String checkResultAndMark(Model theModel, HttpSession session, HttpServletRequest req, @PathVariable Map<String, String> pathVariablesMap, @RequestParam("examtitleId") int examtitleId ,@RequestParam("teacherId") int teacherId,@RequestParam("examId") int examId) {
+//      check examtitleId if this student has OR if examtitle belongs to required teacher
+        boolean checkStudentHasThisExamtitle = examtitleSV.checkExamtitleIfCurrentUserHas(examtitleId, userSV.getDetailUserCurrent().getUserId());
+        boolean checkTeacherCreateThisExamtitle = examtitleSV.checkExamtitleIfTeacherIdCreated(examtitleId, examId, teacherId);
+        if (checkStudentHasThisExamtitle || checkTeacherCreateThisExamtitle) {
 //      paginate question result
             String page = pathVariablesMap.get("page");
             List<QuestionOfExamtitleEntity> list = questionOfExamtitleSV.getListQuestionOfExamtitleByExamtitleId(examtitleId);
