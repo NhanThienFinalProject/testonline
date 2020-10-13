@@ -2,6 +2,7 @@
 package com.testonline.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -46,8 +47,8 @@ public class UserEntity implements Serializable{
     private String password;
     
     @Column(name = "CREATEDATE")
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private Date createDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createDate;
     
 //    reference to Role by ROLEID
     @ManyToOne
@@ -133,13 +134,20 @@ public class UserEntity implements Serializable{
         this.password = password;
     }
 
-    public Date getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
+
+    
+
+     
+
+    
+   
 
     public RolesEntity getRole() {
         return role;

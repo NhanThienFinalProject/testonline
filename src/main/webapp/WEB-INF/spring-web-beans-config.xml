@@ -20,6 +20,7 @@
     <jpa:repositories base-package="com.testonline.repository"/>
     <context:component-scan base-package="com.testonline" />
     <mvc:annotation-driven />
+    <!-- <mvc:default-servlet-handler/> -->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
     <bean id="dataSource" 

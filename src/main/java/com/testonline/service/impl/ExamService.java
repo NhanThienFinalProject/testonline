@@ -10,22 +10,25 @@ import com.testonline.entity.ExamtitleEntity;
 import com.testonline.repository.ExamRepository;
 import com.testonline.repository.ExamtitleRepository;
 import com.testonline.service.IExamService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExamService implements IExamService{
+public class ExamService implements IExamService {
+
     @Autowired
     private ExamRepository examRP;
-    
+
     @Autowired
     private UserService userSV;
-    
+
     @Autowired
     private ExamtitleRepository examtitleRP;
-    
+
     @Override
     public void saveExam(ExamEntity exam) {
         examRP.save(exam);
@@ -44,7 +47,7 @@ public class ExamService implements IExamService{
     @Override
     public ExamEntity getById(int id) {
         Optional<ExamEntity> examOp = examRP.findById(id);
-        return examOp.isPresent()?examOp.get():null;
+        return examOp.isPresent() ? examOp.get() : null;
     }
 
     @Override
@@ -53,14 +56,14 @@ public class ExamService implements IExamService{
     }
 
     @Override
-    public ExamEntity getByStringExamIdAndTeacherId(String examId,int teacherId) {
+    public ExamEntity getByStringExamIdAndTeacherId(String examId, int teacherId) {
 //        get list exam that teacherId create
         List<ExamEntity> listExamOfTeacherId = examRP.findExamByUserId(teacherId);
-        if(listExamOfTeacherId == null){
+        if (listExamOfTeacherId == null) {
             return null;
         }
-        for(ExamEntity ex : listExamOfTeacherId){
-            if(userSV.md5(ex.getExamId()+"thien-nhan").equals(examId)){
+        for (ExamEntity ex : listExamOfTeacherId) {
+            if (userSV.md5(ex.getExamId() + "thien-nhan").equals(examId)) {
                 return ex;
             }
         }
@@ -70,9 +73,9 @@ public class ExamService implements IExamService{
     @Override
     public boolean checkPasswordOfExam(String password, int examId, int teacherId) {
         ExamEntity exam = examRP.findExamByExamIdAndUserId(examId, teacherId);
-        if(exam == null){
+        if (exam == null) {
             return false;
-        }else{
+        } else {
             return exam.getPassword().equals(password);
         }
     }
@@ -80,10 +83,22 @@ public class ExamService implements IExamService{
     @Override
     public boolean checkIfCurrentStudentHaveSummittedYet(ExamEntity exam, int studentId) {
         ExamtitleEntity examtitle = examtitleRP.findExamtitleByExamIdAndStudentId(exam.getExamId(), studentId);
-        if(examtitle == null){
+        if (examtitle == null) {
             return false;
         }
         return true;
     }
-    
+
+    @Override
+    public boolean isOnTime(int examId) {
+        //Get current date time
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatDateTime = now.format(formatter);
+        Optional<ExamEntity> examOp = examRP.findById(examId);
+        ExamEntity exam = examOp.isPresent() ? examOp.get() : null;
+        // if (now.isBefore(exam.getTimeEnd().format(formatter)) && now.isAfter(exam.getTimeStart().parse(formatter)) ) {
+
+        return false;
+    }
 }

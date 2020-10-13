@@ -1,6 +1,7 @@
 package com.testonline.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -35,11 +36,11 @@ public class ExamEntity implements Serializable {
 
     @Column(name = "TIMESTART")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date timeStart;
+    private LocalDateTime timeStart;
 
     @Column(name = "TIMEEND")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date timeEnd;
+    private LocalDateTime timeEnd;
 
     @Column(name = "POINT")
     private int pointLadder;
@@ -48,8 +49,8 @@ public class ExamEntity implements Serializable {
     private int maxStudent;
 
     @Column(name = "CREATEDATE")
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private Date createDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createDate;
 
 //    reference to UserEntity by CREATEBYID
     @ManyToOne
@@ -99,22 +100,6 @@ public class ExamEntity implements Serializable {
         this.password = password;
     }
 
-    public Date getTimeStart() {
-        return timeStart;
-    }
-
-    public void setTimeStart(Date timeStart) {
-        this.timeStart = timeStart;
-    }
-
-    public Date getTimeEnd() {
-        return timeEnd;
-    }
-
-    public void setTimeEnd(Date timeEnd) {
-        this.timeEnd = timeEnd;
-    }
-
     public int getPointLadder() {
         return pointLadder;
     }
@@ -131,11 +116,27 @@ public class ExamEntity implements Serializable {
         this.maxStudent = maxStudent;
     }
 
-    public Date getCreateDate() {
+    public LocalDateTime getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(LocalDateTime timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public LocalDateTime getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(LocalDateTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 

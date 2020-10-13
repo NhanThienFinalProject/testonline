@@ -8,10 +8,7 @@ package com.testonline.service;
 import com.testonline.entity.ExamEntity;
 import java.util.List;
 
-/**
- *
- * @author ADMIN
- */
+
 public interface IExamService {
     void saveExam(ExamEntity exam) ;
     List<ExamEntity> getAll();
@@ -21,4 +18,5 @@ public interface IExamService {
     ExamEntity getByStringExamIdAndTeacherId(String examId, int teacherId);
     public boolean checkPasswordOfExam(String password, int examId, int teacherId);
     public boolean checkIfCurrentStudentHaveSummittedYet(ExamEntity exam, int studentId);
+    boolean isOnTime(int examId);
 }

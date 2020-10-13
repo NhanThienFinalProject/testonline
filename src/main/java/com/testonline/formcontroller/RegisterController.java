@@ -6,6 +6,8 @@ import com.testonline.service.impl.UserService;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +36,11 @@ public class RegisterController {
         String password = newUser.getPassword();
         String passwordMD5 = md5(password);
         newUser.setPassword(passwordMD5);
-        newUser.setCreateDate(new Date());
+        // convert datetime local
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatDateTime = now.format(formatter);
+        //newUser.setCreateDate(now.parse(formatDateTime, formatter));
         userSV.saveNewUser(newUser);
 	return "web/login";
         }
