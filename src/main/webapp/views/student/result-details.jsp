@@ -11,8 +11,13 @@
     <c:when test="${message == ''}">
         <div class="container">
             <div class="p-3 my-3 bg-primary text-white border">
+                <c:set var="hour" value="${(currentExamtitle.exam.timeEnd.getHour() - currentExamtitle.exam.timeStart.getHour())}"/>
+                <c:set var="minute" value="${(currentExamtitle.exam.timeEnd.getMinute() - currentExamtitle.exam.timeStart.getMinute())}"/>
+                <c:set var="date" value="${(currentExamtitle.exam.timeEnd.getDayOfMonth() - currentExamtitle.exam.timeStart.getDayOfMonth())}"/>
+                <c:set var="month" value="${(currentExamtitle.exam.timeEnd.getMonthValue() - currentExamtitle.exam.timeStart.getMonthValue())}"/>
+                <c:set var="year" value="${(currentExamtitle.exam.timeEnd.getYear() - currentExamtitle.exam.timeStart.getYear())}"/>
                 <h3>${currentExamtitle.exam.content}</h3><p class="display-3">${point}/${numberOfquestionOfExamtitle}</p>
-                <p>${(currentExamtitle.exam.timeEnd.getTime() - currentExamtitle.exam.timeStart.getTime())/3600} hours</p>
+                <p>${(year*365*24*60 + month*60*24*30 + date*60*24 + hour*60 + minute)} minutes</p>
             </div>
             <div class="column">
                 <c:set value="${questionOfExamtitleList}" var="questionOfExamtitleList" />

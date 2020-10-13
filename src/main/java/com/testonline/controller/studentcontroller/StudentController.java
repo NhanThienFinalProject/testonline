@@ -51,7 +51,7 @@ public class StudentController {
     }
 
     @GetMapping(value = {"/result-student", "/result-student/{page}"})
-    public String checkResultAndMark(Model theModel, HttpSession session, HttpServletRequest req, @PathVariable Map<String, String> pathVariablesMap, @RequestParam("examtitleId") int examtitleId ,@RequestParam("teacherId") int teacherId,@RequestParam("examId") int examId) {
+    public String checkResultAndMark(Model theModel, HttpSession session, HttpServletRequest req, @PathVariable Map<String, String> pathVariablesMap, @RequestParam("examtitleId") int examtitleId, @RequestParam("teacherId") int teacherId, @RequestParam("examId") int examId) {
 //      check examtitleId if this student has OR if examtitle belongs to required teacher
         boolean checkStudentHasThisExamtitle = examtitleSV.checkExamtitleIfCurrentUserHas(examtitleId, userSV.getDetailUserCurrent().getUserId());
         boolean checkTeacherCreateThisExamtitle = examtitleSV.checkExamtitleIfTeacherIdCreated(examtitleId, examId, teacherId);
@@ -79,12 +79,15 @@ public class StudentController {
     public String showListResult(Model theModel) {
         int currentUserId = userSV.getDetailUserCurrent().getUserId();
         List<ExamtitleEntity> listExamtitleOfCurrentStudent = examtitleSV.getListExamtitleByStudentId(currentUserId);
+        List<ExamtitleEntity> newListExamtitleOfCurrentStudent = new ArrayList<ExamtitleEntity>();
+//        check if the exam has finished yet
         for (ExamtitleEntity ex : listExamtitleOfCurrentStudent) {
-            if (!examtitleSV.checkIfExamIsFinished(ex.getExamtitleId())) {
-                listExamtitleOfCurrentStudent.remove(ex);
+            int examId = ex.getExam().getExamId();
+            if (examSV.statusExam(examId).equals("hoanthanh")) {
+                newListExamtitleOfCurrentStudent.add(ex);
             }
         }
-        theModel.addAttribute("listExamtitleOfCurrentStudent", listExamtitleOfCurrentStudent);
+        theModel.addAttribute("listExamtitleOfCurrentStudent", newListExamtitleOfCurrentStudent);
 //        get  number of correct question of list of examtitle
         HashMap<Integer, Double> listResult = new HashMap<Integer, Double>();
         for (ExamtitleEntity ex : listExamtitleOfCurrentStudent) {
@@ -108,7 +111,7 @@ public class StudentController {
                 theModel.addAttribute("studentId", currentStudentId);
                 theModel.addAttribute("examId", examNeedToJoin.getExamId());
                 theModel.addAttribute("teacherId", teacherId);
-                theModel.addAttribute("examtitleId",examtitleSV.findExamtitleByExamIdAndStudentId(examNeedToJoin.getExamId(), currentStudentId).getExamtitleId());
+                theModel.addAttribute("examtitleId", examtitleSV.findExamtitleByExamIdAndStudentId(examNeedToJoin.getExamId(), currentStudentId).getExamtitleId());
                 view = "student/waitting-room";
             } else {
                 int examId = examNeedToJoin.getExamId();

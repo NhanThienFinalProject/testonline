@@ -19,4 +19,5 @@ public interface IExamService {
     public boolean checkPasswordOfExam(String password, int examId, int teacherId);
     public boolean checkIfCurrentStudentHaveSummittedYet(ExamEntity exam, int studentId);
     boolean isOnTime(int examId);
+    String statusExam(int examId);
 }

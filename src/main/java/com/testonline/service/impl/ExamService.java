@@ -101,4 +101,19 @@ public class ExamService implements IExamService {
 
         return false;
     }
+    
+     @Override
+    public String statusExam(int examId) {
+        LocalDateTime now = LocalDateTime.now();
+        Optional<ExamEntity> examOp = examRP.findById(examId);
+        ExamEntity exam = examOp.isPresent() ? examOp.get() : null;
+        if (now.isBefore(exam.getTimeStart())) {
+            return "chuabatdau";
+        }else if (now.isAfter(exam.getTimeEnd())) {
+            return "hoanthanh";
+        }else if (now.isBefore(exam.getTimeEnd()) && now.isAfter(exam.getTimeStart())) {
+            return "dangthi";
+        }
+        return "";
+    }
 }

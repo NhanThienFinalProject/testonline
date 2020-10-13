@@ -37,10 +37,10 @@ public class RegisterController {
         String passwordMD5 = md5(password);
         newUser.setPassword(passwordMD5);
         // convert datetime local
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime nowDate = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formatDateTime = now.format(formatter);
-        //newUser.setCreateDate(now.parse(formatDateTime, formatter));
+        String formatDateTime = nowDate.format(formatter);
+        newUser.setCreateDate(nowDate.parse(formatDateTime, formatter));
         userSV.saveNewUser(newUser);
 	return "web/login";
         }
