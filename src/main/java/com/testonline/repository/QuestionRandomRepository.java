@@ -16,4 +16,6 @@ import org.springframework.stereotype.Repository;
 public interface QuestionRandomRepository extends CrudRepository<QuestionRandomEntity, Integer>{
     @Query("select qrd from QuestionRandomEntity qrd where qrd.examQR.examId = ?1 and qrd.examQR.user.userId = ?2 ")
     List<QuestionRandomEntity> findQuestionRandomByExamIdAndUserId(int examId,int userId);
+    @Query("select qrd from QuestionRandomEntity qrd where qrd.examQR.examId = ?1 ")
+    List<QuestionRandomEntity> findQuestionRandomByExamId(int examId);
 }

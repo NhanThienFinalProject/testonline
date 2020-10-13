@@ -92,5 +92,10 @@ public class QuestionRandomService implements IQuestionRandomService {
         questionRandomRP.delete(questionRandomEntity);
     }
 
+    @Override
+    public List<QuestionRandomEntity> getAllByExamId(int examId) {
+        return questionRandomRP.findQuestionRandomByExamId(examId);
+    }
+
 }
 

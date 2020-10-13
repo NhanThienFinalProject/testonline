@@ -16,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExamService implements IExamService{
+public class ExamService implements IExamService {
+
     @Autowired
     private ExamRepository examRP;
+
     @Override
     public void saveExam(ExamEntity exam) {
         examRP.save(exam);
@@ -37,7 +39,7 @@ public class ExamService implements IExamService{
     @Override
     public ExamEntity getById(int id) {
         Optional<ExamEntity> examOp = examRP.findById(id);
-        return examOp.isPresent()?examOp.get():null;
+        return examOp.isPresent() ? examOp.get() : null;
     }
 
     @Override
@@ -52,10 +54,26 @@ public class ExamService implements IExamService{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formatDateTime = now.format(formatter);
         Optional<ExamEntity> examOp = examRP.findById(examId);
-        ExamEntity exam = examOp.isPresent()?examOp.get():null;
-       // if (now.isBefore(exam.getTimeEnd().format(formatter)) && now.isAfter(exam.getTimeStart().parse(formatter)) ) {
-       
-        return false;
+        ExamEntity exam = examOp.isPresent() ? examOp.get() : null;
+        if (now.isBefore(exam.getTimeEnd()) && now.isAfter(exam.getTimeStart())) {
+            return false;
+        }
+        return true;
     }
-    
+
+    @Override
+    public String statusExam(int examId) {
+        LocalDateTime now = LocalDateTime.now();
+        Optional<ExamEntity> examOp = examRP.findById(examId);
+        ExamEntity exam = examOp.isPresent() ? examOp.get() : null;
+        if (now.isBefore(exam.getTimeStart())) {
+            return "chuabatdau";
+        }else if (now.isAfter(exam.getTimeEnd())) {
+            return "hoanthanh";
+        }else if (now.isBefore(exam.getTimeEnd()) && now.isAfter(exam.getTimeStart())) {
+            return "dangthi";
+        }
+        return "";
+    }
+
 }

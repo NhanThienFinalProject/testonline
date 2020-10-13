@@ -11,5 +11,6 @@ public interface IQuestionRandomService {
    String checkAndSaveQuestionRandom(String idExam, String[] listQuestionId);
    QuestionRandomEntity getById(int questionRandomId);
    void delete(QuestionRandomEntity questionRandom);
+   List<QuestionRandomEntity> getAllByExamId(int examId);
 }
 

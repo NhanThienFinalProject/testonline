@@ -40,7 +40,7 @@ public class RegisterController {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formatDateTime = now.format(formatter);
-        //newUser.setCreateDate(now.parse(formatDateTime, formatter));
+        newUser.setCreateDate(now.parse(formatDateTime, formatter));
         userSV.saveNewUser(newUser);
 	return "web/login";
         }

@@ -19,4 +19,5 @@ public interface IExamService {
     ExamEntity getById(int id);
     ExamEntity getByIdAndUserId(int examId,int userId);
     boolean isOnTime(int examId);
+    String statusExam(int examId);
 }

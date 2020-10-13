@@ -5,7 +5,12 @@
  */
 package com.testonline.controller;
 
+import com.testonline.entity.ExamtitleEntity;
+import com.testonline.entity.QuestionRandomEntity;
 import com.testonline.entity.UserEntity;
+import com.testonline.service.impl.ExamService;
+import com.testonline.service.impl.ExamtitleService;
+import com.testonline.service.impl.QuestionRandomService;
 import com.testonline.service.impl.UserService;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +23,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
     @Autowired
     private UserService userSV;
+    @Autowired
+    private ExamtitleService  examttSV;
+    @Autowired 
+    QuestionRandomService questionRDSV;
     @GetMapping("/showhome")
     public String showFormForAdd(Model theModel) {
 	List<UserEntity> listUser = new ArrayList<UserEntity>();
@@ -25,6 +34,7 @@ public class HomeController {
         for (UserEntity userEntity : listUser) {
             System.out.println("Name: "+ userEntity.getLastName() + " [" + userEntity.getCreateDate()+"]" );
         }
+        //List<ExamtitleEntity> listQTRD = examttSV.randomQuestionAndSave(12, 10);
 	theModel.addAttribute("listUser", listUser);
 	return "web/showhome";
     }
