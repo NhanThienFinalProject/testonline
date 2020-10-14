@@ -20,4 +20,6 @@ public interface IExamService {
     public boolean checkIfCurrentStudentHaveSummittedYet(ExamEntity exam, int studentId);
     boolean isOnTime(int examId);
     String statusExam(int examId);
+    boolean checkIfCurrentTeacherHadRequireExam(int teacherId, int examID);
+    
 }

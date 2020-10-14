@@ -16,4 +16,6 @@ public interface ExamRepository extends CrudRepository<ExamEntity,Integer>{
     public List<ExamEntity> findExamByUserId(int userId);
     @Query("SELECT e FROM ExamEntity e WHERE  e.examId = ?1 AND e.user.userId = ?2")
     ExamEntity findExamByExamIdAndUserId(int examId,int userId);
+    
+    
 }

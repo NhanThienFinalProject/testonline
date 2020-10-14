@@ -21,14 +21,6 @@
                     <th>Point</th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>Exam Name</th>
-                    <th>Time Start</th>
-                    <th>Time End</th>
-                    <th>Point</th>
-                </tr>
-            </tfoot>
             <tbody>
                 <c:forEach var="item" items="${listExamtitleOfCurrentStudent}" varStatus="seq1">
                     <tr>

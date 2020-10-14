@@ -116,4 +116,10 @@ public class ExamService implements IExamService {
         }
         return "";
     }
+
+    @Override
+    public boolean checkIfCurrentTeacherHadRequireExam(int teacherId, int examID) {
+        ExamEntity requireExam = examRP.findExamByExamIdAndUserId(examID, teacherId);
+        return requireExam != null;
+    }
 }

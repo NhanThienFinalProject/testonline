@@ -91,16 +91,6 @@
                                 <th>Point</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Content</th>
-                                <th>Start</th>
-                                <th>End</th>
-                                <th>Number Student</th>
-                                <th>Point</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             <c:forEach var="exam" items="${listExam}">
                                 <tr>

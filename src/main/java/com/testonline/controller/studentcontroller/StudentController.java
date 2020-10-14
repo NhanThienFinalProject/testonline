@@ -88,7 +88,7 @@ public class StudentController {
             }
         }
         theModel.addAttribute("listExamtitleOfCurrentStudent", newListExamtitleOfCurrentStudent);
-//        get  number of correct question of list of examtitle
+//        get  point of list of examtitle
         HashMap<Integer, Double> listResult = new HashMap<Integer, Double>();
         for (ExamtitleEntity ex : listExamtitleOfCurrentStudent) {
             double point = examtitleSV.markTheExam(ex.getExamtitleId());

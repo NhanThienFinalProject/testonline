@@ -1,5 +1,6 @@
 package com.testonline.service.impl;
 
+import com.testonline.entity.ExamEntity;
 import com.testonline.entity.ExamtitleEntity;
 import com.testonline.entity.QuestionOfExamtitleEntity;
 import com.testonline.repository.ExamtitleRepository;
@@ -16,6 +17,9 @@ public class ExamtitleService implements IExamtitleService {
 
     @Autowired
     private ExamtitleRepository examtitleRP;
+    
+    @Autowired
+    private ExamService examSV;
 
     @Override
     public int calculateCorrectQuestion(int examtitleId) {
@@ -36,9 +40,10 @@ public class ExamtitleService implements IExamtitleService {
 
     @Override
     public double markTheExam(int examtitleId) {
+        ExamEntity requiredExam = examtitleRP.findByExamtitleId(examtitleId).getExam();
         int numberOfQuestionInThisExamtitle = questionOfExamtitleSV.getListQuestionOfExamtitleByExamtitleId(examtitleId).size();
         int numberOfCorrectAnswer = calculateCorrectQuestion(examtitleId);
-        double point = Math.round((double) numberOfCorrectAnswer / numberOfQuestionInThisExamtitle * 100) / 10;
+        double point = Math.round((double) numberOfCorrectAnswer / numberOfQuestionInThisExamtitle * requiredExam.getPointLadder());
         return point;
     }
 

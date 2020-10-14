@@ -155,14 +155,6 @@
                                 <th>Details</th>        
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Category</th>
-                                <th>Content</th>
-                                <th>Hinte</th>
-                                <th>Details</th> 
-                            </tr>
-                        </tfoot>
                         <tbody>
                             <c:forEach var="item" items="${listQuestionDB}">
                                 <tr>

@@ -3,6 +3,12 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
+var falseScore = document.getElementById("falseScore").value;
+var D = document.getElementById("D").value;
+var C = document.getElementById("C").value;
+var B = document.getElementById("B").value;
+var A = document.getElementById("A").value;
+var Aplus = document.getElementById("Aplus").value;
 
 var ctx = document.getElementById("myBarChart");
 var myLineChart = new Chart(ctx, {
@@ -13,7 +19,7 @@ var myLineChart = new Chart(ctx, {
       label: "Amount",
       backgroundColor: "rgba(2,117,216,1)",
       borderColor: "rgba(2,117,216,1)",
-      data: [14, 11, 5, 2, 6, 2],
+      data: [falseScore, D, C, B, A, Aplus],
     }],
   },
   options: {
@@ -23,22 +29,19 @@ var myLineChart = new Chart(ctx, {
           unit: 'mark'
         },
         gridLines: {
-          display: true
+          display: false
         },
         ticks: {
           maxTicksLimit: 6
         }
       }],
       yAxes: [{
-        ticks: {
-          min: 0,
-          max: 40,
-          maxTicksLimit: 5
-        },
-        gridLines: {
-          display: true
-        }
-      }],
+      stacked: true,
+      gridLines: {
+        display: true,
+        color: "rgba(255,99,132,0.2)"
+      }
+    }],
     },
     legend: {
       display: false
