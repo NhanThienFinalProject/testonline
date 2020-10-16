@@ -5,6 +5,8 @@
  */
 package com.testonline.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -27,16 +29,19 @@ public class ExamtitleEntity implements Serializable{
     private int examtitleId;
     
 //    reference to UserEntity by UserId(studentID)
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "STUDENTID")
     UserEntity student;
     
 //    reference to ExamEntity by EXAMID
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "EXAMID")
     ExamEntity exam;
     
 //    reference to QuestionOfExamtitleEntity
+    @JsonManagedReference
     @OneToMany(mappedBy = "examtitle",fetch = FetchType.LAZY)
     List<QuestionOfExamtitleEntity> listQuestionOfExamtitle;
 

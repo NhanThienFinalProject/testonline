@@ -16,6 +16,7 @@
         
     </head>
     <body>
+        <%@ include file="/common/web/mesage.jsp"%>
          <%@ include file="/common/web/menu.jsp"%>
          <%@ include file="/common/web/header.jsp"%>
          <dec:body />

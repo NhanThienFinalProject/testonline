@@ -1,5 +1,6 @@
 package com.testonline.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -53,12 +54,13 @@ public class ExamEntity implements Serializable {
     private LocalDateTime createDate;
 
 //    reference to UserEntity by CREATEBYID
+    //@JsonBackReference
     @ManyToOne
     @JoinColumn(name = "CREATEBYID")
     UserEntity user;
 
 //    reference to ExamtitleEntity
-    @OneToMany(mappedBy = "exam")
+    @OneToMany(mappedBy = "exam", fetch = FetchType.LAZY)
     List<ExamtitleEntity> listExamtitle;
 
 //    reference to QuestionRandom

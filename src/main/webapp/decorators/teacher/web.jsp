@@ -16,6 +16,7 @@
         
     </head>
     <body class="sb-nav-fixed">
+        <%@ include file="/common/web/mesage.jsp"%>
         <%@ include file="/common/teacher/header.jsp"%>
         <div id="layoutSidenav">
             <%@ include file="/common/teacher/navbar.jsp"%>

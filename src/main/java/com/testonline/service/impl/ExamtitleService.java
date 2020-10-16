@@ -5,6 +5,7 @@ import com.testonline.entity.QuestionEntity;
 import com.testonline.entity.QuestionOfExamtitleEntity;
 import com.testonline.entity.QuestionRandomEntity;
 import com.testonline.repository.ExamtitleRepository;
+import com.testonline.repository.QuestionOfExamTitleRepository;
 import com.testonline.service.IExamtitleService;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +19,14 @@ public class ExamtitleService implements IExamtitleService {
     @Autowired
     private QuestionOfExamtitleService questionOfExamtitleSV;
     @Autowired
+    QuestionOfExamTitleRepository questionOfExamtitleRP;
+    @Autowired
     QuestionService questionSV;
     @Autowired
     private ExamtitleRepository examtitleRP;
     @Autowired
     QuestionRandomService questionRDSV;
-
+    
     @Override
     public int calculateCorrectQuestion(int examtitleId) {
         int numberOfCorrectAnswer = 0;
@@ -61,14 +64,11 @@ public class ExamtitleService implements IExamtitleService {
         int randomNumber = 0;
         List<QuestionRandomEntity> afterListQuestionRandom = new ArrayList<QuestionRandomEntity>();
         ExamtitleEntity examtitle = new ExamtitleEntity();
-        List<QuestionRandomEntity> listQuestionRandom = questionRDSV.getAllByExamId(examId);
         List<QuestionEntity> listQuestion = new ArrayList<QuestionEntity>();
         List<QuestionOfExamtitleEntity> listQuestionOfExamTitle = new ArrayList<QuestionOfExamtitleEntity>();
-        /*
-        for (QuestionRandomEntity questionRandomEntity : listQuestionRandom) {
-            System.out.println("TID:" + questionRandomEntity.getQuestionRandom());
-        }System.out.println("size befor: " + listQuestionRandom.size());
-         */
+        
+        List<QuestionRandomEntity> listQuestionRandom = questionRDSV.getAllByExamId(examId);
+        // random list questionrandom to [afterListQuestionRandom]
         while (!listQuestionRandom.isEmpty()) {
 
             randomNumber = random.nextInt((listQuestionRandom.size() - 1) + 1) + 1;
@@ -78,19 +78,25 @@ public class ExamtitleService implements IExamtitleService {
             //System.out.println("size after: " + listQuestionRandom.size());
         }
 
-        //examtitle.set
-        
-        for (QuestionRandomEntity questionRandomEntity : afterListQuestionRandom) {
-            System.out.println("SID:" + questionRandomEntity.getQuestionRandom() + "xxxx question:" + questionRandomEntity.getQuestionQR().getContent());
-        }
-         examtitle = examtitleRP.getListExamtitleByExamIdAndStudentId(examId, studentId);
+        // find examtitle of student
+         examtitle = examtitleRP.findExamtitleByExamIdAndStudentId(examId, studentId);
+         
         for (QuestionRandomEntity questionRandomEntity : afterListQuestionRandom) {
             QuestionOfExamtitleEntity questionOfExamTitleTemp = new QuestionOfExamtitleEntity();
+            //set question of questionOfExamTitle
             questionOfExamTitleTemp.setQuestion(questionRandomEntity.getQuestionQR());
+            //set exam of questionOfExamTitle
             questionOfExamTitleTemp.setExamtitle(examtitle);
+            // add list to save
             listQuestionOfExamTitle.add(questionOfExamTitleTemp);
         }
-        return null;
+        questionOfExamtitleRP.saveAll(listQuestionOfExamTitle);
+        return (List<ExamtitleEntity>) examtitleRP.findExamtitleByExamIdAndStudentId(examId, studentId);
+    }
+
+    @Override
+    public ExamtitleEntity getExamtitleByExamIdAndStudentId(int examId, int studentId) {
+        return examtitleRP.findExamtitleByExamIdAndStudentId(examId, studentId);
     }
 
 }

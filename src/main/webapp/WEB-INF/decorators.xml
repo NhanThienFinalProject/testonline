@@ -21,6 +21,9 @@
         <decorator name="teacher" page="teacher/web.jsp">
 		<pattern>/teacher*</pattern>
 	</decorator>
+        <decorator name="exam" page="student/exam.jsp">
+		<pattern>/exam*</pattern>
+	</decorator>
         
         <decorator name="web" page="web/web.jsp">
 		<pattern>/*</pattern>

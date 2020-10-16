@@ -12,5 +12,5 @@ public interface IExamtitleService {
     public double markTheExam(int examtitleId);
     public ExamtitleEntity findExamtitleById(int examtitleId);
     List<ExamtitleEntity> randomQuestionAndSave(int examId,int studentId);
-    
+    ExamtitleEntity getExamtitleByExamIdAndStudentId(int examId,int studentId);
 }

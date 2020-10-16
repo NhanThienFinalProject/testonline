@@ -1,5 +1,7 @@
 package com.testonline.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -32,19 +34,23 @@ public class QuestionEntity implements Serializable {
     private int correctAnswerId;
 
 //    reference to CategoryEntity by CATEGORYID
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "CATEGORYID")
     CategoryEntity category;
 
 //    reference to AnswerEntity
+    @JsonManagedReference
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     List<AnswerEntity> listAnswer;
 
 //    reference to QuestionOfExamtitleEntity
+    @JsonManagedReference
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     List<QuestionOfExamtitleEntity> listQuestionOfExamtitle;
 
 //      reference to QuestionRandom
+    @JsonManagedReference
     @OneToMany(mappedBy = "questionQR", fetch = FetchType.LAZY)
     List<QuestionRandomEntity> listQuestionRandom;
 

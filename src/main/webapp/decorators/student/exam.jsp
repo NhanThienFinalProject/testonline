@@ -13,15 +13,16 @@
         <%@ include file="/common/student/meta.jsp"%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@ include file="/common/student/style-link.jsp"%>
-        
+
     </head>
     <body>
-        <%@ include file="/common/web/mesage.jsp"%>
-         <%@ include file="/common/web/menu.jsp"%>
-         <%@ include file="/common/student/header.jsp"%>
-         <dec:body />
-         <%@ include file="/common/web/footer.jsp"%>
-         <%@ include file="/common/student/javascript.jsp"%>
-         <%@ include file="/common/web/scrol-top.jsp"%>
+
+        <%@ include file="/common/web/mesage.jsp"%>  
+
+        <%@ include file="/common/web/menu.jsp"%>
+        <dec:body />
+        
+        <%@ include file="/common/student/javascript.jsp"%>
+        <%@ include file="/common/web/scrol-top.jsp"%>
     </body>
 </html>

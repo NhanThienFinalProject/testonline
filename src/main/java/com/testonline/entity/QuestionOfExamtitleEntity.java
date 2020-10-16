@@ -1,6 +1,7 @@
-
 package com.testonline.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,12 +15,30 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "questionofexamtitle")
-public class QuestionOfExamtitleEntity implements Serializable{
-    
+public class QuestionOfExamtitleEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int questionOfExamtitleID;
+
+    @Column(name = "RESULTANSWERID")
+    private int resultAnswerId;
+
+//    reference to ExamtitleEntity by ExamtitleId
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "EXAMTITLEID")
+    ExamtitleEntity examtitle;
+
+//    reference to QuestionEntity by QuestionID
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "QUESTIONID")
+    QuestionEntity question;
+
+    public QuestionOfExamtitleEntity() {
+    }
 
     public int getQuestionOfExamtitleID() {
         return questionOfExamtitleID;
@@ -27,23 +46,6 @@ public class QuestionOfExamtitleEntity implements Serializable{
 
     public void setQuestionOfExamtitleID(int questionOfExamtitleID) {
         this.questionOfExamtitleID = questionOfExamtitleID;
-    }
-    
-    @Column(name = "RESULTANSWERID")
-    private int resultAnswerId;
-    
-//    reference to ExamtitleEntity by ExamtitleId
-
-    @ManyToOne
-    @JoinColumn(name = "EXAMTITLEID")
-    ExamtitleEntity examtitle;
-    
-//    reference to QuestionEntity by QuestionID
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "QUESTIONID")
-    QuestionEntity question;
-
-    public QuestionOfExamtitleEntity() {
     }
 
     public int getResultAnswerId() {
@@ -69,5 +71,5 @@ public class QuestionOfExamtitleEntity implements Serializable{
     public void setQuestion(QuestionEntity question) {
         this.question = question;
     }
-    
+
 }

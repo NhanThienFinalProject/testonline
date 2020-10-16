@@ -31,7 +31,7 @@ public class CategoryEntity implements Serializable{
     UserEntity user;
     
 //  reference to QuestionEntity
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     List<QuestionEntity> listQuestion;
 
     public CategoryEntity() {

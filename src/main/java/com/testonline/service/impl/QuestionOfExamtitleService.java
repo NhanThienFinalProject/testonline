@@ -4,6 +4,7 @@ import com.testonline.entity.QuestionOfExamtitleEntity;
 import com.testonline.repository.QuestionOfExamTitleRepository;
 import com.testonline.service.IQuestionOfExamtitleService;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -42,6 +43,17 @@ public class QuestionOfExamtitleService implements IQuestionOfExamtitleService {
             questionOfExamtitleList.setPage(numberPage - 1);
         }
         return questionOfExamtitleList;
+    }
+
+    @Override
+    public QuestionOfExamtitleEntity getById(int id) {
+        Optional<QuestionOfExamtitleEntity>  questionOfExamtitleEntity = questionOfExamtitleRP.findById(id);
+        return questionOfExamtitleEntity.isPresent()?questionOfExamtitleEntity.get():null;
+    }
+
+    @Override
+    public void saveQuestionOfExamTitle(QuestionOfExamtitleEntity questionOfExamTitle) {
+        questionOfExamtitleRP.save(questionOfExamTitle);
     }
 
 }

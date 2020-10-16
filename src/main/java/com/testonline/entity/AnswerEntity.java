@@ -1,6 +1,7 @@
 
 package com.testonline.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ public class AnswerEntity implements Serializable{
     private String answer;
     
 //    reference to QuestionEntity by QUESTIONID
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "QUESTIONID")
     QuestionEntity question;
