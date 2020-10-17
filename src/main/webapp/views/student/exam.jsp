@@ -36,24 +36,7 @@
                     </div>
                 </div>
                 <div class="col-lg-7 col-10 mx-auto border-left border" id="loadQuestion">
-                    <div class="row p-3">
-                        <div class="col-12 text-left border-bottom mb-3" >
-                            <h2 id="question">Tính tổng 2 + 3 + 4 + 6 + 6 + 6= ?</h2>
-                            <p id="hinte">Hinte: <i>Sử dụng máy tính bỏ túi để bấm</i></p>
-                        </div>
-                        <div class="col-12" id="answers">
-                            <p class="btn btn-info" id="answer1" onclick="chooseAnswer(12, 21)">27</p>
-                        </div>
-                        <div class="col-12" id="answers">
-                            <p class="btn btn-info" id="answer2">Hai mươi bảy</p>
-                        </div>
-                        <div class="col-12" id="answers">
-                            <p class="btn btn-info" id="answer3">Hai 7</p>
-                        </div>
-                        <div class="col-12" id="answers">
-                            <p class="btn btn-info" id="answer4">Hỏi chấm</p>
-                        </div>
-                    </div>
+                    
                     <div class="row border-top pt-2 pb-2">
                         <div class="col-2 offset-1 btn">previous</div>
                         <div class="col-2 offset-6 btn">next</div>
@@ -88,39 +71,46 @@
         </div>
         <script type="text/javascript" charset="utf-8" async defer>
             var listQuestion = [<c:forEach var="item" items="${ListquestionId}"> <c:out value="${item},"/></c:forEach>];
-            var i = 0;
-            function nextQuestion() {
-                getQuestion(listQuestion[i]);
-                if (!listQuestion.length == i) 
-                    i++;
-            }
+            var nextTo = 0;
+            console.log('test length: ' + listQuestion.length);
+            getQuestion(listQuestion[nextTo]);
+            //e.preventDefault();
 
-            function  chooseAnswer(questionOfExamTitleId, answerId) {
+            function  chooseAnswer(questionOfExamtitleID, resultAnswerId) {
                 var data = {};
-                data["questionOfExamTitleId"] = questionOfExamTitleId;
-                data["answerId"] = answerId;
-                saveResult(data);
+                var answer = questionOfExamtitleID + '#' + resultAnswerId;
+                saveResult(answer);
+                if(nextTo != listQuestion.length -1){
+                    nextTo = nextTo+1;
+                    getQuestion(listQuestion[nextTo]);
+                }else{
+                     $("#loadQuestion").html('<div class="row mt-5 mb-5"> <div class="col-10 offset-1 text-center"><h2>Chúc Mừng Bạn Đã Hoàn Thành Bài Thi Bạn Có Muốn Nộp Bài Không</h2></div> <div class="col-4 offset-4 text-center mt-5"><h3 class="btn btn-primary btn-sm float-left">Xem lại</h3><h3 class="btn btn-success btn-sm float-right">Nộp Bài</h3></div> </div>');
+                }
+                
             }
-            function nextQuestion() {
-
-            }
+         //function nextQuestion() {
+              //  i++;
+              //  getQuestion(listQuestion[i]);
+              //  if (!listQuestion.length == i)
+                    
+              //  }
 //save result
-            function saveResult(data) {
+            function saveResult(datax) {
                 $.ajax({
-                    // URL gửi data
-                    url: 'http://localhost:8080/NationalTestOnline/api-dotest',
-                    // type phương thức gửi get POST DELETE PUT
-                    type: 'POST',
-                    // Dữ liệu chuyển kiểu JSON
-                    contentType: 'application/json',
-                    // đang là scriptObject phải có bộ chuyển sang json như này
-                    data: JSON.stringify(data),
-                    //server trả về 1 json cho clien
-                    dataType: 'json',
-                    // thành công sẽ chạy cái này: check result
-                    success: function (result) {
+                        // URL gửi data
+                        url: 'http://localhost:8080/NationalTestOnline/api-dotest',
+                         // type phương thức gửi get POST DELETE PUT
+                        type: 'POST',
+			// Dữ liệu chuyển kiểu JSON
+                        contentType: 'application/json',
+			// đang là scriptObject phải có bộ chuyển sang json như này
+			data: JSON.stringify(datax),
+			//server trả về 1 json cho clien
+			dataType: 'json',
+			// thành công sẽ chạy cái này: check result
+                        success: function (result) {
                         // hiển thị câu hỏi tiếp theo và thông baos
-
+                        console.log('save: ' + result);
                     },
                     // thất bại sẽ chạy cái này:check error
                     error: function (error) {
@@ -132,7 +122,7 @@
             function getQuestion(id) {
                 $.ajax({
                     // URL gửi data
-                    url: 'http://localhost:8080/NationalTestOnline/api-dotest/10',
+                    url: 'http://localhost:8080/NationalTestOnline/api-dotest/' + id,
                     // type phương thức gửi get POST DELETE PUT
                     type: 'GET',
                     // Dữ liệu chuyển kiểu JSON
@@ -145,15 +135,13 @@
                     success: function (result) {
                         var listTextAnswer = "";
                         // set answer
-                        console.log("success" + result);
-                        /*
-                         for (i = 0; i <= 3;i++){
-                         listTextAnswer = "<div class=\"col-12\"> <p class=\"btn btn-info\" onclick=\"chooseAnswer(" + result.questionOfExamtitleID + "," + result.question.listAnswer[i].answerId + ")\">" + result.question.listAnswer[i].answer + "</p> </div>";
-                         }
-                         //view question
-                         $("#loadQuestion").html('<div class="row p-3"> <div class="col-12 text-left border-bottom mb-3" > <h2 id="question">' + result.question.content + '</h2> <p id="hinte">Hinte: <i>' + result.question.hinte + '</i></p> </div> ' + listTextAnswer + ' </div> <div class="row border-top pt-2 pb-2"> <div class="col-2 offset-1 btn">previous</div> <div class="col-2 offset-6 btn">next</div> </div>');
-                         *              
-                         */
+                        for (i = 0; i < result.question.listAnswer.length; i++) {
+                            listTextAnswer = listTextAnswer + '<div class="col-12"> <p class="btn btn-info" onclick="chooseAnswer(' + result.questionOfExamtitleID + ',' + result.question.listAnswer[i].answerId + ')">' + result.question.listAnswer[i].answer + '</p> </div>';
+                        }
+                        //view question
+                        $("#loadQuestion").html('<div class="row p-3"> <div class="col-12 text-left border-bottom mb-3" > <h2 id="question"> Câu '+(nextTo+1) +': ' + result.question.content + '</h2> <p id="hinte">Hinte: <i>' + result.question.hinte + '</i></p> </div> ' + listTextAnswer + ' </div> <div class="row border-top pt-2 pb-2"> <div class="col-2 offset-1 btn">previous</div> <div class="col-2 offset-6 btn">next</div> </div>');
+
+
                     },
                     // thất bại sẽ chạy cái này:check error
                     error: function (error) {
@@ -171,7 +159,8 @@
         </section>
         <script>
 
-            var deadline = new Date("Oct 15, 2020 12:53:25").getTime();
+            var deadline = new Date("<c:out value="${examDetail.timeEndString }"/>");
+            console.log(deadline);
             var x = setInterval(function () {
 
                 var now = new Date().getTime();
@@ -188,6 +177,7 @@
                     document.getElementById("finish").innerHTML = "Hết Giờ";
                     document.getElementById("minute").innerHTML = '0';
                     document.getElementById("second").innerHTML = '0';
+                    window.location.href = "http://www.w3schools.com";
                 }
             }, 1000);
         </script> 

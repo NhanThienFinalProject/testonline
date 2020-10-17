@@ -3,6 +3,7 @@ package com.testonline.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -164,6 +165,36 @@ public class ExamEntity implements Serializable {
 
     public void setListExamtitle(List<ExamtitleEntity> listExamtitle) {
         this.listExamtitle = listExamtitle;
+    }
+
+    public int getTimeEndYear() {
+        return timeEnd.getYear();
+    }
+
+    public int getTimeEndMonth() {
+        return timeEnd.getMonthValue();
+    }
+
+    public int getTimeEndDay() {
+        return timeEnd.getDayOfMonth();
+    }
+
+    public int getTimeEndHour() {
+        return timeEnd.getHour();
+    }
+
+    public int getTimeEndMinute() {
+        return timeEnd.getMinute();
+    }
+
+    public int getTimeEndSecond() {
+        return timeEnd.getSecond();
+    }
+
+    public String getTimeEndString() {
+        //String time = timeEnd.getMonth() + " " + timeEnd.getDayOfMonth() + ", " + timeEnd.getYear() + " " + timeEnd.getHour() + ":" + timeEnd.getMinute() + ":" + timeEnd.getSecond();
+
+        return timeEnd.getMonth() + " " + timeEnd.getDayOfMonth() + ", " + timeEnd.getYear() + " " + timeEnd.getHour() + ":" + timeEnd.getMinute() + ":" + timeEnd.getSecond();
     }
 
 }

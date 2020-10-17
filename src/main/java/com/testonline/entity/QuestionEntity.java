@@ -45,12 +45,12 @@ public class QuestionEntity implements Serializable {
     List<AnswerEntity> listAnswer;
 
 //    reference to QuestionOfExamtitleEntity
-    @JsonManagedReference
+   @JsonBackReference
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     List<QuestionOfExamtitleEntity> listQuestionOfExamtitle;
 
 //      reference to QuestionRandom
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "questionQR", fetch = FetchType.LAZY)
     List<QuestionRandomEntity> listQuestionRandom;
 
