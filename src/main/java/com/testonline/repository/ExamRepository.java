@@ -6,7 +6,6 @@
 package com.testonline.repository;
 
 import com.testonline.entity.ExamEntity;
-import com.testonline.entity.UserEntity;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -17,4 +16,6 @@ public interface ExamRepository extends CrudRepository<ExamEntity,Integer>{
     public List<ExamEntity> findExamByUserId(int userId);
     @Query("SELECT e FROM ExamEntity e WHERE  e.examId = ?1 AND e.user.userId = ?2")
     ExamEntity findExamByExamIdAndUserId(int examId,int userId);
+    
+    
 }

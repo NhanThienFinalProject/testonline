@@ -26,6 +26,7 @@
         <intercept-url pattern="/teacher**" access="hasRole('teacher')" />
         <intercept-url pattern="/student**" access="hasRole('student')" />
         <intercept-url pattern="/exam**" access="hasRole('student')" />
+        <intercept-url pattern="/result**" access="hasAnyRole('student','teacher')" />
         <intercept-url pattern="/**" access="permitAll" />
         
         <!-- access denied page -->

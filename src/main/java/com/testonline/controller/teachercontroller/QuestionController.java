@@ -38,7 +38,7 @@ public class QuestionController {
         theModel.addAttribute("newCategory", new CategoryEntity());
         // cái attribute này để làm gì bác
         //theModel.addAttribute("currentId", userID);
-        return "teacher/create-question";
+        return "teacher/form-create-question";
     }
     
     @PostMapping(value = "teacher-save-question")

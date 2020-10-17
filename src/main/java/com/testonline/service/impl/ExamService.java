@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,7 +7,9 @@
 package com.testonline.service.impl;
 
 import com.testonline.entity.ExamEntity;
+import com.testonline.entity.ExamtitleEntity;
 import com.testonline.repository.ExamRepository;
+import com.testonline.repository.ExamtitleRepository;
 import com.testonline.service.IExamService;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +23,12 @@ public class ExamService implements IExamService {
 
     @Autowired
     private ExamRepository examRP;
+
+    @Autowired
+    private UserService userSV;
+
+    @Autowired
+    private ExamtitleRepository examtitleRP;
 
     @Override
     public void saveExam(ExamEntity exam) {
@@ -48,6 +57,40 @@ public class ExamService implements IExamService {
     }
 
     @Override
+    public ExamEntity getByStringExamIdAndTeacherId(String examId, int teacherId) {
+//        get list exam that teacherId create
+        List<ExamEntity> listExamOfTeacherId = examRP.findExamByUserId(teacherId);
+        if (listExamOfTeacherId == null) {
+            return null;
+        }
+        for (ExamEntity ex : listExamOfTeacherId) {
+            if (userSV.md5(ex.getExamId() + "thien-nhan").equals(examId)) {
+                return ex;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean checkPasswordOfExam(String password, int examId, int teacherId) {
+        ExamEntity exam = examRP.findExamByExamIdAndUserId(examId, teacherId);
+        if (exam == null) {
+            return false;
+        } else {
+            return exam.getPassword().equals(password);
+        }
+    }
+
+    @Override
+    public boolean checkIfCurrentStudentHaveSummittedYet(ExamEntity exam, int studentId) {
+        ExamtitleEntity examtitle = examtitleRP.findExamtitleByExamIdAndStudentId(exam.getExamId(), studentId);
+        if (examtitle == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public boolean isOnTime(int examId) {
         //Get current date time
         LocalDateTime now = LocalDateTime.now();
@@ -55,13 +98,12 @@ public class ExamService implements IExamService {
         String formatDateTime = now.format(formatter);
         Optional<ExamEntity> examOp = examRP.findById(examId);
         ExamEntity exam = examOp.isPresent() ? examOp.get() : null;
-        if (now.isBefore(exam.getTimeEnd()) && now.isAfter(exam.getTimeStart())) {
-            return false;
-        }
-        return true;
-    }
+        // if (now.isBefore(exam.getTimeEnd().format(formatter)) && now.isAfter(exam.getTimeStart().parse(formatter)) ) {
 
-    @Override
+        return false;
+    }
+    
+     @Override
     public String statusExam(int examId) {
         LocalDateTime now = LocalDateTime.now();
         Optional<ExamEntity> examOp = examRP.findById(examId);
@@ -76,4 +118,9 @@ public class ExamService implements IExamService {
         return "";
     }
 
+    @Override
+    public boolean checkIfCurrentTeacherHadRequireExam(int teacherId, int examID) {
+        ExamEntity requireExam = examRP.findExamByExamIdAndUserId(examID, teacherId);
+        return requireExam != null;
+    }
 }

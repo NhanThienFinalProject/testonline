@@ -25,6 +25,7 @@
             </div>
             <div class= "col-md-4 offset-md-2">
                 <div class="form-group">
+                    <label class="control-label col-sm-6">Max students</label>
                     <div class="col-sm-10">
                         <form:input path="maxStudent" type="number" cssClass="form-control " placeholder="Enter Max Student"/>
 
@@ -33,6 +34,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
+                    <label class="control-label col-sm-4">Point</label>
                     <div class="col-sm-10">
                         <form:input path="pointLadder" type="number" cssClass="form-control " placeholder="Point 10 or 100 or ..."/>
                     </div>
@@ -57,8 +59,9 @@
             </div>
             <div class="col-md-8 offset-md-2">
                 <div class="form-group">
+                    <label class="control-label col-sm-4">Password</label>
                     <div class="col-sm-11">
-                        <form:input path="password" type="text" cssClass="form-control "  placeholder="Enter password exam"/>
+                        <form:input path="password" type="password" cssClass="form-control "  placeholder="Enter password exam"/>
                     </div>
                 </div>
             </div>
@@ -91,16 +94,6 @@
                                 <th>Point</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Content</th>
-                                <th>Start</th>
-                                <th>End</th>
-                                <th>Number Student</th>
-                                <th>Point</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             <c:forEach var="exam" items="${listExam}">
                                 <tr>

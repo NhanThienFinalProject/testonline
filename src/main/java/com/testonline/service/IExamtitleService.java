@@ -13,4 +13,12 @@ public interface IExamtitleService {
     public ExamtitleEntity findExamtitleById(int examtitleId);
     List<ExamtitleEntity> randomQuestionAndSave(int examId,int studentId);
     ExamtitleEntity getExamtitleByExamIdAndStudentId(int examId,int studentId);
+    public boolean checkExamtitleIfCurrentUserHas(int examtitleId, int studentId);
+    public boolean checkIfExamIsFinished(int examtitleId);
+    public ExamtitleEntity saveNewExamtitleForStudent(ExamtitleEntity examtitle);
+    public ExamtitleEntity findExamtitleByExamIdAndStudentId(int examId, int studentId);
+    public List<ExamtitleEntity> getExamtitleByTeacherIdAndExamId(int examId, int teacherId);
+    public List<ExamtitleEntity> getExamtitleByTeacherId(int teacherId);
+    public boolean checkExamtitleIfTeacherIdCreated(int examtitleId,int examId, int teacherId);
 }
+ 

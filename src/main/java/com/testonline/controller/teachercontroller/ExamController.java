@@ -78,6 +78,8 @@ public class ExamController {
             if (!listCategory.isEmpty()) {
                 theModel.addAttribute("listCategory",listCategory);
             }
+            // Gen link of Examtitle
+            theModel.addAttribute("link", "http://localhost:8080/NationalTestOnline/student-submit-password?teacherId="+userService.getDetailUserCurrent().getUserId()+"&examId="+userService.md5(id+"thien-nhan"));
         } catch (Exception e) {
             System.out.println("idExam invalid");
         }

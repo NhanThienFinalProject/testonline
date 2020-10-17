@@ -113,4 +113,14 @@ public class QuestionService implements IQuestionService {
         }
         return listQuestionInExamtitle;
     }
+
+    @Override
+    public List<QuestionEntity> findQuestionByCategoryId(int categoryId) {
+        return questionRP.findQuestionByCategoryId(categoryId);
+    }
+
+    @Override
+    public List<QuestionEntity> findQuestionByCategoryIdAndExamIdAndNotInQuestionRandom(int categoryId, int examId) {
+        return questionRP.findQuestionByCategoryIdAndExamIdAndNotInQuestionRandom(categoryId, examId);
+    }
 }

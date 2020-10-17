@@ -18,5 +18,15 @@ public interface ExamtitleRepository extends CrudRepository<ExamtitleEntity, Int
     ExamtitleEntity findByExamtitleId(int examtitleId);
     @Query("SELECT ex FROM ExamtitleEntity ex WHERE ex.exam.examId = ?1 and ex.student.userId = ?2")
     ExamtitleEntity findExamtitleByExamIdAndStudentId(int examId,int studentId);
-  
+    @Query("SELECT ex FROM ExamtitleEntity ex WHERE ex.examtitleId = ?1 AND ex.student.userId = ?2")
+    public ExamtitleEntity findExamtitleByExamtitleIdAndStudentId(int examtitleId, int studentId);
+    @Query("SELECT ex FROM ExamtitleEntity ex WHERE ex.exam.examId = ?1 AND ex.exam.user.userId = ?2")
+    public List<ExamtitleEntity> findExamtitleByTeacherIdAndExamId(int examId, int teacherId);
+    @Query("SELECT ex FROM ExamtitleEntity ex WHERE ex.exam.user.userId = ?1")
+    public List<ExamtitleEntity> findExamtitleByTeacher(int teacherId);
+    @Query("SELECT ex FROM ExamtitleEntity ex WHERE ex.examtitleId = ?1 AND ex.exam.examId = ?2 AND ex.exam.user.userId = ?3")
+    public ExamtitleEntity findExamtitleByTeacherIdAndExamIdAndExamtitleId (int examtitleId, int examId, int teacherID);
+    
+    
+    
 }
