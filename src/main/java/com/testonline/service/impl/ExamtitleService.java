@@ -101,4 +101,9 @@ public class ExamtitleService implements IExamtitleService {
         return true;
     }
 
+    @Override
+    public List<ExamtitleEntity> getExamtitleByTeacherId(int teacherId) {
+        return examtitleRP.findExamtitleByTeacher(teacherId);
+    }
+
 }

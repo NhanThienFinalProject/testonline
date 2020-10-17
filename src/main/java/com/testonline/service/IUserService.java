@@ -23,5 +23,7 @@ public interface IUserService {
     UserEntity getDetailUserCurrent();
     
     String md5(String string);
+    
+    List<UserEntity> findListStudentByTeacherId(int teacherId);
 
 }

@@ -5,12 +5,14 @@
  */
 package com.testonline.service.impl;
 
+import com.testonline.entity.ExamtitleEntity;
 import com.testonline.entity.UserEntity;
 import com.testonline.repository.UserRepository;
 import com.testonline.service.IUserService;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -28,6 +30,9 @@ public class UserService implements IUserService {
 
     @Autowired
     UserRepository userRP;
+    
+    @Autowired
+    ExamtitleService examtitleSV;
 
     @Override
     public List<UserEntity> getAll() {
@@ -81,6 +86,25 @@ public class UserService implements IUserService {
             e.printStackTrace();
         }
         return result;
+    }
+    @Override
+    public List<UserEntity> findListStudentByTeacherId(int teacherId){
+        List<ExamtitleEntity> listExamttleOfCurrentTeacher = examtitleSV.getExamtitleByTeacherId(teacherId);
+        List<UserEntity> listStudentOfCurrentTeacher = new ArrayList<UserEntity>();
+        for(ExamtitleEntity ex : listExamttleOfCurrentTeacher){
+            UserEntity user = ex.getStudent();
+            boolean check = false;
+            for(UserEntity u : listStudentOfCurrentTeacher){
+                if(u.getUserId() == user.getUserId()){
+                    check = true;
+                    break;
+                }
+            }
+            if(!check){
+                listStudentOfCurrentTeacher.add(user);
+            }
+        }
+        return listStudentOfCurrentTeacher;
     }
 
 }

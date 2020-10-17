@@ -10,8 +10,20 @@
     <div class="row">
         <div class="col-10 offset-1">
             <ul class="list-group">
-                <li class="list-group-item active mt-2"><c:if test="${exam != null}">Exam: <c:out value="${exam.content}"/></c:if><c:if test="${exam == null}">Exam is invalid</c:if></li>
-                    <c:if test="${exam != null}">
+                <li class="list-group-item active mt-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <c:if test="${exam != null}">Exam: <c:out value="${exam.content}"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="teacher-preparing-sendmail?examId=${exam.examId}&link-exam=${link}"><button class="btn btn-info" type="button" >Send password <i class="fas fa-paper-plane"></i></button></a>
+                                </div>
+                                </c:if><c:if test="${exam == null}">Exam is invalid</c:if>
+                            </div>
+                        </div>
+                    </li>
+                <c:if test="${exam != null}">
                     <li class="list-group-item">Status:
                         <c:choose>
                             <c:when test="${exam.status == 0}">
@@ -26,7 +38,7 @@
                         </c:choose>
 
                     </li>
-                    <li class="list-group-item">Password: <c:out value="${exam.password}"/></li>
+                    <li class="list-group-item">Password: <c:out value="**********"/></li>
                     <li class="list-group-item">Time-Start: <c:out value="${exam.timeStart}"/></li>
                     <li class="list-group-item">Time-End: <c:out value="${exam.timeEnd}"/></li>
                     <li class="list-group-item">Point: <c:out value="${exam.pointLadder}"/></li>

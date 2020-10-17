@@ -19,6 +19,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class TeacherController {
@@ -52,7 +62,7 @@ public class TeacherController {
                 listResult.put(ex.getExamtitleId(), point);
             }
             theModel.addAttribute("listResult", listResult);
-        }else{
+        } else {
             theModel.addAttribute("message", "Somethings was wrong!");
         }
         return "teacher/result-detailsexam";
@@ -70,5 +80,91 @@ public class TeacherController {
         }
         theModel.addAttribute("listFinishedExamOfCurrentTeacher", listFinishedExamOfCurrentTeacher);
         return "teacher/list-finished-exam";
+    }
+
+    @GetMapping("teacher-preparing-sendmail") // recieve examId, currentTeacherId
+    public String showListEmailStudent(Model theModel, @RequestParam("examId") int examId, @RequestParam("link-exam") String link) {
+        UserEntity currentTeacher = userSV.getDetailUserCurrent();
+        ExamEntity requiredExam = examSV.getByIdAndUserId(examId, currentTeacher.getUserId());
+        if (requiredExam != null) {
+            theModel.addAttribute("requiredExam", requiredExam);
+            theModel.addAttribute("linkExam", link);
+//        get list current teacher's student
+            List<UserEntity> listStudentOfCurrentStudent = userSV.findListStudentByTeacherId(currentTeacher.getUserId());
+            theModel.addAttribute("listStudentOfCurrentStudent", listStudentOfCurrentStudent);
+        } else {
+            theModel.addAttribute("message", "Somethings was wrong!");
+        }
+        return "teacher/form-input-email";
+    }
+
+    @PostMapping("teacher-sendmail")
+    public String sendMailBySMTP(Model theModel, HttpServletRequest req) {
+        String[] listEmail = req.getParameterValues("exampleCheck1");
+        String linkExam = req.getParameter("link");
+        int examId = Integer.parseInt(req.getParameter("examId"));
+        ExamEntity requiredExam = examSV.getById(examId);
+
+        // Sender's email ID needs to be mentioned.
+        String from = "thiennguyen15dt1@gmail.com";
+
+        // Assuming you are sending email from through gmails smtp
+        String host = "smtp.gmail.com";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // Setup mail server
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+
+        // Get the Session object.// and pass username and password
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication("thiennguyen15dt1@gmail.com", "vothikhanhdung0908");
+
+            }
+
+        });
+
+        // Used to debug SMTP issues
+        session.setDebug(true);
+
+        for (String email : listEmail) {
+            // Recipient's email ID needs to be mentioned
+            String to = email;
+            System.out.println(to);
+            try {
+                // Create a default MimeMessage object.
+                MimeMessage message = new MimeMessage(session);
+
+                // Set From: header field of the header.
+                message.setFrom(new InternetAddress(from));
+
+                // Set To: header field of the header.
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+                // Set Subject: header field
+                message.setSubject("National Test Online");
+
+                // Now set the actual message
+                String mess = "Exam: " + requiredExam.getContent() + "\n"
+                        + "Link: " + linkExam + "\n"
+                        + "Password: " + requiredExam.getPassword();
+                message.setText(mess);
+
+                System.out.println("sending...");
+                // Send message
+                Transport.send(message);
+                System.out.println("Sent message successfully....");
+            } catch (MessagingException mex) {
+                mex.printStackTrace();
+            }
+        }
+        return "teacher/home";
     }
 }
