@@ -108,8 +108,8 @@ public class StudentController {
         if (examNeedToJoin != null) {
 //        check if current student have submitted password to the exam
             if (examSV.checkIfCurrentStudentHaveSummittedYet(examNeedToJoin, currentStudentId)) {
-                theModel.addAttribute("studentId", currentStudentId);
-                theModel.addAttribute("examId", examNeedToJoin.getExamId());
+                theModel.addAttribute("student", userSV.getDetailUserCurrent());
+                theModel.addAttribute("exam", examNeedToJoin);
                 theModel.addAttribute("teacherId", teacherId);
                 theModel.addAttribute("examtitleId", examtitleSV.findExamtitleByExamIdAndStudentId(examNeedToJoin.getExamId(), currentStudentId).getExamtitleId());
                 view = "student/waitting-room";

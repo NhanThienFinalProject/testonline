@@ -69,11 +69,12 @@ public class DoTestController {
                 theModel.addAttribute("userDetail", user);
                 int[] listQuestionId = new int[examtitle.getListQuestionOfExamtitle().size()];
                 int i = 0;
+                theModel.addAttribute("examTitle", examtitle);
                 for (QuestionOfExamtitleEntity qOE : examtitle.getListQuestionOfExamtitle()) {
-                    listQuestionId[i] = qOE.getQuestion().getQuestionId();
+                    listQuestionId[i] = qOE.getQuestionOfExamtitleID();
                     i++;
                 }
-                theModel.addAttribute("ListquestionId", listQuestionId);
+                theModel.addAttribute("listExamTitleId", listQuestionId);
 
             } else {
                 mesageSV.putMesageWarning(theModel, "Lỗi giờ thi không xát định.");
@@ -82,5 +83,22 @@ public class DoTestController {
 
         }
         return "student/exam";
+    }
+    @GetMapping("/exam-createexamtitle")
+    public String createExamtitle(Model theModel, @RequestParam("examId") String examId) {
+         UserEntity user = userSV.getDetailUserCurrent();
+        int examIdInt = -1;
+        try {
+            examIdInt = Integer.parseInt(examId);
+        } catch (Exception e) {
+            mesageSV.putMesageWarning(theModel, "Mã bài thi không hợp lệ");
+            return "student/exam";
+        }
+        // kiểm tra student đã được add vào  kì thi này hay chưa
+        ExamtitleEntity examtitle = examTitleSV.getExamtitleByExamIdAndStudentId(examIdInt, user.getUserId());
+        if (examtitle.getListQuestionOfExamtitle().isEmpty()) {
+            ExamtitleEntity examtitleTemp = examTitleSV.randomQuestionAndSave(examIdInt, user.getUserId());                        
+        }  
+        return "redirect:http://localhost:8080/NationalTestOnline/exam-dotest?examId=" + examId;
     }
 }

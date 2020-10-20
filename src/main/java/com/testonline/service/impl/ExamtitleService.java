@@ -64,7 +64,7 @@ public class ExamtitleService implements IExamtitleService {
     }
 
     @Override
-    public List<ExamtitleEntity> randomQuestionAndSave(int examId, int studentId) {
+    public ExamtitleEntity randomQuestionAndSave(int examId, int studentId) {
 
         Random random = new Random();
         int randomNumber = 0;
@@ -97,7 +97,7 @@ public class ExamtitleService implements IExamtitleService {
             listQuestionOfExamTitle.add(questionOfExamTitleTemp);
         }
         questionOfExamtitleRP.saveAll(listQuestionOfExamTitle);
-        return (List<ExamtitleEntity>) examtitleRP.findExamtitleByExamIdAndStudentId(examId, studentId);
+        return examtitleRP.findExamtitleByExamIdAndStudentId(examId, studentId);
     }
 
     @Override

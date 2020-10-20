@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "questionofexamtitle")
 public class QuestionOfExamtitleEntity implements Serializable {
@@ -23,7 +22,7 @@ public class QuestionOfExamtitleEntity implements Serializable {
     @Column(name = "ID")
     private int questionOfExamtitleID;
 
-    @Column(name = "RESULTANSWERID")
+    @Column(name = "RESULTANSWERID", columnDefinition="Integer  default -1")
     private int resultAnswerId;
 
 //    reference to ExamtitleEntity by ExamtitleId
@@ -45,7 +44,7 @@ public class QuestionOfExamtitleEntity implements Serializable {
         this.questionOfExamtitleID = questionOfExamtitleID;
         this.resultAnswerId = resultAnswerId;
     }
-    
+
     public int getQuestionOfExamtitleID() {
         return questionOfExamtitleID;
     }
@@ -55,11 +54,15 @@ public class QuestionOfExamtitleEntity implements Serializable {
     }
 
     public int getResultAnswerId() {
-        return resultAnswerId;
+
+        return this.resultAnswerId;
+
     }
 
     public void setResultAnswerId(int resultAnswerId) {
+
         this.resultAnswerId = resultAnswerId;
+
     }
 
     public ExamtitleEntity getExamtitle() {

@@ -15,4 +15,5 @@ import org.springframework.stereotype.Repository;
 public interface QuestionOfExamTitleRepository extends CrudRepository<QuestionOfExamtitleEntity,Integer>{
     @Query("SELECT qoe FROM QuestionOfExamtitleEntity qoe WHERE qoe.examtitle.examtitleId = ?1")
     public List<QuestionOfExamtitleEntity> getListQuestionOfExamtitleByExamtitleId(int examtitleId);
+    
 }
