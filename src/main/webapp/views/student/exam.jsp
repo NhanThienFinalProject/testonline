@@ -30,7 +30,7 @@
                                 <li class="list-group-item">Student: <c:out value="${userDetail.fullName }"/></li>
                                 <li class="list-group-item">Username: <c:out value="${userDetail.userName }"/></li>
                                 <li class="list-group-item">Email: <c:out value="${userDetail.email }"/></li>
-                                <li class="list-group-item">[<c:out value="${fn:length(ListquestionId)}"/>] question</li>
+                                <li class="list-group-item active"><b><c:out value="${fn:length(listExamTitleId)}"/> question</b></li>
                             </ul>
                         </div>
                     </div>
@@ -50,19 +50,8 @@
                                 <th>Đáp án</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>A</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>C</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>B</td>
-                            </tr>
+                        <tbody id="resultChooseAnswer">
+                             
                         </tbody>
                     </table>
                 </div>
@@ -70,23 +59,30 @@
 
         </div>
         <script type="text/javascript" charset="utf-8" async defer>
-            var listQuestion = [<c:forEach var="item" items="${ListquestionId}"> <c:out value="${item},"/></c:forEach>];
+            var listQuestion = [<c:forEach var="item" items="${listExamTitleId}"> <c:out value="${item},"/></c:forEach>];
             var nextTo = 0;
+            var examId = <c:out value="${examDetail.examId}"/>;
+            var examtitleId = <c:out value="${examTitle.examtitleId}"/>;
             console.log('test length: ' + listQuestion.length);
-            getQuestion(listQuestion[nextTo]);
+            getQuestion(listQuestion[nextTo],nextTo+1);
+            getAnswerStudent(examtitleId);
             //e.preventDefault();
-
+             
             function  chooseAnswer(questionOfExamtitleID, resultAnswerId) {
                 var data = {};
                 var answer = questionOfExamtitleID + '#' + resultAnswerId;
                 saveResult(answer);
-                if(nextTo != listQuestion.length -1){
-                    nextTo = nextTo+1;
-                    getQuestion(listQuestion[nextTo]);
-                }else{
-                     $("#loadQuestion").html('<div class="row mt-5 mb-5"> <div class="col-10 offset-1 text-center"><h2>Chúc Mừng Bạn Đã Hoàn Thành Bài Thi Bạn Có Muốn Nộp Bài Không</h2></div> <div class="col-4 offset-4 text-center mt-5"><h3 class="btn btn-primary btn-sm float-left">Xem lại</h3><h3 class="btn btn-success btn-sm float-right">Nộp Bài</h3></div> </div>');
-                }
                 
+                if(nextTo != listQuestion.length -1){
+                     nextTo = nextTo+1;
+                    getQuestion(listQuestion[nextTo],nextTo +1);
+                   
+                }else{
+                     $("#loadQuestion").html('<div class="row mt-5 mb-5"> <div class="col-10 offset-1 text-center"><h2>Chúc mừng bạn đã hoàn tất bài kiểm tra bạn có muốn nộp bài và xem kết quả hay không</h2></div> <div class="col-4 offset-4 text-center mt-5"><h3 class="btn btn-primary btn-sm float-left" onclick="getQuestion('+listQuestion[nextTo]+','+(nextTo+1)+')">Xem lại</h3><h3 class="btn btn-success btn-sm float-right">Nộp bài</h3></div> </div>');
+                }
+                setTimeout(function(){
+                   getAnswerStudent(examtitleId);
+                }, 500);
             }
          //function nextQuestion() {
               //  i++;
@@ -119,7 +115,7 @@
                 });
             }
 // load data
-            function getQuestion(id) {
+            function getQuestion(id,nextTo) {
                 $.ajax({
                     // URL gửi data
                     url: 'http://localhost:8080/NationalTestOnline/api-dotest/' + id,
@@ -134,13 +130,70 @@
                     // thành công sẽ chạy cái này: check result
                     success: function (result) {
                         var listTextAnswer = "";
+                        var next = '';
+                        var previous = '';
+                         
+                            if(nextTo <= listQuestion.length){
+                            next = '<div class="col-2 offset-6 btn" onclick="getQuestion('+listQuestion[nextTo]+','+ (nextTo + 1) +')">next</div>';
+                            
+                            }else{
+                                next = '<div class="col-2 offset-6 btn"><p>next</p></div>';
+                            }
+                            if(nextTo >= 1){
+                            previous = '<div class="col-2 offset-1 btn" onclick="getQuestion('+listQuestion[nextTo-2]+','+(nextTo -1)+')">previous</div>';
+                            }else{
+                              previous = '<div class="col-2 offset-1 btn"><p>previous</p></div>';  
+                            }
+                        
                         // set answer
                         for (i = 0; i < result.question.listAnswer.length; i++) {
                             listTextAnswer = listTextAnswer + '<div class="col-12"> <p class="btn btn-info" onclick="chooseAnswer(' + result.questionOfExamtitleID + ',' + result.question.listAnswer[i].answerId + ')">' + result.question.listAnswer[i].answer + '</p> </div>';
                         }
                         //view question
-                        $("#loadQuestion").html('<div class="row p-3"> <div class="col-12 text-left border-bottom mb-3" > <h2 id="question"> Câu '+(nextTo+1) +': ' + result.question.content + '</h2> <p id="hinte">Hinte: <i>' + result.question.hinte + '</i></p> </div> ' + listTextAnswer + ' </div> <div class="row border-top pt-2 pb-2"> <div class="col-2 offset-1 btn">previous</div> <div class="col-2 offset-6 btn">next</div> </div>');
+                        var hinte = "";
+                        if(result.question.hinte != null){
+                            hinte = 'Hinte: <i>' + result.question.hinte +'</i>';
+                        }
+                        $("#loadQuestion").html('<div class="row p-3"> <div class="col-12 text-left border-bottom mb-3" > <h2 id="question"> Câu '+nextTo +': ' + result.question.content + '</h2> <p id="hinte">'+hinte+'</p> </div> ' + listTextAnswer + ' </div> <div class="row border-top pt-2 pb-2"> '+previous+next+' </div>');
 
+
+                    },
+                    // thất bại sẽ chạy cái này:check error
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+            // get answer student
+            function getAnswerStudent(examtitleId) {
+                $.ajax({
+                    // URL gửi data
+                    url: 'http://localhost:8080/NationalTestOnline/api-answer/' + examtitleId,
+                    // type phương thức gửi get POST DELETE PUT
+                    type: 'GET',
+                    // Dữ liệu chuyển kiểu JSON
+                    //contentType: 'application/json',
+                    // đang là scriptObject phải có bộ chuyển sang json như này
+                    //data: JSON.stringify(data),
+                    //server trả về 1 json cho clien
+                    dataType: 'json',
+                    // thành công sẽ chạy cái này: check result
+                    success: function (result) {
+                        var listChooseAnswer = "";
+                        // set answer
+                        for (i = 0; i < result.listQuestionOfExamtitle.length; i++) {
+                         var   stringAnswer = "";
+                            for (var j = 0; j < result.listQuestionOfExamtitle[i].question.listAnswer.length; j++) {
+                                if(result.listQuestionOfExamtitle[i].resultAnswerId == result.listQuestionOfExamtitle[i].question.listAnswer[j].answerId ){
+                                    listChooseAnswer = listChooseAnswer + '<tr><td><p class="btn btn-sm btn-info" onclick="getQuestion('+result.listQuestionOfExamtitle[i].questionOfExamtitleID+','+(i+1)+')">'+'Câu '+(i+1)+'</p></td><td>'+result.listQuestionOfExamtitle[i].question.listAnswer[j].answer+'</td></tr>';
+                                }else if ((result.listQuestionOfExamtitle[i].resultAnswerId == -1 && j == result.listQuestionOfExamtitle[i].question.listAnswer.length - 1)|| (result.listQuestionOfExamtitle[i].resultAnswerId == 0 && j == result.listQuestionOfExamtitle[i].question.listAnswer.length - 1)) {
+                                    listChooseAnswer = listChooseAnswer + '<tr><td><p class="btn btn-sm btn-info" onclick="getQuestion('+result.listQuestionOfExamtitle[i].questionOfExamtitleID+','+(i+1)+')">'+'Câu '+(i+1)+'</p></td><td></td></tr>';
+                                }
+                            }
+                        }
+                        //view question
+                        $("#resultChooseAnswer").html(listChooseAnswer);
+                        console.log('refecft');
 
                     },
                     // thất bại sẽ chạy cái này:check error

@@ -196,5 +196,8 @@ public class ExamEntity implements Serializable {
 
         return timeEnd.getMonth() + " " + timeEnd.getDayOfMonth() + ", " + timeEnd.getYear() + " " + timeEnd.getHour() + ":" + timeEnd.getMinute() + ":" + timeEnd.getSecond();
     }
+    public String getTimeStartString() {
+        return timeStart.getMonth() + " " + timeStart.getDayOfMonth() + ", " + timeStart.getYear() + " " + timeStart.getHour() + ":" + timeStart.getMinute() + ":" + timeStart.getSecond();
+    }
 
 }

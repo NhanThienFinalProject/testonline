@@ -45,7 +45,7 @@
                     <label class="control-label col-sm-4" >Time Start</label>
                     <div class="col-sm-10">
                         <!-- type="datetime-local" -->
-                        <form:input path="timeStart" type="datetime"  cssClass="form-control " placeholder="Time Start Exam"/>
+                        <form:input path="timeStart" type="datetime-local"  cssClass="form-control " placeholder="Time Start Exam"/>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-4">Time End</label>
                     <div class="col-sm-10">
-                        <form:input path="timeEnd" type="datetime" data-date-format="yyyy-MM-dd HH:mm:ss"  cssClass="form-control " placeholder="Time End Exam"/>
+                        <form:input path="timeEnd" type="datetime-local" data-date-format="yyyy-MM-dd HH:mm:ss"  cssClass="form-control " placeholder="Time End Exam"/>
                     </div>
                 </div>
             </div>

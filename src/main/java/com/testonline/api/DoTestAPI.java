@@ -43,14 +43,14 @@ public class DoTestAPI {
     QuestionOfExamtitleService questionOfExamtitleSV;
 
     @GetMapping(value = "/{questionOfExamTitleId}")
-    public Object listCustomers(@PathVariable("questionOfExamTitleId") int questionOfExamTitleId) {
+    public Object getQuestionOfExamTitle(@PathVariable("questionOfExamTitleId") int questionOfExamTitleId) {
         //UserEntity user = userSV.getDetailUserCurrent();        
         //ExamtitleEntity examTitle = examTitleSV.getExamtitleByExamIdAndStudentId(examId, user.getUserId());
         QuestionOfExamtitleEntity questionOfExamTitle = questionOfExamtitleSV.getById(questionOfExamTitleId);
         questionOfExamTitle.setExamtitle(questionOfExamTitle.getExamtitle());
         return questionOfExamTitle;
     }
-
+    
     //@RequestParam("questionOfExamtitleID") int questionOfExamtitleID,@RequestParam("resultAnswerId") int resultAnswerId
     @RequestMapping(method = RequestMethod.POST)
     //@PostMapping()
@@ -58,8 +58,6 @@ public class DoTestAPI {
         try {
             answerData = answerData.replace("\"","");
             String[] questionOfExamTitleIdAndResultId = answerData.split("#");
-            System.out.println("x1: " + questionOfExamTitleIdAndResultId[0]);
-            System.out.println("x3: " + questionOfExamTitleIdAndResultId[1]);
             QuestionOfExamtitleEntity questionOfExam = questionOfExamtitleSV.getById(Integer.parseInt(questionOfExamTitleIdAndResultId[0]));
             questionOfExam.setResultAnswerId(Integer.parseInt(questionOfExamTitleIdAndResultId[1]));
             questionOfExamtitleSV.saveQuestionOfExamTitle(questionOfExam);

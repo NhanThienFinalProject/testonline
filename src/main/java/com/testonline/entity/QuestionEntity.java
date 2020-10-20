@@ -60,7 +60,6 @@ public class QuestionEntity implements Serializable {
     public int getQuestionId() {
         return questionId;
     }
-
     public void setQuestionId(int questionId) {
         this.questionId = questionId;
     }

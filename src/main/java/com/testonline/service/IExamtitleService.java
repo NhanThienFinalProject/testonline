@@ -11,7 +11,7 @@ public interface IExamtitleService {
     public List<ExamtitleEntity> getListExamtitleByStudentId(int studentId);
     public double markTheExam(int examtitleId);
     public ExamtitleEntity findExamtitleById(int examtitleId);
-    List<ExamtitleEntity> randomQuestionAndSave(int examId,int studentId);
+    ExamtitleEntity randomQuestionAndSave(int examId,int studentId);
     ExamtitleEntity getExamtitleByExamIdAndStudentId(int examId,int studentId);
     public boolean checkExamtitleIfCurrentUserHas(int examtitleId, int studentId);
     public boolean checkIfExamIsFinished(int examtitleId);

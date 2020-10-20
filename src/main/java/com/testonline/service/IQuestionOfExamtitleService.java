@@ -13,4 +13,5 @@ public interface IQuestionOfExamtitleService {
     public PagedListHolder<QuestionOfExamtitleEntity> paginateQuestion(String page, List<QuestionOfExamtitleEntity> list, HttpSession session);
     QuestionOfExamtitleEntity getById(int id);
     void saveQuestionOfExamTitle(QuestionOfExamtitleEntity questionOfExamTitle);
+    
 }

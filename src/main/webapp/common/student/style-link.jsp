@@ -35,3 +35,4 @@
 <link href="<c:url value="../template/student/css/stylish-portfolio.css"/>" rel="stylesheet" type="text/css"/>
 <link href="<c:url value="../template/student/css/stylish-portfolio.min.css"/>" rel="stylesheet" type="text/css"/>
 <link type="text/css" rel="stylesheet" href="../template/student/css/style.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
