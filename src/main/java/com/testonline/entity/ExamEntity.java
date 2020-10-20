@@ -3,8 +3,6 @@ package com.testonline.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,10 +34,12 @@ public class ExamEntity implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
 
+    @JsonBackReference
     @Column(name = "TIMESTART")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeStart;
 
+    @JsonBackReference
     @Column(name = "TIMEEND")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeEnd;
@@ -50,21 +50,24 @@ public class ExamEntity implements Serializable {
     @Column(name = "MAXSTUDENT")
     private int maxStudent;
 
+    @JsonBackReference
     @Column(name = "CREATEDATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
 
 //    reference to UserEntity by CREATEBYID
-    //@JsonBackReference
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "CREATEBYID")
     UserEntity user;
 
 //    reference to ExamtitleEntity
+    @JsonBackReference
     @OneToMany(mappedBy = "exam", fetch = FetchType.LAZY)
     List<ExamtitleEntity> listExamtitle;
 
 //    reference to QuestionRandom
+    @JsonBackReference
     @OneToMany(mappedBy = "examQR", fetch = FetchType.LAZY)
     List<QuestionRandomEntity> listQuestionRandom;
 

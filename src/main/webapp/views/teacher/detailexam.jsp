@@ -17,7 +17,7 @@
                                 <c:if test="${exam != null}">Exam: <c:out value="${exam.content}"/>
                                 </div>
                                 <div class="col-md-3">
-                                    <a href="teacher-preparing-sendmail?examId=${exam.examId}&link-exam=${link}"><button class="btn btn-info" type="button" >Send password <i class="fas fa-paper-plane"></i></button></a>
+                                    <a href="teacher-preparing-sendmail?examId=${exam.examId}&link-exam=${linkExam}"><button class="btn btn-info" type="button" >Send password <i class="fas fa-paper-plane"></i></button></a>
                                 </div>
                                 </c:if><c:if test="${exam == null}">Exam is invalid</c:if>
                             </div>
@@ -47,8 +47,8 @@
                     <div>
                         <li class="list-group-item">Link:
                             <button title="Refresh" onclick="return refreshLinkExam()" style="border: none;background-color: white"><i style="color: gray" class="fa fa-recycle" aria-hidden="true" ></i></button>
-                            <input id="link" style="width: 100%; border-color: lightgray; border-radius: 4px" value="${link}"></input>
-                            <input id="preventiveLink" hidden="true" value="${link}"></input>
+                            <input id="link" style="width: 100%; border-color: lightgray; border-radius: 4px" value="${linkExam}"></input>
+                            <input id="preventiveLink" hidden="true" value="${linkExam}"></input>
                         </li>
                     </div>
                 </c:if>

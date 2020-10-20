@@ -11,6 +11,7 @@ import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.ExamService;
 import com.testonline.service.impl.ExamtitleService;
 import com.testonline.service.impl.UserService;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,10 +69,11 @@ public class TeacherController {
         return "teacher/result-detailsexam";
     }
 
-    @GetMapping("teacher-list-result-exam")
+    @GetMapping("teacher-manage-exam")
     public String showListFinishedExam(Model theModel) {
         UserEntity currentTeacher = userSV.getDetailUserCurrent();
         List<ExamEntity> listExamOfCurrentTeacher = examSV.getAllByUserId(currentTeacher.getUserId());
+//        get list completed exam
         List<ExamEntity> listFinishedExamOfCurrentTeacher = new ArrayList<ExamEntity>();
         for (ExamEntity ex : listExamOfCurrentTeacher) {
             if (examSV.statusExam(ex.getExamId()).equals("hoanthanh")) {
@@ -79,7 +81,15 @@ public class TeacherController {
             }
         }
         theModel.addAttribute("listFinishedExamOfCurrentTeacher", listFinishedExamOfCurrentTeacher);
-        return "teacher/list-finished-exam";
+//        get list happing exam
+        List<ExamEntity> listHappeningExamOfCurrentTeacher = new ArrayList<ExamEntity>();
+        for (ExamEntity ex : listExamOfCurrentTeacher) {
+            if (examSV.statusExam(ex.getExamId()).equals("dangthi")) {
+                listHappeningExamOfCurrentTeacher.add(ex);
+            }
+        }
+        theModel.addAttribute("listHappeningExamOfCurrentTeacher", listHappeningExamOfCurrentTeacher);
+        return "teacher/list-exam";
     }
 
     @GetMapping("teacher-preparing-sendmail") // recieve examId, currentTeacherId
@@ -101,7 +111,7 @@ public class TeacherController {
     @PostMapping("teacher-sendmail")
     public String sendMailBySMTP(Model theModel, HttpServletRequest req) {
         String[] listEmail = req.getParameterValues("exampleCheck1");
-        String linkExam = req.getParameter("link");
+        String linkExam = req.getParameter("link") + "&teacherId=" + userSV.getDetailUserCurrent().getUserId();
         int examId = Integer.parseInt(req.getParameter("examId"));
         ExamEntity requiredExam = examSV.getById(examId);
 
@@ -151,8 +161,13 @@ public class TeacherController {
                 // Set Subject: header field
                 message.setSubject("National Test Online");
 
+                // Set time 
+                String timeStart = formatTime(requiredExam.getTimeStart());
+                String timeEnd = formatTime(requiredExam.getTimeEnd());
+                
                 // Now set the actual message
                 String mess = "Exam: " + requiredExam.getContent() + "\n"
+                        + "Time: " +timeStart+" - "+timeEnd+" on "+ requiredExam.getTimeStart().getDayOfMonth() + " " + requiredExam.getTimeStart().getMonth() + " " + requiredExam.getTimeStart().getYear() +"\n"
                         + "Link: " + linkExam + "\n"
                         + "Password: " + requiredExam.getPassword();
                 message.setText(mess);
@@ -166,5 +181,28 @@ public class TeacherController {
             }
         }
         return "teacher/home";
+    }
+
+    @GetMapping("teacher-monitoring-exam")
+    public String showMonitoringRoom(Model theModel, @RequestParam("examId") int examId) {
+//        check if current exam create required exam
+        if (examSV.getById(examId) != null && examSV.getById(examId).getUser().getUserId() == userSV.getDetailUserCurrent().getUserId()) {
+            if (examSV.statusExam(examId).equals("dangthi")) {
+                theModel.addAttribute("requiredExam", examSV.getById(examId));
+            } else if (examSV.statusExam(examId).equals("hoanthanh")) {
+                theModel.addAttribute("message", "Exam was seem finished!");
+            } else {
+                theModel.addAttribute("message", "Exam is not started!");
+            }
+        } else {
+            theModel.addAttribute("message", "Something was wrong!");
+        }
+        return "teacher/room-monitoring-exam";
+    }
+
+    public String formatTime(LocalDateTime time) {
+        String h = String.valueOf((time.getHour() < 10) ? "0" + time.getHour() : time.getHour());
+        String m = String.valueOf((time.getMinute() < 10) ? "0" + time.getMinute() : time.getMinute());
+        return h + ":" + m;
     }
 }

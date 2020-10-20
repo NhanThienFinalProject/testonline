@@ -29,19 +29,22 @@ public class ExamtitleEntity implements Serializable{
     private int examtitleId;
     
 //    reference to UserEntity by UserId(studentID)
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "STUDENTID")
     UserEntity student;
     
 //    reference to ExamEntity by EXAMID
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "EXAMID")
     ExamEntity exam;
     
 //    reference to QuestionOfExamtitleEntity
     @JsonManagedReference
+//    @JsonBackReference
     @OneToMany(mappedBy = "examtitle",fetch = FetchType.LAZY)
     List<QuestionOfExamtitleEntity> listQuestionOfExamtitle;
 

@@ -1,6 +1,7 @@
  
 package com.testonline.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,24 +46,29 @@ public class UserEntity implements Serializable{
     @Column(name = "PASSWORD")
     private String password;
     
+    @JsonBackReference
     @Column(name = "CREATEDATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
     
 //    reference to Role by ROLEID
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "ROLEID")
     RolesEntity role;
     
 //    reference to ExamEntity
+    @JsonBackReference
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     List<ExamEntity> listExam;
     
 //    reference to CategoryEntity
+    @JsonBackReference
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     List<CategoryEntity> listCategory;
     
 //    reference to ExamtitleEntity
+    @JsonBackReference
     @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
     List<ExamtitleEntity> listExamtitle;
 

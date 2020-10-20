@@ -79,7 +79,7 @@ public class ExamController {
                 theModel.addAttribute("listCategory",listCategory);
             }
             // Gen link of Examtitle
-            theModel.addAttribute("link", "http://localhost:8080/NationalTestOnline/student-submit-password?teacherId="+userService.getDetailUserCurrent().getUserId()+"&examId="+userService.md5(id+"thien-nhan"));
+            theModel.addAttribute("linkExam", "192.168.1.6:8080/NationalTestOnline/student-submit-password?examId="+userService.md5(id+"thien-nhan")+"&teacherId="+userService.getDetailUserCurrent().getUserId());
         } catch (Exception e) {
             System.out.println("idExam invalid");
         }

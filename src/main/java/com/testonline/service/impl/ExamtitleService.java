@@ -158,4 +158,9 @@ public class ExamtitleService implements IExamtitleService {
         return examtitleRP.findExamtitleByTeacher(teacherId);
     }
 
+    @Override
+    public List<ExamtitleEntity> getExamtitleByExamId(int examId) {
+        return examtitleRP.findExamtitleByExamId(examId);
+    }
+
 }
