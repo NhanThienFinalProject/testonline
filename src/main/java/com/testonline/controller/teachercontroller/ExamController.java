@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.testonline.controller.teachercontroller;
 
 import com.testonline.entity.CategoryEntity;
 import com.testonline.entity.ExamEntity;
-import com.testonline.entity.QuestionEntity;
 import com.testonline.entity.QuestionRandomEntity;
 import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.CategoryService;
@@ -35,11 +29,10 @@ public class ExamController {
     @Autowired
     private UserService userService;
     @Autowired
-    private QuestionService questionSV;
-    @Autowired
     private QuestionRandomService questionRandomSV;
     @Autowired
     private CategoryService categorySV;
+
     @GetMapping(value = "/teacher-create-exam")
     public String showStudentHome(Model theModel) {
         theModel.addAttribute("examModel", new ExamEntity());
@@ -60,7 +53,7 @@ public class ExamController {
 
     @GetMapping(value = "/teacher-detail-exam")
     public String detailExam(Model theModel, @RequestParam("examid") String idExam) {
-        int id = -1;
+        int id;
         try {
             //detail exam
             id = Integer.parseInt(idExam);
@@ -74,12 +67,12 @@ public class ExamController {
                 theModel.addAttribute("listQuestionRD", listQuestionRD);
             }
             // list question of category
-            List<CategoryEntity> listCategory = categorySV.findListCategoryAndListQuestionByUserIdAndExamId(userService.getDetailUserCurrent().getUserId(),id);
+            List<CategoryEntity> listCategory = categorySV.findListCategoryAndListQuestionByUserIdAndExamId(userService.getDetailUserCurrent().getUserId(), id);
             if (!listCategory.isEmpty()) {
-                theModel.addAttribute("listCategory",listCategory);
+                theModel.addAttribute("listCategory", listCategory);
             }
             // Gen link of Examtitle
-            theModel.addAttribute("linkExam", "192.168.1.6:8080/NationalTestOnline/student-submit-password?examId="+userService.md5(id+"thien-nhan")+"&teacherId="+userService.getDetailUserCurrent().getUserId());
+            theModel.addAttribute("linkExam", "192.168.1.6:8080/NationalTestOnline/student-submit-password?examId=" + userService.md5(id + "thien-nhan") + "&teacherId=" + userService.getDetailUserCurrent().getUserId());
         } catch (Exception e) {
             System.out.println("idExam invalid");
         }

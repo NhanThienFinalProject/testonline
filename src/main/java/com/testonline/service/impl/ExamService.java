@@ -72,8 +72,9 @@ public class ExamService implements IExamService {
     }
 
     @Override
-    public boolean checkPasswordOfExam(String password, int examId, int teacherId) {
-        ExamEntity exam = examRP.findExamByExamIdAndUserId(examId, teacherId);
+    public boolean checkPasswordOfExam(String password, int examId) {
+        Optional<ExamEntity> examTemp = examRP.findById(examId);
+        ExamEntity exam = examTemp.isPresent()?examTemp.get():null;
         if (exam == null) {
             return false;
         } else {

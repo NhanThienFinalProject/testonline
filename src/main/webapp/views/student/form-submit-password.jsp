@@ -12,7 +12,8 @@
                     <form action="student-submit-password-waitting-room" method="POST">
                         <c:set value="${studentId}" var="student"></c:set>
                         <c:set value="${examId}" var="exam"></c:set>
-                            <div class="input-group input-group-newsletter">
+                        <input hidden="true" name="examId" value="${examId}"/>
+                        <div class="input-group input-group-newsletter">
                             <c:if test="${message == null}">
                                 <input type="password" class="form-control" placeholder="Enter password..." name="password" aria-label="Enter password..." aria-describedby="submit-button">
                                 <div class="input-group-append">
@@ -25,9 +26,6 @@
                                     <button class="btn btn-secondary" type="submit" id="submit-button">Submit</button>
                                 </div>
                             </c:if>
-                            <input hidden="true" name="studentId" value="${studentId}"/>
-                            <input hidden="true" name="examId" value="${examId}"/>
-                            <input hidden="true" name="teacherId" value="${teacherId}"/>
                         </div>
                     </form>
                 </div>

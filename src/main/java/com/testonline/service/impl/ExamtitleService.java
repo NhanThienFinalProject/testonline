@@ -27,8 +27,7 @@ public class ExamtitleService implements IExamtitleService {
     private ExamtitleRepository examtitleRP;
     @Autowired
     QuestionRandomService questionRDSV;
-    
-    
+
     @Autowired
     private ExamService examSV;
 
@@ -72,7 +71,7 @@ public class ExamtitleService implements IExamtitleService {
         ExamtitleEntity examtitle = new ExamtitleEntity();
         List<QuestionEntity> listQuestion = new ArrayList<QuestionEntity>();
         List<QuestionOfExamtitleEntity> listQuestionOfExamTitle = new ArrayList<QuestionOfExamtitleEntity>();
-        
+
         List<QuestionRandomEntity> listQuestionRandom = questionRDSV.getAllByExamId(examId);
         // random list questionrandom to [afterListQuestionRandom]
         while (!listQuestionRandom.isEmpty()) {
@@ -85,8 +84,8 @@ public class ExamtitleService implements IExamtitleService {
         }
 
         // find examtitle of student
-         examtitle = examtitleRP.findExamtitleByExamIdAndStudentId(examId, studentId);
-         
+        examtitle = examtitleRP.findExamtitleByExamIdAndStudentId(examId, studentId);
+
         for (QuestionRandomEntity questionRandomEntity : afterListQuestionRandom) {
             QuestionOfExamtitleEntity questionOfExamTitleTemp = new QuestionOfExamtitleEntity();
             //set question of questionOfExamTitle
@@ -104,29 +103,12 @@ public class ExamtitleService implements IExamtitleService {
     public ExamtitleEntity getExamtitleByExamIdAndStudentId(int examId, int studentId) {
         return examtitleRP.findExamtitleByExamIdAndStudentId(examId, studentId);
     }
+
     @Override
     public boolean checkExamtitleIfCurrentUserHas(int examtitleId, int studentId) {
         if (examtitleRP.findExamtitleByExamtitleIdAndStudentId(examtitleId, studentId) == null) {
             return false;
         }
-        return true;
-    }
-
-    @Override
-    public boolean checkIfExamIsFinished(int examtitleId) {
-//        ExamtitleEntity examtitle = examtitleRP.findByExamtitleId(examtitleId);
-//        LocalDate date = LocalDate.now();
-//        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-//        String dateString = df.format(date);
-//        Date currenDate;
-//        try {
-//            currenDate = df.parse(dateString);
-//            if (examtitle.getExam().getTimeEnd().before(currenDate)) {
-//                return true;
-//            }
-//        } catch (ParseException ex) {
-//            ex.printStackTrace();
-//        }
         return true;
     }
 
@@ -147,7 +129,7 @@ public class ExamtitleService implements IExamtitleService {
 
     @Override
     public boolean checkExamtitleIfTeacherIdCreated(int examtitleId, int examId, int teacherId) {
-        if(examtitleRP.findExamtitleByTeacherIdAndExamIdAndExamtitleId(examtitleId, examId, teacherId) == null){
+        if (examtitleRP.findExamtitleByTeacherIdAndExamIdAndExamtitleId(examtitleId, examId, teacherId) == null) {
             return false;
         }
         return true;

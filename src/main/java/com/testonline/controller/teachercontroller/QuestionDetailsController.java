@@ -1,4 +1,3 @@
-
 package com.testonline.controller.teachercontroller;
 
 import com.testonline.entity.AnswerEntity;
@@ -14,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class QuestionDetailsController {
+
     @Autowired
     QuestionService questionSV;
     @Autowired
     AnswerService answerSV;
+
     @GetMapping(value = "/teacher-question-details")
-    public String showQuestionDetails(Model theModel,@RequestParam("questionId")int questionId ){
+    public String showQuestionDetails(Model theModel, @RequestParam("questionId") int questionId) {
         QuestionEntity currentQuestion = questionSV.findQuestionByQuestionId(questionId);
         theModel.addAttribute("currentQuesion", currentQuestion);
         List<AnswerEntity> listAnswerOfCurrentQuestion = answerSV.findAnswersByQuestionId(questionId);

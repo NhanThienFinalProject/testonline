@@ -34,11 +34,11 @@
 		
         <form-login 
             login-page="/form-login" 
-            default-target-url="/setauthorizationhome" 
+            default-target-url="/showhome" 
             authentication-failure-url="/form-login?error" 
             username-parameter="username"
             password-parameter="password" />
-        <logout logout-success-url="/deleteauthorizationhome"  />
+        <logout logout-success-url="/form-login?logout"  />
     </http>
 
     <beans:bean id="passwordEncoder" 

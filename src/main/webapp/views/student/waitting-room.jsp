@@ -22,7 +22,7 @@
      
         <script>
 
-            var deadline = new Date("<c:out value="${exam.timeStartString }"/>");
+            var deadline = new Date("<c:out value="${exam.getTimeStartString() }"/>");
             console.log(deadline);
             var x = setInterval(function () {
                 var examId = ${exam.examId};
@@ -41,7 +41,7 @@
                     document.getElementById("minute").innerHTML = '0';
                     document.getElementById("second").innerHTML = '0';
                     setTimeout(function(){
-                   window.location.href = "http://localhost:8080/NationalTestOnline/exam-createexamtitle?examId=" + examId;
+                   window.location.href = window.location.origin+"/NationalTestOnline/exam-createexamtitle?examId=" + examId;
                     }, 2000);
                     
                 }

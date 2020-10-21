@@ -1,4 +1,3 @@
-
 package com.testonline.controller.teachercontroller;
 
 import com.testonline.entity.CategoryEntity;
@@ -13,13 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CategoryController {
+
     @Autowired
     UserService userSV;
     @Autowired
     CategoryService categorySV;
+
     @PostMapping(value = "teacher-save-category")
-    public String createNewCategory(Model theModel, @ModelAttribute("newCategory")CategoryEntity newCategory){
-        UserEntity currentUser  = userSV.getDetailUserCurrent();
+    public String createNewCategory(Model theModel, @ModelAttribute("newCategory") CategoryEntity newCategory) {
+        UserEntity currentUser = userSV.getDetailUserCurrent();
         UserEntity userCreatedCategory = userSV.findUserByUserId(currentUser.getUserId());
         newCategory.setUser(userCreatedCategory);
         categorySV.saveNewCategory(newCategory);

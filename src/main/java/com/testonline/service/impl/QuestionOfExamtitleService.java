@@ -25,16 +25,16 @@ public class QuestionOfExamtitleService implements IQuestionOfExamtitleService {
     public PagedListHolder<QuestionOfExamtitleEntity> paginateQuestion(String page, List<QuestionOfExamtitleEntity> list, HttpSession session) {
         PagedListHolder<QuestionOfExamtitleEntity> questionOfExamtitleList = new PagedListHolder<QuestionOfExamtitleEntity>();
         if (page == null || page.equals("")) {
-//            set source for questionOfExamtitleList
+            //  set source for questionOfExamtitleList
             questionOfExamtitleList.setSource(list);
             questionOfExamtitleList.setPageSize(5);
             session.setAttribute("questionOfExamtitleList", questionOfExamtitleList);
         } else if (page.equals("previous")) {
-//            switch to previous page
+            //  switch to previous page
             questionOfExamtitleList = (PagedListHolder<QuestionOfExamtitleEntity>) session.getAttribute("questionOfExamtitleList");
             questionOfExamtitleList.previousPage();
         } else if (page.equals("next")) {
-//            switch to next page
+            //  switch to next page
             questionOfExamtitleList = (PagedListHolder<QuestionOfExamtitleEntity>) session.getAttribute("questionOfExamtitleList");
             questionOfExamtitleList.nextPage();
         } else {
@@ -47,15 +47,12 @@ public class QuestionOfExamtitleService implements IQuestionOfExamtitleService {
 
     @Override
     public QuestionOfExamtitleEntity getById(int id) {
-        Optional<QuestionOfExamtitleEntity>  questionOfExamtitleEntity = questionOfExamtitleRP.findById(id);
-        return questionOfExamtitleEntity.isPresent()?questionOfExamtitleEntity.get():null;
+        Optional<QuestionOfExamtitleEntity> questionOfExamtitleEntity = questionOfExamtitleRP.findById(id);
+        return questionOfExamtitleEntity.isPresent() ? questionOfExamtitleEntity.get() : null;
     }
 
     @Override
     public void saveQuestionOfExamTitle(QuestionOfExamtitleEntity questionOfExamTitle) {
         questionOfExamtitleRP.save(questionOfExamTitle);
     }
-
-     
-
 }

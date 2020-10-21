@@ -44,7 +44,7 @@ public class QuestionService implements IQuestionService {
     @Override
     public void saveFullQuestion(QuestionEntity question, String[] anotherAnswers, String correctAnswer) {
         QuestionEntity missingQuestion = saveQuestion(question);
-//        Add correctAnswer to array and random
+        //   Add correctAnswer to array and random
         Random rd = new Random();
         int randomIndex = rd.nextInt(anotherAnswers.length + 1);
         String[] listAnswers = new String[anotherAnswers.length + 1];
@@ -57,7 +57,7 @@ public class QuestionService implements IQuestionService {
                 listAnswers[i] = anotherAnswers[i - 1];
             }
         }
-//        Save answer to DB and get correctAnswerInstance
+        //   Save answer to DB and get correctAnswerInstance
         AnswerEntity correctAnswerInstance = new AnswerEntity();
         for (int i = 0; i < listAnswers.length; i++) {
             AnswerEntity answerInstance = new AnswerEntity();
@@ -69,7 +69,7 @@ public class QuestionService implements IQuestionService {
                 answerSV.saveAnswer(answerInstance);
             }
         }
-//        get correctAnswerID to save back to missingQuesion and save to DB
+        //  get correctAnswerID to save back to missingQuesion and save to DB
         int correctAnswerId = correctAnswerInstance.getAnswerId();
         missingQuestion.setCorrectAnswerId(correctAnswerId);
         QuestionEntity fullQuesion = saveQuestion(missingQuestion);

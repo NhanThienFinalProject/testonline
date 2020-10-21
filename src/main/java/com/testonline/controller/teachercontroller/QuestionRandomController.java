@@ -21,16 +21,17 @@ public class QuestionRandomController {
         String mesage = QuestionRDSV.checkAndSaveQuestionRandom(examIdPR, questionIdPR);
         return "redirect:teacher-detail-exam?examid=" + examIdPR;
     }
+
     //teacher-question-random-delete
     @GetMapping(value = "teacher-question-random-delete")
-    public String deleteQuestionRandom(Model theModel,@RequestParam("examIdPR") String examIdPR,@RequestParam("questionRDId") String questionRandomId){
+    public String deleteQuestionRandom(Model theModel, @RequestParam("examIdPR") String examIdPR, @RequestParam("questionRDId") String questionRandomId) {
         try {
             int id = Integer.parseInt(questionRandomId);
             QuestionRandomEntity questionRandom = QuestionRDSV.getById(id);
             QuestionRDSV.delete(questionRandom);
         } catch (Exception e) {
         }
-        
+
         return "redirect:teacher-detail-exam?examid=" + examIdPR;
     }
 }

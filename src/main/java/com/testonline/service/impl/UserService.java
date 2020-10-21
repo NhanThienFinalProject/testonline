@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.testonline.service.impl;
 
 import com.testonline.entity.ExamtitleEntity;
 import com.testonline.entity.UserEntity;
 import com.testonline.repository.UserRepository;
-import com.testonline.service.IExamService;
 import com.testonline.service.IUserService;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -21,16 +15,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author ADMIN
- */
 @Service
 public class UserService implements IUserService {
 
     @Autowired
     UserRepository userRP;
-    
+
     @Autowired
     ExamtitleService examtitleSV;
 
@@ -51,20 +41,15 @@ public class UserService implements IUserService {
 
     @Override
     public boolean isExistedUsername(String username) {
-        UserEntity user = new UserEntity();
-        user = userRP.findOneByUserName(username);
-        if (user != null) {
-            return true;
-        }
-        return false;
+        UserEntity user = userRP.findOneByUserName(username);
+        return user != null;
     }
 
     @Override
     public UserEntity getDetailUserCurrent() {
-        UserEntity user = new UserEntity();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();
-        user = userRP.findOneByUserName(userDetail.getUsername());
+        UserEntity user = userRP.findOneByUserName(userDetail.getUsername());
         return user;
     }
 
@@ -87,24 +72,24 @@ public class UserService implements IUserService {
         }
         return result;
     }
+
     @Override
-    public List<UserEntity> findListStudentByTeacherId(int teacherId){
+    public List<UserEntity> findListStudentByTeacherId(int teacherId) {
         List<ExamtitleEntity> listExamttleOfCurrentTeacher = examtitleSV.getExamtitleByTeacherId(teacherId);
         List<UserEntity> listStudentOfCurrentTeacher = new ArrayList<UserEntity>();
-        for(ExamtitleEntity ex : listExamttleOfCurrentTeacher){
+        for (ExamtitleEntity ex : listExamttleOfCurrentTeacher) {
             UserEntity user = ex.getStudent();
             boolean check = false;
-            for(UserEntity u : listStudentOfCurrentTeacher){
-                if(u.getUserId() == user.getUserId()){
+            for (UserEntity u : listStudentOfCurrentTeacher) {
+                if (u.getUserId() == user.getUserId()) {
                     check = true;
                     break;
                 }
             }
-            if(!check){
+            if (!check) {
                 listStudentOfCurrentTeacher.add(user);
             }
         }
         return listStudentOfCurrentTeacher;
     }
-
 }

@@ -114,8 +114,9 @@
                         for (i = 0; i < result.length; i++) {
                             var numberOfCompleteQA = 0;
                             for (j = 0; j < result[i].listQuestionOfExamtitle.length; j++) {
-                                if (result[i].listQuestionOfExamtitle[j].resultAnswerId !== -1) {
+                                if ( result[i].listQuestionOfExamtitle[j].resultAnswerId !== 0) {
                                     numberOfCompleteQA++;
+                                    console.log("abc"+result[i].listQuestionOfExamtitle[j].resultAnswerId);
                                 }
                             }
                             listStudent = listStudent + '<tr>' +

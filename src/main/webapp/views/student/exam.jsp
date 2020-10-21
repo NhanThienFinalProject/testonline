@@ -94,7 +94,7 @@
             function saveResult(datax) {
                 $.ajax({
                         // URL gửi data
-                        url: 'http://localhost:8080/NationalTestOnline/api-dotest',
+                        url:window.location.origin+'/NationalTestOnline/api-dotest',
                          // type phương thức gửi get POST DELETE PUT
                         type: 'POST',
 			// Dữ liệu chuyển kiểu JSON
@@ -118,7 +118,7 @@
             function getQuestion(id,nextTo) {
                 $.ajax({
                     // URL gửi data
-                    url: 'http://localhost:8080/NationalTestOnline/api-dotest/' + id,
+                    url: window.location.origin+'/NationalTestOnline/api-dotest/' + id,
                     // type phương thức gửi get POST DELETE PUT
                     type: 'GET',
                     // Dữ liệu chuyển kiểu JSON
@@ -168,7 +168,7 @@
             function getAnswerStudent(examtitleId) {
                 $.ajax({
                     // URL gửi data
-                    url: 'http://localhost:8080/NationalTestOnline/api-answer/' + examtitleId,
+                    url: window.location.origin+'/NationalTestOnline/api-answer/' + examtitleId,
                     // type phương thức gửi get POST DELETE PUT
                     type: 'GET',
                     // Dữ liệu chuyển kiểu JSON
@@ -230,7 +230,7 @@
                     document.getElementById("finish").innerHTML = "Hết Giờ";
                     document.getElementById("minute").innerHTML = '0';
                     document.getElementById("second").innerHTML = '0';
-                    window.location.href = "http://www.w3schools.com";
+                    window.location.href = window.location.origin+'/NationalTestOnline/student-list-result';
                 }
             }, 1000);
         </script> 

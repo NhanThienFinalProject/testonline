@@ -37,31 +37,27 @@ public class StudentController {
     private QuestionOfExamtitleService questionOfExamtitleSV;
 
     @Autowired
-    private QuestionService questionSV;
-
-    @Autowired
     private ExamService examSV;
 
     @GetMapping(value = "/student-home")
     public String showStudentHome(Model theModel) {
-        List<UserEntity> listUser = new ArrayList<UserEntity>();
-        listUser = userSV.getAll();
+        List<UserEntity> listUser = userSV.getAll();
         theModel.addAttribute("listUser", listUser);
         return "student/result-details";
     }
 
     @GetMapping(value = {"/result-student", "/result-student/{page}"})
     public String checkResultAndMark(Model theModel, HttpSession session, HttpServletRequest req, @PathVariable Map<String, String> pathVariablesMap, @RequestParam("examtitleId") int examtitleId, @RequestParam("teacherId") int teacherId, @RequestParam("examId") int examId) {
-//      check examtitleId if this student has OR if examtitle belongs to required teacher
+        //  check examtitleId if this student has OR if examtitle belongs to required teacher
         boolean checkStudentHasThisExamtitle = examtitleSV.checkExamtitleIfCurrentUserHas(examtitleId, userSV.getDetailUserCurrent().getUserId());
         boolean checkTeacherCreateThisExamtitle = examtitleSV.checkExamtitleIfTeacherIdCreated(examtitleId, examId, teacherId);
         if (checkStudentHasThisExamtitle || checkTeacherCreateThisExamtitle) {
-//      paginate question result
+            //  paginate question result
             String page = pathVariablesMap.get("page");
             List<QuestionOfExamtitleEntity> list = questionOfExamtitleSV.getListQuestionOfExamtitleByExamtitleId(examtitleId);
             PagedListHolder<QuestionOfExamtitleEntity> pageListHolder = questionOfExamtitleSV.paginateQuestion(page, list, session);
             theModel.addAttribute("examtitleId", examtitleId);
-//        calculate number of correct answer (data for title header)
+            //  calculate number of correct answer (data for title header)
             int point = examtitleSV.calculateCorrectQuestion(examtitleId);
             theModel.addAttribute("point", point);
             int numberOfquestionOfExamtitle = questionOfExamtitleSV.getListQuestionOfExamtitleByExamtitleId(examtitleId).size();
@@ -80,7 +76,7 @@ public class StudentController {
         int currentUserId = userSV.getDetailUserCurrent().getUserId();
         List<ExamtitleEntity> listExamtitleOfCurrentStudent = examtitleSV.getListExamtitleByStudentId(currentUserId);
         List<ExamtitleEntity> newListExamtitleOfCurrentStudent = new ArrayList<ExamtitleEntity>();
-//        check if the exam has finished yet
+        //  check if the exam has finished yet
         for (ExamtitleEntity ex : listExamtitleOfCurrentStudent) {
             int examId = ex.getExam().getExamId();
             if (examSV.statusExam(examId).equals("hoanthanh")) {
@@ -88,7 +84,7 @@ public class StudentController {
             }
         }
         theModel.addAttribute("listExamtitleOfCurrentStudent", newListExamtitleOfCurrentStudent);
-//        get  point of list of examtitle
+        //  get  point of list of examtitle
         HashMap<Integer, Double> listResult = new HashMap<Integer, Double>();
         for (ExamtitleEntity ex : listExamtitleOfCurrentStudent) {
             double point = examtitleSV.markTheExam(ex.getExamtitleId());
@@ -100,15 +96,16 @@ public class StudentController {
 
     @GetMapping(value = "student-submit-password")
     public String showFormSubmitPassword(Model theModel, @RequestParam("examId") String stringExamId, @RequestParam("teacherId") int teacherId) {
-        String view = "";
-        int currentStudentId = userSV.getDetailUserCurrent().getUserId();
+        String view;
+        UserEntity currentStudent = userSV.getDetailUserCurrent();
+        int currentStudentId = currentStudent.getUserId();
         theModel.addAttribute("studentId", currentStudentId);
-//        get ExamID
+        //  get current exam
         ExamEntity examNeedToJoin = examSV.getByStringExamIdAndTeacherId(stringExamId, teacherId);
         if (examNeedToJoin != null) {
-//        check if current student have submitted password to the exam
+            //  check if current student have submitted password to the exam
             if (examSV.checkIfCurrentStudentHaveSummittedYet(examNeedToJoin, currentStudentId)) {
-                theModel.addAttribute("student", userSV.getDetailUserCurrent());
+                theModel.addAttribute("student", currentStudent);
                 theModel.addAttribute("exam", examNeedToJoin);
                 theModel.addAttribute("teacherId", teacherId);
                 theModel.addAttribute("examtitleId", examtitleSV.findExamtitleByExamIdAndStudentId(examNeedToJoin.getExamId(), currentStudentId).getExamtitleId());
@@ -129,26 +126,24 @@ public class StudentController {
     @PostMapping(value = "student-submit-password-waitting-room")
     public String checkPasswordAndAddStudentToExam(Model theModel, HttpServletRequest request) {
         String passwordExam = request.getParameter("password");
-        int studentId = Integer.parseInt(request.getParameter("studentId"));
         int examId = Integer.parseInt(request.getParameter("examId"));
-        int teacherId = Integer.parseInt(request.getParameter("teacherId"));
-//        check password exam
-        if (examSV.checkPasswordOfExam(passwordExam, examId, teacherId)) {
-            ExamtitleEntity newExamtitle = new ExamtitleEntity();
-            newExamtitle.setExam(examSV.getById(examId));
-            newExamtitle.setStudent(userSV.findUserByUserId(studentId));
-            ExamtitleEntity newExamtitleSaved = examtitleSV.saveNewExamtitleForStudent(newExamtitle);
-            theModel.addAttribute("studentId", studentId);
-            theModel.addAttribute("examId", examId);
-            theModel.addAttribute("teacherId", teacherId);
-            theModel.addAttribute("examtitleId", newExamtitleSaved.getExamtitleId());
+        UserEntity currentStudent = userSV.getDetailUserCurrent();
+        ExamEntity exam = examSV.getById(examId);
+        //  check password exam
+        if (examSV.checkPasswordOfExam(passwordExam, examId)) {
+            ExamtitleEntity examtitle = examtitleSV.getExamtitleByExamIdAndStudentId(examId, currentStudent.getUserId());
+            if (examtitle == null) {
+                ExamtitleEntity newExamtitle = new ExamtitleEntity();
+                newExamtitle.setExam(exam);
+                newExamtitle.setStudent(currentStudent);
+                ExamtitleEntity newExamtitleSaved = examtitleSV.saveNewExamtitleForStudent(newExamtitle);
+                theModel.addAttribute("student", userSV.getDetailUserCurrent());
+                theModel.addAttribute("exam", exam);
+            }
         } else {
-//            give data back to password form submit to exam when invalid password
-            theModel.addAttribute("studentId", studentId);
-            theModel.addAttribute("examId", examId);
-            theModel.addAttribute("teacherId", teacherId);
+            //  give data back to password form submit to exam when invalid password
             theModel.addAttribute("message", "not null");
-            return "student/form-submit-password";
+            return "redirect:student-submit-password?examId=" + examId + "&teacherId=" + exam.getUser().getUserId();
         }
         return "student/waitting-room";
     }

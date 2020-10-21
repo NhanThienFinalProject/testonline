@@ -1,8 +1,3 @@
-/*   
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.testonline.controller.teachercontroller;
 
 import com.testonline.entity.ExamEntity;
@@ -51,12 +46,12 @@ public class TeacherController {
     @GetMapping("/teacher-result-exam")
     public String showResultExam(Model theModel, @RequestParam("examId") int examId) {
         int currentTeacherId = userSV.getDetailUserCurrent().getUserId();
-//        check if examId which current teacherId had
+        //  check if examId which current teacherId had
         if (examSV.checkIfCurrentTeacherHadRequireExam(currentTeacherId, examId)) {
             List<ExamtitleEntity> listExamtitleOfExamIDCurrentTeacher = examtitleSV.getExamtitleByTeacherIdAndExamId(examId, currentTeacherId);
             theModel.addAttribute("listExamtitleOfExamIDCurrentTeacher", listExamtitleOfExamIDCurrentTeacher);
             theModel.addAttribute("currentExam", examSV.getByIdAndUserId(examId, currentTeacherId));
-//        get  number of correct question of list of examtitle
+            //  get  number of correct question of list of examtitle
             HashMap<Integer, Double> listResult = new HashMap<Integer, Double>();
             for (ExamtitleEntity ex : listExamtitleOfExamIDCurrentTeacher) {
                 double point = examtitleSV.markTheExam(ex.getExamtitleId());
@@ -73,7 +68,7 @@ public class TeacherController {
     public String showListFinishedExam(Model theModel) {
         UserEntity currentTeacher = userSV.getDetailUserCurrent();
         List<ExamEntity> listExamOfCurrentTeacher = examSV.getAllByUserId(currentTeacher.getUserId());
-//        get list completed exam
+        //   get list completed exam
         List<ExamEntity> listFinishedExamOfCurrentTeacher = new ArrayList<ExamEntity>();
         for (ExamEntity ex : listExamOfCurrentTeacher) {
             if (examSV.statusExam(ex.getExamId()).equals("hoanthanh")) {
@@ -81,7 +76,7 @@ public class TeacherController {
             }
         }
         theModel.addAttribute("listFinishedExamOfCurrentTeacher", listFinishedExamOfCurrentTeacher);
-//        get list happing exam
+        //   get list happing exam
         List<ExamEntity> listHappeningExamOfCurrentTeacher = new ArrayList<ExamEntity>();
         for (ExamEntity ex : listExamOfCurrentTeacher) {
             if (examSV.statusExam(ex.getExamId()).equals("dangthi")) {
@@ -92,14 +87,14 @@ public class TeacherController {
         return "teacher/list-exam";
     }
 
-    @GetMapping("teacher-preparing-sendmail") // recieve examId, currentTeacherId
+    @GetMapping("teacher-preparing-sendmail")
     public String showListEmailStudent(Model theModel, @RequestParam("examId") int examId, @RequestParam("link-exam") String link) {
         UserEntity currentTeacher = userSV.getDetailUserCurrent();
         ExamEntity requiredExam = examSV.getByIdAndUserId(examId, currentTeacher.getUserId());
         if (requiredExam != null) {
             theModel.addAttribute("requiredExam", requiredExam);
             theModel.addAttribute("linkExam", link);
-//        get list current teacher's student
+            //  get list current teacher's student
             List<UserEntity> listStudentOfCurrentStudent = userSV.findListStudentByTeacherId(currentTeacher.getUserId());
             theModel.addAttribute("listStudentOfCurrentStudent", listStudentOfCurrentStudent);
         } else {
@@ -164,10 +159,10 @@ public class TeacherController {
                 // Set time 
                 String timeStart = formatTime(requiredExam.getTimeStart());
                 String timeEnd = formatTime(requiredExam.getTimeEnd());
-                
+
                 // Now set the actual message
                 String mess = "Exam: " + requiredExam.getContent() + "\n"
-                        + "Time: " +timeStart+" - "+timeEnd+" on "+ requiredExam.getTimeStart().getDayOfMonth() + " " + requiredExam.getTimeStart().getMonth() + " " + requiredExam.getTimeStart().getYear() +"\n"
+                        + "Time: " + timeStart + " - " + timeEnd + " on " + requiredExam.getTimeStart().getDayOfMonth() + " " + requiredExam.getTimeStart().getMonth() + " " + requiredExam.getTimeStart().getYear() + "\n"
                         + "Link: " + linkExam + "\n"
                         + "Password: " + requiredExam.getPassword();
                 message.setText(mess);
@@ -185,7 +180,7 @@ public class TeacherController {
 
     @GetMapping("teacher-monitoring-exam")
     public String showMonitoringRoom(Model theModel, @RequestParam("examId") int examId) {
-//        check if current exam create required exam
+        //  check if current exam create required exam
         if (examSV.getById(examId) != null && examSV.getById(examId).getUser().getUserId() == userSV.getDetailUserCurrent().getUserId()) {
             if (examSV.statusExam(examId).equals("dangthi")) {
                 theModel.addAttribute("requiredExam", examSV.getById(examId));
