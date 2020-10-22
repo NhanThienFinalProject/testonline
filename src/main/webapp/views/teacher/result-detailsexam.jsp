@@ -14,7 +14,7 @@
                     <div class="notfound-404">
                         <h2><c:out value="${message}"/></h2>
                     </div>
-                    <a href="http://localhost:8080/NationalTestOnline">Go TO Homepage</a>
+                    <a href="/NationalTestOnline">Go TO Homepage</a>
                 </div>
             </div>
         </div>

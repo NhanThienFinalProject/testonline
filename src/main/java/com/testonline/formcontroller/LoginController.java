@@ -51,7 +51,7 @@ public class LoginController {
 
         }
 
-        model.setViewName("403");
+        model.setViewName("web/403");
         return model;
 
     }

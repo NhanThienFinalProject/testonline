@@ -14,7 +14,7 @@
                     <div class="notfound-404">
                         <h2><c:out value="${message}"/></h2>
                     </div>
-                    <a href="http://localhost:8080/NationalTestOnline">Go TO Homepage</a>
+                    <a href="/NationalTestOnline">Go TO Homepage</a>
                 </div>
             </div>
         </div>
@@ -167,7 +167,7 @@
                 document.getElementById("MyClockDisplay").textContent = time;
 
                 if (h > hourEnd || m >= minuteEnd && h >= hourEnd) {
-                    window.location.href = "http://localhost:8080/NationalTestOnline/teacher-result-exam?examId=" + examId;
+                    window.location.href = window.location.origin+"/NationalTestOnline/teacher-result-exam?examId=" + examId;
                 }
 
                 setTimeout(showTime, 1000);

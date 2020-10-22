@@ -14,7 +14,7 @@
     </ol>
     <div class="contact-form">
 
-        <form:form  action="saveExam" method="POST" modelAttribute="examModel" cssClass="form-row border font-weight-bold">
+        <form:form  action="teacher-saveExam" method="POST" modelAttribute="examModel" cssClass="form-row border font-weight-bold">
             <div class= "col-md-8 offset-md-2">
                 <div class="form-group">
                     <label class="control-label col-sm-2">Test's Content</label>
@@ -46,6 +46,7 @@
                     <div class="col-sm-10">
                         <!-- type="datetime-local" -->
                         <form:input path="timeStart" type="datetime-local"  cssClass="form-control " placeholder="Time Start Exam"/>
+                        <%--<form:input path="timeStart" id="timeStartClone" type="hidden"/>--%>
                     </div>
                 </div>
             </div>
@@ -53,7 +54,8 @@
                 <div class="form-group">
                     <label class="control-label col-sm-4">Time End</label>
                     <div class="col-sm-10">
-                        <form:input path="timeEnd" type="datetime-local" data-date-format="yyyy-MM-dd HH:mm:ss"  cssClass="form-control " placeholder="Time End Exam"/>
+                        <form:input path="timeEnd" type="datetime-local"  cssClass="form-control " placeholder="Time End Exam"/>
+                        <%--<form:input path="timeEnd" id="timeEndClone" type="hidden"/>--%>
                     </div>
                 </div>
             </div>
@@ -112,4 +114,26 @@
             </div>
         </div>
     </div>
-
+</div>
+<script>
+    var timeStartString = document.getElementById("timeStart").value;
+    function show() {
+        var timeStartString = document.getElementById("timeStart").value;
+        var timeEndString = document.getElementById("timeEnd").value;
+        var timeStart = new  Date(timeStartString);
+        var timeEnd = new  Date(timeEndString);
+        document.getElementById("timeStartClone").value = parseString(timeStart);
+        document.getElementById("timeEndClone").value = parseString(timeEnd);
+        console.log(timeStartString);
+        return fasle;
+    }
+    function parseString(datetime) {
+        var year = datetime.getFullYear();
+        var month = (datetime.getMonth()+1 < 10) ? '0' + (datetime.getMonth()+1) : (datetime.getMonth()+1);
+        var day = (datetime.getDate() < 10) ? '0' + datetime.getDate() : datetime.getDate();
+        var hour = (datetime.getHours() < 10) ? '0' + datetime.getHours() : datetime.getHours();
+        var minute = (datetime.getMinutes() < 10) ? '0' + datetime.getMinutes() : datetime.getMinutes();
+        var second = (datetime.getSeconds() < 10) ? '0' + datetime.getSeconds() : datetime.getSeconds();
+        return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+    }
+</script>

@@ -42,12 +42,13 @@ public class ExamController {
 
     }
 
-    @PostMapping("saveExam")
+    @PostMapping("teacher-saveExam")
     public String saveExam(Model theModel, @ModelAttribute("examModel") ExamEntity examEntity) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity user = userService.findUserByUsername(authentication.getName());
         examEntity.setUser(user);
-        examService.saveExam(examEntity);
+        System.out.println(examEntity.getTimeEnd()+" "+examEntity.getTimeStart());
+//        examService.saveExam(examEntity);
         return "redirect:teacher-create-exam";
     }
 

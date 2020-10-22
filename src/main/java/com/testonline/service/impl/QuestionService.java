@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class QuestionService implements IQuestionService {
@@ -41,6 +42,7 @@ public class QuestionService implements IQuestionService {
         return questionRP.save(question);
     }
 
+//    @Transactional
     @Override
     public void saveFullQuestion(QuestionEntity question, String[] anotherAnswers, String correctAnswer) {
         QuestionEntity missingQuestion = saveQuestion(question);
@@ -101,8 +103,9 @@ public class QuestionService implements IQuestionService {
     @Override
     public List<QuestionEntity> findQuestionByCategoryIdAndExamIdAndNotInQuestionRandom(int categoryId, int examId) {
         return questionRP.findQuestionByCategoryIdAndExamIdAndNotInQuestionRandom(categoryId, examId);
-    
+
     }
+
     @Override
     public List<QuestionEntity> getListQuestionByExamtitleId(int examtitleId) {
         List<QuestionOfExamtitleEntity> listQuestionOfExamtitle = questionOfExamtitleSV.getListQuestionOfExamtitleByExamtitleId(examtitleId);
