@@ -14,7 +14,7 @@
     </ol>
     <div class="contact-form">
 
-        <form:form  action="teacher-saveExam" method="POST" modelAttribute="examModel" cssClass="form-row border font-weight-bold">
+        <form:form  action="teacher-save-exam" method="POST" onsubmit="return show()" modelAttribute="examModel" cssClass="form-row border font-weight-bold">
             <div class= "col-md-8 offset-md-2">
                 <div class="form-group">
                     <label class="control-label col-sm-2">Test's Content</label>
@@ -45,8 +45,8 @@
                     <label class="control-label col-sm-4" >Time Start</label>
                     <div class="col-sm-10">
                         <!-- type="datetime-local" -->
-                        <form:input path="timeStart" type="datetime-local"  cssClass="form-control " placeholder="Time Start Exam"/>
-                        <%--<form:input path="timeStart" id="timeStartClone" type="hidden"/>--%>
+                        <input id="timeStart" type="datetime-local"  class="form-control " placeholder="Time Start Exam"/>
+                        <form:input path="timeStart" id="timeStartClone" type="hidden"/>
                     </div>
                 </div>
             </div>
@@ -54,8 +54,8 @@
                 <div class="form-group">
                     <label class="control-label col-sm-4">Time End</label>
                     <div class="col-sm-10">
-                        <form:input path="timeEnd" type="datetime-local"  cssClass="form-control " placeholder="Time End Exam"/>
-                        <%--<form:input path="timeEnd" id="timeEndClone" type="hidden"/>--%>
+                        <input id="timeEnd" type="datetime-local"  class="form-control " placeholder="Time End Exam"/>
+                        <form:input path="timeEnd" id="timeEndClone" type="hidden"/>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,6 @@
     </div>
 </div>
 <script>
-    var timeStartString = document.getElementById("timeStart").value;
     function show() {
         var timeStartString = document.getElementById("timeStart").value;
         var timeEndString = document.getElementById("timeEnd").value;
@@ -124,8 +123,7 @@
         var timeEnd = new  Date(timeEndString);
         document.getElementById("timeStartClone").value = parseString(timeStart);
         document.getElementById("timeEndClone").value = parseString(timeEnd);
-        console.log(timeStartString);
-        return fasle;
+        return true;
     }
     function parseString(datetime) {
         var year = datetime.getFullYear();

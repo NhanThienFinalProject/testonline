@@ -36,12 +36,12 @@ public class ExamEntity implements Serializable {
 
     @JsonBackReference
     @Column(name = "TIMESTART")
-    @DateTimeFormat(pattern = "yyyy-MM-dd T HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeStart;
 
     @JsonBackReference
     @Column(name = "TIMEEND")
-    @DateTimeFormat(pattern = "yyyy-MM-dd T HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeEnd;
 
     @Column(name = "POINT")
@@ -52,7 +52,7 @@ public class ExamEntity implements Serializable {
 
     @JsonBackReference
     @Column(name = "CREATEDATE")
-    @DateTimeFormat(pattern = "yyyy-MM-dd T HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
 
 //    reference to UserEntity by CREATEBYID
