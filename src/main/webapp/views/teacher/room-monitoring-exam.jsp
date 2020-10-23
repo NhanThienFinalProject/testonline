@@ -167,7 +167,7 @@
                 document.getElementById("MyClockDisplay").textContent = time;
 
                 if (h > hourEnd || m >= minuteEnd && h >= hourEnd) {
-                    window.location.href = window.location.origin+"/NationalTestOnline/teacher-result-exam?examId=" + examId;
+                    window.location.href = window.location.origin+'/NationalTestOnline/teacher-result-exam?examId=' + examId;
                 }
 
                 setTimeout(showTime, 1000);

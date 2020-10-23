@@ -13,6 +13,7 @@
                         <c:set value="${studentId}" var="student"></c:set>
                         <c:set value="${examId}" var="exam"></c:set>
                         <input hidden="true" name="examId" value="${examId}"/>
+                        <input hidden="true" name="stringExamId" value="${stringExamId}"/>
                         <div class="input-group input-group-newsletter">
                             <c:if test="${message == null}">
                                 <input type="password" class="form-control" placeholder="Enter password..." name="password" aria-label="Enter password..." aria-describedby="submit-button">

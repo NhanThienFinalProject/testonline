@@ -7,7 +7,6 @@ import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.ExamService;
 import com.testonline.service.impl.ExamtitleService;
 import com.testonline.service.impl.QuestionOfExamtitleService;
-import com.testonline.service.impl.QuestionService;
 import com.testonline.service.impl.UserService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,8 +93,14 @@ public class StudentController {
         return "student/list-results";
     }
 
-    @GetMapping(value = "student-submit-password")
-    public String showFormSubmitPassword(Model theModel, @RequestParam("examId") String stringExamId, @RequestParam("teacherId") int teacherId) {
+    @GetMapping(value = "/student-submit-password")
+    public String showFormSubmitPassword(Model theModel, @RequestParam("examId") String stringExamId, @RequestParam("teacherId") int teacherId, @RequestParam Map<String, String> pathVariablesMap) {
+        String action = pathVariablesMap.get("action");
+        if (action != null) {
+            if (action.equals("errorpassword")) {
+                theModel.addAttribute("message", "not null");
+            }
+        }
         String view;
         UserEntity currentStudent = userSV.getDetailUserCurrent();
         int currentStudentId = currentStudent.getUserId();
@@ -112,6 +117,7 @@ public class StudentController {
                 view = "student/waitting-room";
             } else {
                 int examId = examNeedToJoin.getExamId();
+                theModel.addAttribute("stringExamId", stringExamId);
                 theModel.addAttribute("examId", examId);
                 theModel.addAttribute("teacherId", teacherId);
                 view = "student/form-submit-password";
@@ -126,6 +132,7 @@ public class StudentController {
     @PostMapping(value = "student-submit-password-waitting-room")
     public String checkPasswordAndAddStudentToExam(Model theModel, HttpServletRequest request) {
         String passwordExam = request.getParameter("password");
+        String stringExamId = request.getParameter("stringExamId");
         int examId = Integer.parseInt(request.getParameter("examId"));
         UserEntity currentStudent = userSV.getDetailUserCurrent();
         ExamEntity exam = examSV.getById(examId);
@@ -142,9 +149,11 @@ public class StudentController {
             }
         } else {
             //  give data back to password form submit to exam when invalid password
-            theModel.addAttribute("message", "not null");
-            return "redirect:student-submit-password?examId=" + examId + "&teacherId=" + exam.getUser().getUserId();
+            theModel.addAttribute("action", "errorpassword");
+            return "redirect:student-submit-password?examId=" + stringExamId + "&teacherId=" + exam.getUser().getUserId();
         }
+        theModel.addAttribute("student", userSV.getDetailUserCurrent());
+        theModel.addAttribute("exam", exam);
         return "student/waitting-room";
     }
     @GetMapping(value = "/waiting-exam")
