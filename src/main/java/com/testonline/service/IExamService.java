@@ -6,6 +6,7 @@
 package com.testonline.service;
 
 import com.testonline.entity.ExamEntity;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -21,5 +22,5 @@ public interface IExamService {
     boolean isOnTime(int examId);
     String statusExam(int examId);
     boolean checkIfCurrentTeacherHadRequireExam(int teacherId, int examID);
-    
+    List<ExamEntity> getAllByStudentId(int studentId);
 }

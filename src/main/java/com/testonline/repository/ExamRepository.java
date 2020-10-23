@@ -6,6 +6,7 @@
 package com.testonline.repository;
 
 import com.testonline.entity.ExamEntity;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,6 +17,7 @@ public interface ExamRepository extends CrudRepository<ExamEntity,Integer>{
     public List<ExamEntity> findExamByUserId(int userId);
     @Query("SELECT e FROM ExamEntity e WHERE  e.examId = ?1 AND e.user.userId = ?2")
     ExamEntity findExamByExamIdAndUserId(int examId,int userId);
-    
+    @Query(value ="SELECT e.ID,e.CONTENT,e.STATUS,e.PASSWORD,e.TIMESTART,e.TIMEEND,e.POINT,e.MAXSTUDENT,e.CREATEBYID,e.CREATEDATE FROM exam as e inner join examtitle as ett on e.ID = ett.EXAMID where e.TIMESTART >= ?1 and ett.STUDENTID  = ?2 ",nativeQuery = true)
+    public List<ExamEntity> findByAllExamEntityTimeStartGreaterThanEquaAndStudentId(LocalDateTime now,int studentId);
     
 }

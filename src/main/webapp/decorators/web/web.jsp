@@ -15,12 +15,13 @@
         <%@ include file="/common/web/style-link.jsp"%>
         
     </head>
-    <body>
+    <body id="page-top">
         <%@ include file="/common/web/mesage.jsp"%>
          <%@ include file="/common/web/menu.jsp"%>
          <%@ include file="/common/web/header.jsp"%>
          <dec:body />
          <%@ include file="/common/web/footer.jsp"%>
+         
          <%@ include file="/common/web/javascript.jsp"%>
          <%@ include file="/common/web/scrol-top.jsp"%>
     </body>

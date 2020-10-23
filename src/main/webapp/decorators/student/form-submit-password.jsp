@@ -30,7 +30,7 @@
 
     </head>
 
-    <body>
+    <body id="page-top">
 
 <!--        <div class="overlay"></div>-->
         <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">

@@ -15,7 +15,7 @@
         <%@ include file="/common/web/style-link.jsp"%>
         
     </head>
-    <body>
+    <body id="page-top">
       
          <dec:body />
          <%@ include file="/common/web/footer.jsp"%>

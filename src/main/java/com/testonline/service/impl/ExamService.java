@@ -124,4 +124,10 @@ public class ExamService implements IExamService {
         ExamEntity requireExam = examRP.findExamByExamIdAndUserId(examID, teacherId);
         return requireExam != null;
     }
+
+    @Override
+    public List<ExamEntity> getAllByStudentId(int studentId) {
+        LocalDateTime now = LocalDateTime.now();
+        return examRP.findByAllExamEntityTimeStartGreaterThanEquaAndStudentId(now, studentId);
+    }
 }

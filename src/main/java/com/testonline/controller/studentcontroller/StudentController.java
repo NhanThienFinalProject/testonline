@@ -147,4 +147,11 @@ public class StudentController {
         }
         return "student/waitting-room";
     }
+    @GetMapping(value = "/waiting-exam")
+    public String examIsWaiting(Model theModel) {
+        UserEntity currentStudent = userSV.getDetailUserCurrent();
+        List<ExamEntity> listExam = examSV.getAllByStudentId(currentStudent.getUserId());
+        theModel.addAttribute("listExam", listExam);
+        return "student/examwaiting";
+    }
 }

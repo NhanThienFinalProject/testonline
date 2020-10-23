@@ -31,9 +31,7 @@ public class HomeController {
     public String showFormForAdd(Model theModel) {
 	List<UserEntity> listUser = new ArrayList<UserEntity>();
         listUser = userSV.getAll();
-        for (UserEntity userEntity : listUser) {
-            System.out.println("Name: "+ userEntity.getLastName() + " [" + userEntity.getCreateDate()+"]" );
-        }
+        
         //List<ExamtitleEntity> listQTRD = examttSV.randomQuestionAndSave(12, 10);
 	theModel.addAttribute("listUser", listUser);
 	return "web/showhome";
@@ -42,6 +40,12 @@ public class HomeController {
     @GetMapping("/teacher-homepage")
     public String showTeacherHome(Model theModel) {
 	return "teacher/home";
+    }
+    @GetMapping(value = "/infomation-user")
+    public String showStudentHome(Model theModel) {
+        UserEntity user = userSV.getDetailUserCurrent();
+        theModel.addAttribute("user", user);
+        return "web/infomation";
     }
 
 }
