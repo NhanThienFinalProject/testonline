@@ -61,9 +61,10 @@ public class DoTestController {
                 mesageSV.putMesageWarning(theModel, "Chưa đến giờ thi vui lòng quay lại trang chờ thi.");
                 return "student/exam";
             } else if (examStatus.equals("hoanthanh")) {
-                mesageSV.putMesageWarning(theModel, "Bạn đã thi bài thi này rồi.");
+                mesageSV.putMesageWarning(theModel, "Bài thi này đã kết thúc.");
                 return "student/exam";
             } else if (examStatus.equals("dangthi")) {
+                mesageSV.putMesageSuccess(theModel, "Mẹo nhỏ: Hãy làm các câu dễ trước sau đó quay lại làm các câu khó sau");
                 theModel.addAttribute("examStatus", "active");
                 theModel.addAttribute("examDetail", examSV.getById(examIdInt));
                 theModel.addAttribute("userDetail", user);
@@ -99,6 +100,6 @@ public class DoTestController {
         if (examtitle.getListQuestionOfExamtitle().isEmpty()) {
             ExamtitleEntity examtitleTemp = examTitleSV.randomQuestionAndSave(examIdInt, user.getUserId());                        
         }  
-        return "redirect:http://localhost:8080/NationalTestOnline/exam-dotest?examId=" + examId;
+        return "redirect:exam-dotest?examId=" + examId;
     }
 }

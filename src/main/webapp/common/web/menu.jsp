@@ -35,16 +35,16 @@
                         <i class="fa fa-user-circle mt-1" style="font-size:16px;color:#fff"></i> <span class="text-white mb-1">Hi student! <b>${pageContext.request.userPrincipal.name}</b></span><br> 
                 </li>
                 <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger text-center text-uppercase" href="http://localhost:8080/NationalTestOnline/showhome">Home</a>
+                    <a class="js-scroll-trigger text-center text-uppercase" href="showhome">Home</a>
                 </li>
                 <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" href="#about">Exam is waiting</a>
+                    <a class="js-scroll-trigger" href="waiting-exam">Exam is waiting</a>
                 </li>
                 <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" href="http://localhost:8080/NationalTestOnline/student-list-result">Check result exam</a>
+                    <a class="js-scroll-trigger" href="student-list-result">Check result exam</a>
                 </li>
                 <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" href="http://localhost:8080/NationalTestOnline/infomation-user">Personal Information</a>
+                    <a class="js-scroll-trigger" href="infomation-user">Personal Information</a>
                 </li>
                 <li class="sidebar-nav-item pl-2 pr-2">
                     <c:if test="${pageContext.request.userPrincipal.name != null}">                

@@ -22,12 +22,7 @@ public interface QuestionRepository extends CrudRepository<QuestionEntity, Integ
     @Query("SELECT q FROM QuestionEntity q WHERE q.category.categoryId = ?1")
     public List<QuestionEntity> findQuestionByCategoryId(int category);
 
-    /**
-     *
-     * @param categoryId
-     * @param examId
-     * @return
-     */
+   
     @Query(value ="select * from question as q where q.id not in (select qr.QUESTIONID from questionrandom as qr where  qr.EXAMID = ?2 ) and q.CATEGORYID = ?1 ",nativeQuery = true)
     public List<QuestionEntity> findQuestionByCategoryIdAndExamIdAndNotInQuestionRandom(int  categoryId, int  examId);
 }

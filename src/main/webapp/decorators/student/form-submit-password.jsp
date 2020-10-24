@@ -36,7 +36,9 @@
         <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
             <source src="template/student/mp4/bg.mp4" type="video/mp4">
         </video>
+
         <dec:body />
+        <%@ include file="/common/web/mesage.jsp"%>
     </body>
 
 </html>

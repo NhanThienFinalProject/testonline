@@ -6,6 +6,7 @@ import com.testonline.entity.QuestionOfExamtitleEntity;
 import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.ExamService;
 import com.testonline.service.impl.ExamtitleService;
+import com.testonline.service.impl.MesageService;
 import com.testonline.service.impl.QuestionOfExamtitleService;
 import com.testonline.service.impl.UserService;
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class StudentController {
 
     @Autowired
     private ExamService examSV;
+    @Autowired
+    private MesageService mesage;
 
     @GetMapping(value = "/student-home")
     public String showStudentHome(Model theModel) {
@@ -94,73 +97,96 @@ public class StudentController {
     }
 
     @GetMapping(value = "/student-submit-password")
-    public String showFormSubmitPassword(Model theModel, @RequestParam("examId") String stringExamId, @RequestParam("teacherId") int teacherId, @RequestParam Map<String, String> pathVariablesMap) {
-        String action = pathVariablesMap.get("action");
+    public String showFormSubmitPassword(Model theModel, @RequestParam(value = "examId", required = true) String stringExamId, @RequestParam(value = "action", required = false) String action) {
+        UserEntity currentStudent = userSV.getDetailUserCurrent();
         if (action != null) {
             if (action.equals("errorpassword")) {
-                theModel.addAttribute("message", "not null");
+                mesage.putMesageWarning(theModel, "Password Room invalid! Please contact the teacher");
+            } else if (action.equals("errorexamid")) {
+                mesage.putMesageWarning(theModel, "ExamId Room invalid! Please contact the teacher");
             }
         }
-        String view;
-        UserEntity currentStudent = userSV.getDetailUserCurrent();
-        int currentStudentId = currentStudent.getUserId();
-        theModel.addAttribute("studentId", currentStudentId);
-        //  get current exam
-        ExamEntity examNeedToJoin = examSV.getByStringExamIdAndTeacherId(stringExamId, teacherId);
-        if (examNeedToJoin != null) {
-            //  check if current student have submitted password to the exam
-            if (examSV.checkIfCurrentStudentHaveSummittedYet(examNeedToJoin, currentStudentId)) {
-                theModel.addAttribute("student", currentStudent);
-                theModel.addAttribute("exam", examNeedToJoin);
-                theModel.addAttribute("teacherId", teacherId);
-                theModel.addAttribute("examtitleId", examtitleSV.findExamtitleByExamIdAndStudentId(examNeedToJoin.getExamId(), currentStudentId).getExamtitleId());
-                view = "student/waitting-room";
-            } else {
-                int examId = examNeedToJoin.getExamId();
-                theModel.addAttribute("stringExamId", stringExamId);
-                theModel.addAttribute("examId", examId);
-                theModel.addAttribute("teacherId", teacherId);
-                view = "student/form-submit-password";
-            }
+        if (stringExamId == null) {
+            mesage.putMesageWarning(theModel, "ExamId Room not empty! Please contact the teacher");
+            return "student/form-submit-password";
+            //return "redirect:student-submit-password?examId="+stringExamId;
         } else {
-            theModel.addAttribute("message", "Something was wrong! You need to check your exam's link correctly!");
-            view = "student/result-details";
+
+            ExamEntity exam = examSV.getExamEntityByMD5ExamId(stringExamId);
+            if (exam == null) {
+                mesage.putMesageWarning(theModel, "ExamId Room invalid! Please contact the teacher");
+                return "student/form-submit-password";
+                //return "redirect:student-submit-password?examId="+stringExamId;
+            }
+            theModel.addAttribute("exam", exam);
+            theModel.addAttribute("stringExamId", userSV.md5(exam.getExamId() + ""));
+            ExamtitleEntity examTitle = examtitleSV.findExamtitleByExamIdAndStudentId(exam.getExamId(), currentStudent.getUserId());
+            if (examTitle == null) {
+                return "student/form-submit-password";
+                //return "redirect:waiting-exam-countdown?examId="+stringExamId;
+            }
+
+            theModel.addAttribute("student", currentStudent);
         }
-        return view;
+        return "student/waitting-room";
     }
 
     @PostMapping(value = "student-submit-password-waitting-room")
-    public String checkPasswordAndAddStudentToExam(Model theModel, HttpServletRequest request) {
-        String passwordExam = request.getParameter("password");
-        String stringExamId = request.getParameter("stringExamId");
-        int examId = Integer.parseInt(request.getParameter("examId"));
+    public String checkPasswordAndAddStudentToExam(Model theModel, @RequestParam("examId") String examIdRQ, @RequestParam("password") String password) {
+        if (examIdRQ == null) {
+            return "redirect:student-submit-password?examId=" + examIdRQ + "&action=errorexamid";
+        }
         UserEntity currentStudent = userSV.getDetailUserCurrent();
-        ExamEntity exam = examSV.getById(examId);
+        ExamEntity exam = examSV.getExamEntityByMD5ExamId(examIdRQ);
+        if (exam == null) {
+            return "redirect:student-submit-password?examId=" + examIdRQ + "&action=errorexamid";
+        }
         //  check password exam
-        if (examSV.checkPasswordOfExam(passwordExam, examId)) {
-            ExamtitleEntity examtitle = examtitleSV.getExamtitleByExamIdAndStudentId(examId, currentStudent.getUserId());
+        if (examSV.checkPasswordOfStringExamId(password, examIdRQ)) {
+            ExamtitleEntity newExamtitleSaved = new ExamtitleEntity();
+            ExamtitleEntity examtitle = examtitleSV.getExamtitleByExamIdAndStudentId(exam.getExamId(), currentStudent.getUserId());
             if (examtitle == null) {
                 ExamtitleEntity newExamtitle = new ExamtitleEntity();
                 newExamtitle.setExam(exam);
                 newExamtitle.setStudent(currentStudent);
-                ExamtitleEntity newExamtitleSaved = examtitleSV.saveNewExamtitleForStudent(newExamtitle);
-                theModel.addAttribute("student", userSV.getDetailUserCurrent());
-                theModel.addAttribute("exam", exam);
+                newExamtitleSaved = examtitleSV.saveNewExamtitleForStudent(newExamtitle);
             }
+            if (newExamtitleSaved != null) {
+                mesage.putMesageSuccess(theModel, "Chúc mừng. Bạn đã được tham gia vào bài thi này");
+            } else {
+                mesage.putMesageDanger(theModel, "Tham Gia vào bài thi thất bại");
+            }
+
         } else {
-            //  give data back to password form submit to exam when invalid password
-            theModel.addAttribute("action", "errorpassword");
-            return "redirect:student-submit-password?examId=" + stringExamId + "&teacherId=" + exam.getUser().getUserId();
+            //  give data back to password form submit to exam when invalid passwor           
+            return "redirect:student-submit-password?examId=" + examIdRQ + "&action=errorpassword";
         }
-        theModel.addAttribute("student", userSV.getDetailUserCurrent());
         theModel.addAttribute("exam", exam);
+        theModel.addAttribute("stringExamId", userSV.md5(exam.getExamId() + ""));
+        theModel.addAttribute("student", currentStudent);
         return "student/waitting-room";
+        
     }
+
     @GetMapping(value = "/waiting-exam")
     public String examIsWaiting(Model theModel) {
         UserEntity currentStudent = userSV.getDetailUserCurrent();
         List<ExamEntity> listExam = examSV.getAllByStudentId(currentStudent.getUserId());
         theModel.addAttribute("listExam", listExam);
         return "student/examwaiting";
+    }
+
+    @GetMapping(value = "/waiting-exam-countdown")
+    public String examWaitingCountdown(Model theModel, @RequestParam(value = "examId", required = false) String stringExamId) {
+
+        UserEntity currentStudent = userSV.getDetailUserCurrent();
+        ExamEntity exam = examSV.getExamEntityByMD5ExamId(stringExamId);
+        if (exam == null) {
+            mesage.putMesageWarning(theModel, "ExamId invalid!");
+            return "student/examwaiting";
+        }
+        theModel.addAttribute("exam", exam);
+        theModel.addAttribute("student", currentStudent);
+        return "student/waitting-room";
     }
 }

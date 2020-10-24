@@ -57,24 +57,20 @@ public class ExamService implements IExamService {
     }
 
     @Override
-    public ExamEntity getByStringExamIdAndTeacherId(String examId, int teacherId) {
-//        get list exam that teacherId create
-        List<ExamEntity> listExamOfTeacherId = examRP.findExamByUserId(teacherId);
-        if (listExamOfTeacherId == null) {
+    public ExamEntity getExamEntityByMD5ExamId(String examId) {
+        ExamEntity examEntity = examRP.findExamEntityByMD5ExamId(examId);
+         
+        if (examEntity == null) {
             return null;
+        } else {
+            return examEntity;
         }
-        for (ExamEntity ex : listExamOfTeacherId) {
-            if (userSV.md5(ex.getExamId() + "thien-nhan").equals(examId)) {
-                return ex;
-            }
-        }
-        return null;
     }
 
     @Override
     public boolean checkPasswordOfExam(String password, int examId) {
         Optional<ExamEntity> examTemp = examRP.findById(examId);
-        ExamEntity exam = examTemp.isPresent()?examTemp.get():null;
+        ExamEntity exam = examTemp.isPresent() ? examTemp.get() : null;
         if (exam == null) {
             return false;
         } else {
@@ -103,17 +99,17 @@ public class ExamService implements IExamService {
 
         return false;
     }
-    
-     @Override
+
+    @Override
     public String statusExam(int examId) {
         LocalDateTime now = LocalDateTime.now();
         Optional<ExamEntity> examOp = examRP.findById(examId);
         ExamEntity exam = examOp.isPresent() ? examOp.get() : null;
         if (now.isBefore(exam.getTimeStart())) {
             return "chuabatdau";
-        }else if (now.isAfter(exam.getTimeEnd())) {
+        } else if (now.isAfter(exam.getTimeEnd())) {
             return "hoanthanh";
-        }else if (now.isBefore(exam.getTimeEnd()) && now.isAfter(exam.getTimeStart())) {
+        } else if (now.isBefore(exam.getTimeEnd()) && now.isAfter(exam.getTimeStart())) {
             return "dangthi";
         }
         return "";
@@ -129,5 +125,16 @@ public class ExamService implements IExamService {
     public List<ExamEntity> getAllByStudentId(int studentId) {
         LocalDateTime now = LocalDateTime.now();
         return examRP.findByAllExamEntityTimeStartGreaterThanEquaAndStudentId(now, studentId);
+    }
+
+    @Override
+    public boolean checkPasswordOfStringExamId(String password, String examId) {
+        
+        ExamEntity exam = examRP.findExamEntityByMD5ExamId(examId);
+        if (exam == null) {
+            return false;
+        } else {
+            return exam.getPassword().equals(password);
+        }
     }
 }

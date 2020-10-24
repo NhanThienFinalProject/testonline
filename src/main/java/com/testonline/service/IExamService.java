@@ -16,11 +16,12 @@ public interface IExamService {
     List<ExamEntity> getAllByUserId(int userId);
     ExamEntity getById(int id);
     ExamEntity getByIdAndUserId(int examId,int userId);
-    ExamEntity getByStringExamIdAndTeacherId(String examId, int teacherId);
+    ExamEntity getExamEntityByMD5ExamId(String examId);
     public boolean checkPasswordOfExam(String password, int examId);
     public boolean checkIfCurrentStudentHaveSummittedYet(ExamEntity exam, int studentId);
     boolean isOnTime(int examId);
     String statusExam(int examId);
     boolean checkIfCurrentTeacherHadRequireExam(int teacherId, int examID);
     List<ExamEntity> getAllByStudentId(int studentId);
+    boolean checkPasswordOfStringExamId(String password, String examId);
 }

@@ -16,7 +16,7 @@
         
     </head>
     <body id="page-top">
-      
+      <%@ include file="/common/web/mesage.jsp"%>
          <dec:body />
          <%@ include file="/common/web/footer.jsp"%>
          <%@ include file="/common/web/javascript.jsp"%>

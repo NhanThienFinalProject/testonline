@@ -8,6 +8,7 @@ import com.testonline.service.impl.CategoryService;
 import com.testonline.service.impl.ExamService;
 import com.testonline.service.impl.QuestionRandomService;
 import com.testonline.service.impl.UserService;
+import java.net.InetAddress;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -71,7 +72,7 @@ public class ExamController {
                 theModel.addAttribute("listCategory", listCategory);
             }
             // Gen link of Examtitle
-            theModel.addAttribute("linkExam", "192.168.1.239:8080/NationalTestOnline/student-submit-password?examId=" + userService.md5(id + "thien-nhan") + "&teacherId=" + userService.getDetailUserCurrent().getUserId());
+            theModel.addAttribute("linkExam", InetAddress. getLocalHost()+":8080/NationalTestOnline/student-submit-password?examId=" + userService.md5(id+"") + "&teacherId=" + userService.getDetailUserCurrent().getUserId());
         } catch (Exception e) {
             System.out.println("idExam invalid");
         }
