@@ -99,6 +99,6 @@ public class DoTestController {
         if (examtitle.getListQuestionOfExamtitle().isEmpty()) {
             ExamtitleEntity examtitleTemp = examTitleSV.randomQuestionAndSave(examIdInt, user.getUserId());                        
         }  
-        return "redirect:http://localhost:8080/NationalTestOnline/exam-dotest?examId=" + examId;
+        return "redirect:/exam-dotest?examId=" + examId;
     }
 }

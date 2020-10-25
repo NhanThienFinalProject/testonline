@@ -57,24 +57,14 @@ public class ExamService implements IExamService {
     }
 
     @Override
-    public ExamEntity getByStringExamIdAndTeacherId(String examId, int teacherId) {
-//        get list exam that teacherId create
-        List<ExamEntity> listExamOfTeacherId = examRP.findExamByUserId(teacherId);
-        if (listExamOfTeacherId == null) {
-            return null;
-        }
-        for (ExamEntity ex : listExamOfTeacherId) {
-            if (userSV.md5(ex.getExamId() + "thien-nhan").equals(examId)) {
-                return ex;
-            }
-        }
-        return null;
+    public ExamEntity getByStringExamIdAndTeacherId(String examId) {
+        return examRP.findExamByUserIdAndMd5ExamId(examId);
     }
 
     @Override
     public boolean checkPasswordOfExam(String password, int examId) {
         Optional<ExamEntity> examTemp = examRP.findById(examId);
-        ExamEntity exam = examTemp.isPresent()?examTemp.get():null;
+        ExamEntity exam = examTemp.isPresent() ? examTemp.get() : null;
         if (exam == null) {
             return false;
         } else {
@@ -103,17 +93,17 @@ public class ExamService implements IExamService {
 
         return false;
     }
-    
-     @Override
+
+    @Override
     public String statusExam(int examId) {
         LocalDateTime now = LocalDateTime.now();
         Optional<ExamEntity> examOp = examRP.findById(examId);
         ExamEntity exam = examOp.isPresent() ? examOp.get() : null;
         if (now.isBefore(exam.getTimeStart())) {
             return "chuabatdau";
-        }else if (now.isAfter(exam.getTimeEnd())) {
+        } else if (now.isAfter(exam.getTimeEnd())) {
             return "hoanthanh";
-        }else if (now.isBefore(exam.getTimeEnd()) && now.isAfter(exam.getTimeStart())) {
+        } else if (now.isBefore(exam.getTimeEnd()) && now.isAfter(exam.getTimeStart())) {
             return "dangthi";
         }
         return "";

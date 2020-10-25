@@ -68,21 +68,18 @@ public class TeacherController {
     public String showListFinishedExam(Model theModel) {
         UserEntity currentTeacher = userSV.getDetailUserCurrent();
         List<ExamEntity> listExamOfCurrentTeacher = examSV.getAllByUserId(currentTeacher.getUserId());
-        //   get list completed exam
+        //   get list completed exam vs list happing exam
         List<ExamEntity> listFinishedExamOfCurrentTeacher = new ArrayList<ExamEntity>();
+        List<ExamEntity> listHappeningExamOfCurrentTeacher = new ArrayList<ExamEntity>();
         for (ExamEntity ex : listExamOfCurrentTeacher) {
             if (examSV.statusExam(ex.getExamId()).equals("hoanthanh")) {
                 listFinishedExamOfCurrentTeacher.add(ex);
             }
-        }
-        theModel.addAttribute("listFinishedExamOfCurrentTeacher", listFinishedExamOfCurrentTeacher);
-        //   get list happing exam
-        List<ExamEntity> listHappeningExamOfCurrentTeacher = new ArrayList<ExamEntity>();
-        for (ExamEntity ex : listExamOfCurrentTeacher) {
             if (examSV.statusExam(ex.getExamId()).equals("dangthi")) {
                 listHappeningExamOfCurrentTeacher.add(ex);
             }
         }
+        theModel.addAttribute("listFinishedExamOfCurrentTeacher", listFinishedExamOfCurrentTeacher);
         theModel.addAttribute("listHappeningExamOfCurrentTeacher", listHappeningExamOfCurrentTeacher);
         return "teacher/list-exam";
     }
@@ -106,7 +103,7 @@ public class TeacherController {
     @PostMapping("teacher-sendmail")
     public String sendMailBySMTP(Model theModel, HttpServletRequest req) {
         String[] listEmail = req.getParameterValues("exampleCheck1");
-        String linkExam = req.getParameter("link") + "&teacherId=" + userSV.getDetailUserCurrent().getUserId();
+        String linkExam = req.getParameter("link");
         int examId = Integer.parseInt(req.getParameter("examId"));
         ExamEntity requiredExam = examSV.getById(examId);
 
@@ -130,7 +127,7 @@ public class TeacherController {
 
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                return new PasswordAuthentication("thiennguyen15dt1@gmail.com", "vothikhanhdung0908");
+                return new PasswordAuthentication("thiennguyen15dt1@gmail.com", "khanhdung0908");
 
             }
 

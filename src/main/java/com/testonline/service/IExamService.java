@@ -15,7 +15,7 @@ public interface IExamService {
     List<ExamEntity> getAllByUserId(int userId);
     ExamEntity getById(int id);
     ExamEntity getByIdAndUserId(int examId,int userId);
-    ExamEntity getByStringExamIdAndTeacherId(String examId, int teacherId);
+    ExamEntity getByStringExamIdAndTeacherId(String examId);
     public boolean checkPasswordOfExam(String password, int examId);
     public boolean checkIfCurrentStudentHaveSummittedYet(ExamEntity exam, int studentId);
     boolean isOnTime(int examId);

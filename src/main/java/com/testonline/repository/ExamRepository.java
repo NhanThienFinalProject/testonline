@@ -14,8 +14,9 @@ import org.springframework.stereotype.Repository;
 public interface ExamRepository extends CrudRepository<ExamEntity,Integer>{
     @Query("SELECT e FROM ExamEntity e WHERE e.user.userId = ?1")
     public List<ExamEntity> findExamByUserId(int userId);
+    @Query(value ="select * from exam where md5(id)= ?1 ",nativeQuery = true)
+    public ExamEntity findExamByUserIdAndMd5ExamId(String md5ExamId);
     @Query("SELECT e FROM ExamEntity e WHERE  e.examId = ?1 AND e.user.userId = ?2")
     ExamEntity findExamByExamIdAndUserId(int examId,int userId);
-    
     
 }
