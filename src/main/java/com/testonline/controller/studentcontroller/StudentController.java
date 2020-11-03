@@ -6,6 +6,7 @@ import com.testonline.entity.QuestionOfExamtitleEntity;
 import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.ExamService;
 import com.testonline.service.impl.ExamtitleService;
+import com.testonline.service.impl.MesageService;
 import com.testonline.service.impl.QuestionOfExamtitleService;
 import com.testonline.service.impl.UserService;
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class StudentController {
 
     @Autowired
     private UserService userSV;
+
+    @Autowired
+    private MesageService mesage;
 
     @Autowired
     private ExamtitleService examtitleSV;
@@ -101,8 +105,7 @@ public class StudentController {
         UserEntity currentStudent = userSV.getDetailUserCurrent();
         int currentStudentId = currentStudent.getUserId();
         //  get current exam
-        ExamEntity examNeedToJoin = examSV.getByStringExamIdAndTeacherId(stringExamId);
-        System.out.println(examNeedToJoin);
+        ExamEntity examNeedToJoin = examSV.getByStringMd5ExamId(stringExamId);
         if (examNeedToJoin != null) {
             if (examSV.statusExam(examNeedToJoin.getExamId()).equals("hoanthanh")) {
                 theModel.addAttribute("message", "Something was wrong! Exam finished already!");
@@ -115,7 +118,6 @@ public class StudentController {
                     view = "student/waitting-room";
                 } else {
                     theModel.addAttribute("stringExamId", stringExamId);
-                    theModel.addAttribute("examId", examNeedToJoin.getExamId());
                     view = "student/form-submit-password";
                 }
             }
@@ -127,14 +129,11 @@ public class StudentController {
     }
 
     @PostMapping(value = "student-submit-password-waitting-room")
-    public String checkPasswordAndAddStudentToExam(Model theModel, HttpServletRequest request) {
-        String passwordExam = request.getParameter("password");
-        String stringExamId = request.getParameter("stringExamId");
-        int examId = Integer.parseInt(request.getParameter("examId"));
+    public String checkPasswordAndAddStudentToExam(Model theModel, @RequestParam("stringExamId") String md5ExamId, @RequestParam("password") String password) {
         UserEntity currentStudent = userSV.getDetailUserCurrent();
-        ExamEntity exam = examSV.getById(examId);
+        ExamEntity exam = examSV.getByStringMd5ExamId(md5ExamId);
         //  check password exam
-        if (examSV.checkPasswordOfExam(passwordExam, examId)) {
+        if (examSV.checkPasswordOfExam(password, exam.getExamId())) {
             ExamtitleEntity newExamtitle = new ExamtitleEntity();
             newExamtitle.setExam(exam);
             newExamtitle.setStudent(currentStudent);
@@ -145,7 +144,29 @@ public class StudentController {
         } else {
             //  give data back to password form submit to exam when invalid password
             theModel.addAttribute("action", "errorpassword");
-            return "redirect:student-submit-password?examId=" + stringExamId;
+            return "redirect:student-submit-password?examId=" + md5ExamId;
         }
+    }
+
+    @GetMapping(value = "/waiting-exam")
+    public String examIsWaiting(Model theModel) {
+        UserEntity currentStudent = userSV.getDetailUserCurrent();
+        List<ExamEntity> listExam = examSV.getAllByStudentId(currentStudent.getUserId());
+        theModel.addAttribute("listExam", listExam);
+        return "student/examwaiting";
+    }
+
+    @GetMapping(value = "/student-submit-password-waiting-exam-countdown")
+    public String examWaitingCountdown(Model theModel, @RequestParam(value = "examId", required = true) int examId) {
+
+        UserEntity currentStudent = userSV.getDetailUserCurrent();
+        ExamEntity exam = examSV.getById(examId); 
+        if (exam == null) {
+            mesage.putMesageWarning(theModel, "ExamId invalid!");
+            return "student/examwaiting";
+        }
+        theModel.addAttribute("exam", exam);
+        theModel.addAttribute("student", currentStudent);
+        return "student/waitting-room";
     }
 }

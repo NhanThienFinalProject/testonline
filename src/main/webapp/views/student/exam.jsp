@@ -78,7 +78,7 @@
                     getQuestion(listQuestion[nextTo],nextTo +1);
                    
                 }else{
-                     $("#loadQuestion").html('<div class="row mt-5 mb-5"> <div class="col-10 offset-1 text-center"><h2>Chúc mừng bạn đã hoàn tất bài kiểm tra bạn có muốn nộp bài và xem kết quả hay không</h2></div> <div class="col-4 offset-4 text-center mt-5"><h3 class="btn btn-primary btn-sm float-left" onclick="getQuestion('+listQuestion[nextTo]+','+(nextTo+1)+')">Xem lại</h3><h3 class="btn btn-success btn-sm float-right">Nộp bài</h3></div> </div>');
+                     $("#loadQuestion").html('<div class="row mt-5 mb-5"> <div class="col-10 offset-1 text-center"><h2>Chúc mừng bạn đã hoàn tất bài kiểm tra của mình. Bạn vui lòng đợi hết giờ để xem kết quả nhé!</h2></div> <div class="col-4 offset-4 text-center mt-5"><h3 class="btn btn-primary btn-sm float-left" onclick="getQuestion('+listQuestion[nextTo]+','+(nextTo+1)+')">Xem lại</h3><h3 class="btn btn-outline-secondary btn-sm float-right disabled">Xem kết quả</h3></div> </div>');
                 }
                 setTimeout(function(){
                    getAnswerStudent(examtitleId);
@@ -147,7 +147,11 @@
                         
                         // set answer
                         for (i = 0; i < result.question.listAnswer.length; i++) {
-                            listTextAnswer = listTextAnswer + '<div class="col-12"> <p class="btn btn-info" onclick="chooseAnswer(' + result.questionOfExamtitleID + ',' + result.question.listAnswer[i].answerId + ')">' + result.question.listAnswer[i].answer + '</p> </div>';
+                            var colorBtn = "btn-info";
+                            if (result.question.listAnswer[i].answerId === result.resultAnswerId) {
+                                    colorBtn = "btn-success";
+                             }
+                            listTextAnswer = listTextAnswer + '<div class="col-12"> <p class="btn '+colorBtn+'" onclick="chooseAnswer(' + result.questionOfExamtitleID + ',' + result.question.listAnswer[i].answerId + ')">' + result.question.listAnswer[i].answer + '</p> </div>';
                         }
                         //view question
                         var hinte = "";

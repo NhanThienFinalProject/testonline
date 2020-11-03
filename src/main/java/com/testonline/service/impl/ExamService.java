@@ -57,8 +57,8 @@ public class ExamService implements IExamService {
     }
 
     @Override
-    public ExamEntity getByStringExamIdAndTeacherId(String examId) {
-        return examRP.findExamByUserIdAndMd5ExamId(examId);
+    public ExamEntity getByStringMd5ExamId(String examId) {
+        return examRP.findExamByMd5ExamId(examId);
     }
 
     @Override
@@ -113,5 +113,28 @@ public class ExamService implements IExamService {
     public boolean checkIfCurrentTeacherHadRequireExam(int teacherId, int examID) {
         ExamEntity requireExam = examRP.findExamByExamIdAndUserId(examID, teacherId);
         return requireExam != null;
+    }
+
+    @Override
+    public List<ExamEntity> getAllByStudentId(int studentId) {
+        LocalDateTime now = LocalDateTime.now();
+        return examRP.findByAllExamEntityTimeStartGreaterThanEquaAndStudentId(now, studentId);
+    }
+
+    @Override
+    public boolean checkPasswordOfStringExamId(String password, String examId) {
+
+        ExamEntity exam = examRP.findExamByMd5ExamId(examId);
+        if (exam == null) {
+            return false;
+        } else {
+            return exam.getPassword().equals(password);
+        }
+    }
+
+    @Override
+    public List<ExamEntity> getFinishedExamOfCurrentTeacher(int teacherId) {
+        LocalDateTime now = LocalDateTime.now();
+        return examRP.findFinishedExamOfCurrentTeacher(now, teacherId);
     }
 }

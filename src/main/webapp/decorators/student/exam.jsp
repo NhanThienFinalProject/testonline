@@ -15,7 +15,7 @@
         <%@ include file="/common/student/style-link.jsp"%>
 
     </head>
-    <body>
+    <body id="page-top">
 
         <%@ include file="/common/web/mesage.jsp"%>  
 

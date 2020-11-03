@@ -21,16 +21,13 @@
 </div>
 
 <script>
-
+<%-- --%>
     var deadline = new Date("<c:out value="${exam.getTimeStartString() }"/>");
     console.log(deadline);
     var x = setInterval(function () {
-        var examId = ${exam.examId};
+        var examId = ${exam.examId };
         var now = new Date().getTime();
         var t = deadline - now;
-        //var days = Math.floor(t / (1000*60*60*24)); 
-        //var hours = Math.floor((t%(1000*60*60*24))/(1000 * 60 * 60)); 
-        // 
         var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)) + Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) * 60 + Math.floor(t / (1000 * 60 * 60 * 24)) * 24 * 60;
         var seconds = Math.floor((t % (1000 * 60)) / 1000);
         document.getElementById("minute").innerHTML = minutes;
@@ -41,8 +38,9 @@
             document.getElementById("minute").innerHTML = '0';
             document.getElementById("second").innerHTML = '0';
             setTimeout(function () {
-                window.location.href = window.location.origin + '/NationalTestOnline/exam-createexamtitle?examId=' + examId;
-            }, 2000);
+                var urlnext = window.location.origin + '/NationalTestOnline/exam-createexamtitle?examId=' + examId;
+                window.location.href = urlnext;
+            }, 4000);
 
         }
     }, 1000);
