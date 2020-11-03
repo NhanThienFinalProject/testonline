@@ -53,10 +53,9 @@ public class ExamController {
 
     @GetMapping(value = "/teacher-detail-exam")
     public String detailExam(Model theModel, @RequestParam("examid") String idExam) {
-        int id;
         try {
             //detail exam
-            id = Integer.parseInt(idExam);
+            int id = Integer.parseInt(idExam);
             ExamEntity exam = examService.getByIdAndUserId(id, userService.getDetailUserCurrent().getUserId());
             if (exam != null) {
                 theModel.addAttribute("exam", exam);
@@ -72,7 +71,7 @@ public class ExamController {
                 theModel.addAttribute("listCategory", listCategory);
             }
             // Gen link of Examtitle
-            theModel.addAttribute("linkExam", InetAddress. getLocalHost()+":8080/NationalTestOnline/student-submit-password?examId=" + userService.md5(id+"") + "&teacherId=" + userService.getDetailUserCurrent().getUserId());
+            theModel.addAttribute("linkExam", InetAddress. getLocalHost().getHostAddress()+":8080/NationalTestOnline/student-submit-password?examId=" + userService.md5(idExam));
         } catch (Exception e) {
             System.out.println("idExam invalid");
         }

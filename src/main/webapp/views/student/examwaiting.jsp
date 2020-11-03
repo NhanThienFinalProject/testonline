@@ -30,7 +30,7 @@
                         <li class="list-group-item">Time start: <c:out value="${exam.timeStartString}"/></li>
                         <li class="list-group-item">Time end: <c:out value="${exam.timeEndString}"/></li>
                         <li class="list-group-item">Point: <c:out value="${exam.pointLadder}"/></li>
-                        <li class="list-group-item"><a href="">Do test now</a> <c:out value="${exam.pointLadder}"/></li>
+                        <li class="list-group-item"><a href="student-submit-password-waiting-exam-countdown?examId=${exam.examId}">Do test now</a> <c:out value="${exam.pointLadder}"/></li>
                     </ul>
                 </div>
             </c:forEach>

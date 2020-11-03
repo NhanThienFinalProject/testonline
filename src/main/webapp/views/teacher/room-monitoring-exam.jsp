@@ -125,7 +125,7 @@
                                     '<td>' + result[i].student.email + '</td>' +
                                     '<td>' + result[i].student.phoneNumber + '</td>' +
                                     '<td class="datatable-ct"><span class="pie">' + numberOfCompleteQA + '/' + result[i].listQuestionOfExamtitle.length + '</span></td>' +
-                                    '<td>' + numberOfCompleteQA / result[i].listQuestionOfExamtitle.length * 100 + '%</td>' +
+                                    '<td>' + numberOfCompleteQA / result[i].listQuestionOfExamtitle.length * 100+ '%</td>' +
                                     '<td class="datatable-ct"><i class="fa fa-check"></i></td>' +
                                     '</tr>';
                         }

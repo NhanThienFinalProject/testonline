@@ -57,14 +57,8 @@ public class ExamService implements IExamService {
     }
 
     @Override
-    public ExamEntity getExamEntityByMD5ExamId(String examId) {
-        ExamEntity examEntity = examRP.findExamEntityByMD5ExamId(examId);
-         
-        if (examEntity == null) {
-            return null;
-        } else {
-            return examEntity;
-        }
+    public ExamEntity getByStringMd5ExamId(String examId) {
+        return examRP.findExamByMd5ExamId(examId);
     }
 
     @Override
@@ -129,12 +123,18 @@ public class ExamService implements IExamService {
 
     @Override
     public boolean checkPasswordOfStringExamId(String password, String examId) {
-        
-        ExamEntity exam = examRP.findExamEntityByMD5ExamId(examId);
+
+        ExamEntity exam = examRP.findExamByMd5ExamId(examId);
         if (exam == null) {
             return false;
         } else {
             return exam.getPassword().equals(password);
         }
+    }
+
+    @Override
+    public List<ExamEntity> getFinishedExamOfCurrentTeacher(int teacherId) {
+        LocalDateTime now = LocalDateTime.now();
+        return examRP.findFinishedExamOfCurrentTeacher(now, teacherId);
     }
 }

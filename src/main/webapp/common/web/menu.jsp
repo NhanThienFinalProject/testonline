@@ -57,7 +57,7 @@
                         <i class="fa fa-user-circle mt-1" style="font-size:16px;color:#fff"></i> <span class="text-white mb-1">Hi teacher! <b>${pageContext.request.userPrincipal.name}</b></span><br> 
                 </li>
                 <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" href="http://localhost:8080/NationalTestOnline/teacher-manage-exam">Exam Manager</a>
+                    <a class="js-scroll-trigger" href="teacher-home">Exam Manager</a>
                 </li>
                 <li class="sidebar-nav-item pl-2 pr-2">
                     <c:if test="${pageContext.request.userPrincipal.name != null}">                

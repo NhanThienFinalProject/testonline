@@ -2,9 +2,11 @@ package com.testonline.controller.teachercontroller;
 
 import com.testonline.entity.ExamEntity;
 import com.testonline.entity.ExamtitleEntity;
+import com.testonline.entity.QuestionEntity;
 import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.ExamService;
 import com.testonline.service.impl.ExamtitleService;
+import com.testonline.service.impl.QuestionService;
 import com.testonline.service.impl.UserService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,6 +33,9 @@ public class TeacherController {
 
     @Autowired
     UserService userSV;
+    
+    @Autowired
+    QuestionService questionSV;
 
     @Autowired
     ExamtitleService examtitleSV;
@@ -40,7 +45,14 @@ public class TeacherController {
 
     @GetMapping("/teacher-home")
     public String showTeacherHome(Model theModel) {
-        return "teacher/home";
+        UserEntity user = userSV.getDetailUserCurrent();
+        //  get 4 the most recent exam of current student
+        List<ExamEntity> listFinishedExam = examSV.getFinishedExamOfCurrentTeacher(user.getUserId());
+        theModel.addAttribute("listFinishedExam", listFinishedExam);
+        //  get list questions for current user
+        List<QuestionEntity> listQuestionDB = questionSV.findQuestionByUserId(user.getUserId());
+        theModel.addAttribute("listQuestionDB", listQuestionDB);
+        return "teacher/index";
     }
 
     @GetMapping("/teacher-result-exam")
@@ -68,21 +80,18 @@ public class TeacherController {
     public String showListFinishedExam(Model theModel) {
         UserEntity currentTeacher = userSV.getDetailUserCurrent();
         List<ExamEntity> listExamOfCurrentTeacher = examSV.getAllByUserId(currentTeacher.getUserId());
-        //   get list completed exam
+        //   get list completed exam vs list happing exam
         List<ExamEntity> listFinishedExamOfCurrentTeacher = new ArrayList<ExamEntity>();
+        List<ExamEntity> listHappeningExamOfCurrentTeacher = new ArrayList<ExamEntity>();
         for (ExamEntity ex : listExamOfCurrentTeacher) {
             if (examSV.statusExam(ex.getExamId()).equals("hoanthanh")) {
                 listFinishedExamOfCurrentTeacher.add(ex);
             }
-        }
-        theModel.addAttribute("listFinishedExamOfCurrentTeacher", listFinishedExamOfCurrentTeacher);
-        //   get list happing exam
-        List<ExamEntity> listHappeningExamOfCurrentTeacher = new ArrayList<ExamEntity>();
-        for (ExamEntity ex : listExamOfCurrentTeacher) {
             if (examSV.statusExam(ex.getExamId()).equals("dangthi")) {
                 listHappeningExamOfCurrentTeacher.add(ex);
             }
         }
+        theModel.addAttribute("listFinishedExamOfCurrentTeacher", listFinishedExamOfCurrentTeacher);
         theModel.addAttribute("listHappeningExamOfCurrentTeacher", listHappeningExamOfCurrentTeacher);
         return "teacher/list-exam";
     }
@@ -106,12 +115,12 @@ public class TeacherController {
     @PostMapping("teacher-sendmail")
     public String sendMailBySMTP(Model theModel, HttpServletRequest req) {
         String[] listEmail = req.getParameterValues("exampleCheck1");
-        String linkExam = req.getParameter("link") + "&teacherId=" + userSV.getDetailUserCurrent().getUserId();
+        String linkExam = req.getParameter("link");
         int examId = Integer.parseInt(req.getParameter("examId"));
         ExamEntity requiredExam = examSV.getById(examId);
 
         // Sender's email ID needs to be mentioned.
-        String from = "truongquangnhan299@gmail.com";
+        String from = "thiennguyen15dt1@gmail.com";
 
         // Assuming you are sending email from through gmails smtp
         String host = "smtp.gmail.com";
@@ -130,7 +139,7 @@ public class TeacherController {
 
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                return new PasswordAuthentication("truongquangnhan299@gmail.com", "Lloll010");
+                return new PasswordAuthentication("thiennguyen15dt1@gmail.com", "khanhdung0908");
 
             }
 
@@ -156,7 +165,7 @@ public class TeacherController {
                 // Set Subject: header field
                 message.setSubject("National Test Online");
 
-                // Set time 
+                // Set time
                 String timeStart = formatTime(requiredExam.getTimeStart());
                 String timeEnd = formatTime(requiredExam.getTimeEnd());
 
