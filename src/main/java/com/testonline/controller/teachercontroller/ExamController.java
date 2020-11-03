@@ -34,7 +34,7 @@ public class ExamController {
     private CategoryService categorySV;
 
     @GetMapping(value = "/teacher-create-exam")
-    public String showStudentHome(Model theModel) {
+    public String showFormCreateExam(Model theModel) {
         theModel.addAttribute("examModel", new ExamEntity());
         PagedListHolder pagedListHolder = new PagedListHolder(examService.getAll());
         theModel.addAttribute("listExam", examService.getAllByUserId(userService.getDetailUserCurrent().getUserId()));
