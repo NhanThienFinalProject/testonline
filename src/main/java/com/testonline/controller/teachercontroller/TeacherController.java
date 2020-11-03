@@ -165,7 +165,7 @@ public class TeacherController {
                 // Set Subject: header field
                 message.setSubject("National Test Online");
 
-                // Set time xxx
+                // Set time
                 String timeStart = formatTime(requiredExam.getTimeStart());
                 String timeEnd = formatTime(requiredExam.getTimeEnd());
 
