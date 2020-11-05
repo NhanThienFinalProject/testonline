@@ -20,4 +20,5 @@ public interface IExamService {
     List<ExamEntity> getFinishedExamOfCurrentTeacher(int teacherId);
     boolean checkPasswordOfStringExamId(String password, String examId);
     List<ExamEntity> getAllNotStartYetByTeacherId(int studentId);
+    String getCurrentDateTime();
 }

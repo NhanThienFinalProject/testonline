@@ -23,7 +23,7 @@
     <context:annotation-config/>
     <mvc:annotation-driven />
     
-    <!-- <mvc:default-servlet-handler/> -->
+      <!-- <mvc:default-servlet-handler/>  -->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
     <bean id="dataSource" 

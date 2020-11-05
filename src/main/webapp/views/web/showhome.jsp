@@ -96,7 +96,7 @@
             <div class="caption">
               <div class="caption-content">
                 <div class="h2">Comfortable</div>
-                <p class="mb-0">Along with the difficulties in the time of translating covid-19, the online exam is a great solution.</p>
+                <p class="mb-0">Along with the difficulties in the time of translating covid-19, the online exam is a great solution!</p>
               </div>
             </div>
             <img class="img-fluid" src="https://thumbnails.texastribune.org/2YDa4dGdvgfSpMFlwmt0VHVzqXg=/1200x804/smart/filters:quality(95)/static.texastribune.org/media/images/multiple-choice.jpg" alt="">
@@ -106,8 +106,8 @@
           <a class="portfolio-item" href="#!">
             <div class="caption">
               <div class="caption-content">
-                <div class="h2">Quicks</div>
-                <p class="mb-0">Providing excellent online exam solutions, quickly and conveniently accessible to students.</p>
+                <div class="h2">Fast</div>
+                <p class="mb-0">Providing excellent online exam solutions, quickly and conveniently accessible to students</p>
               </div>
             </div>
             <img class="img-fluid" src="https://previews.123rf.com/images/smolaw11/smolaw111703/smolaw11170300006/73350570-student-testing-in-exercise-exams-answer-on-a-tablet-with-multiple-choice-questions-of-e-learning-by.jpg" alt="">
@@ -117,8 +117,8 @@
           <a class="portfolio-item" href="#!">
             <div class="caption">
               <div class="caption-content">
-                <div class="h2">Management</div>
-                <p class="mb-0">Organize and manage exams easily.</p>
+                <div class="h2">Manage</div>
+                <p class="mb-0">Organize and manage exams easily</p>
               </div>
             </div>
             <img class="img-fluid" src="https://www.middleweb.com/wp-content/uploads/2019/02/russell-overhead-testing.jpg" alt="">

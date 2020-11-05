@@ -8,7 +8,7 @@
 <%@ include file="/common/tablibrary.jsp"%>
 <div class="row mt-5">
     <div class="col-6 offset-3">
-        <h3 class="text-center text-uppercase">List of upcoming exams</h3>
+        <h3 class="text-center text-uppercase">LIST OF TESTING TO BE HAPPENED</h3>
     </div>
 </div>
 <div class="row mt-1">

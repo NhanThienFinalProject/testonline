@@ -23,11 +23,19 @@
 <script>
 <%-- --%>
     var deadline = new Date("<c:out value="${exam.getTimeStartString() }"/>");
-    console.log(deadline);
+
+    var d =new Date();
+    //var now = time.getTime();
+    var j=1000;
+        var getTimeNow = setInterval(function () {
+        d = new Date("<c:out value="${getTime}"/>");
+        j = j+ 1000;
+        d = new Date(d.getTime() + j);
+    }, 1000);
     var x = setInterval(function () {
         var examId = ${exam.examId };
-        var now = new Date().getTime();
-        var t = deadline - now;
+         
+        var t = deadline - d;
         var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)) + Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) * 60 + Math.floor(t / (1000 * 60 * 60 * 24)) * 24 * 60;
         var seconds = Math.floor((t % (1000 * 60)) / 1000);
         document.getElementById("minute").innerHTML = minutes;
@@ -37,12 +45,15 @@
             document.getElementById("finish").innerHTML = "Get ready and good luck!";
             document.getElementById("minute").innerHTML = '0';
             document.getElementById("second").innerHTML = '0';
+            var urlnext = window.location.origin + '/NationalTestOnline/exam-createexamtitle?examId=' + examId;
             setTimeout(function () {
-                var urlnext = window.location.origin + '/NationalTestOnline/exam-createexamtitle?examId=' + examId;
+                
                 window.location.href = urlnext;
             }, 4000);
 
         }
     }, 1000);
+    
+        
 </script> 
 <!-- end exam -->

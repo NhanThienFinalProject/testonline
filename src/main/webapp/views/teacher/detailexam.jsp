@@ -121,7 +121,9 @@
                                         <form action="saveQuestionRandom" method="POST" name="">
                                             <tfoot>
                                                 <tr>
+                                                    <c:if test="${!empty category.listQuestion}">
                                                     <th colspan="3"><h6><button class="btn btn-sm btn-success">Add to Exam</button></h6></th>                                       
+                                                    </c:if>
                                                 </tr>
                                             </tfoot>
                                             <tbody>

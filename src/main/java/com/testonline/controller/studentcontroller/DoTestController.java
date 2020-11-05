@@ -46,28 +46,29 @@ public class DoTestController {
         try {
             examIdInt = Integer.parseInt(examId);
         } catch (Exception e) {
-            mesageSV.putMesageWarning(theModel, "Invalid exam!");
+            mesageSV.putMesageWarning(theModel, "ExamId invalid!");
             return "student/exam";
         }
         // kiểm tra student đã được add vào  kì thi này hay chưa
         ExamtitleEntity examtitle = examTitleSV.getExamtitleByExamIdAndStudentId(examIdInt, user.getUserId());
         if (examtitle == null) {
-            mesageSV.putMesageWarning(theModel, "You are not in the exam list, contact your teacher for more information please!");
+            mesageSV.putMesageWarning(theModel, "You are not named in this test please contact the teacher for more information.");
             return "student/exam";
         } else {
             //kiểm tra giờ thi
             String examStatus = examSV.statusExam(examIdInt);
             if (examStatus.equals("chuabatdau")) {
-                mesageSV.putMesageWarning(theModel, "It is not on time, come back to the waitting room please!");
+                mesageSV.putMesageWarning(theModel, "Not yet time for the exam, please return to the exam waiting page.");
                 return "student/exam";
             } else if (examStatus.equals("hoanthanh")) {
-                mesageSV.putMesageWarning(theModel, "This exam seems to be over!");
+                mesageSV.putMesageWarning(theModel, "This test has ended.");
                 return "student/exam";
             } else if (examStatus.equals("dangthi")) {
-                mesageSV.putMesageSuccess(theModel, "Tips: You should do the easy ones first and then the hard ones later!");
+                mesageSV.putMesageSuccess(theModel, "Tip: Do the easy sentences first, then go back to the hard sentences later");
                 theModel.addAttribute("examStatus", "active");
                 theModel.addAttribute("examDetail", examSV.getById(examIdInt));
                 theModel.addAttribute("userDetail", user);
+                theModel.addAttribute("getTime", examSV.getCurrentDateTime());
                 int[] listQuestionId = new int[examtitle.getListQuestionOfExamtitle().size()];
                 int i = 0;
                 theModel.addAttribute("examTitle", examtitle);
@@ -78,7 +79,7 @@ public class DoTestController {
                 theModel.addAttribute("listExamTitleId", listQuestionId);
 
             } else {
-                mesageSV.putMesageWarning(theModel, "Unknow!");
+                mesageSV.putMesageWarning(theModel, "Exam time error is not confirmed.");
                 return "student/exam";
             }
 
@@ -92,7 +93,7 @@ public class DoTestController {
         try {
             examIdInt = Integer.parseInt(examId);
         } catch (Exception e) {
-            mesageSV.putMesageWarning(theModel, "Invalid exam!");
+            mesageSV.putMesageWarning(theModel, "ExamId invalid!");
             return "student/exam";
         }
         // kiểm tra student đã được add vào  kì thi này hay chưa

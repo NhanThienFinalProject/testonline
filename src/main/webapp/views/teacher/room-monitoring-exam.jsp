@@ -119,13 +119,14 @@
                                     console.log("abc"+result[i].listQuestionOfExamtitle[j].resultAnswerId);
                                 }
                             }
+                            var number = numberOfCompleteQA / result[i].listQuestionOfExamtitle.length * 100;
                             listStudent = listStudent + '<tr>' +
                                     '<td>' + result[i].student.userId + '</td>' +
                                     '<td>' + result[i].student.firstName + ' ' + result[i].student.lastName + '</td>' +
                                     '<td>' + result[i].student.email + '</td>' +
                                     '<td>' + result[i].student.phoneNumber + '</td>' +
                                     '<td class="datatable-ct"><span class="pie">' + numberOfCompleteQA + '/' + result[i].listQuestionOfExamtitle.length + '</span></td>' +
-                                    '<td>' + numberOfCompleteQA / result[i].listQuestionOfExamtitle.length * 100+ '%</td>' +
+                                    '<td>' + Math.round(number)+ '%</td>' +
                                     '<td class="datatable-ct"><i class="fa fa-check"></i></td>' +
                                     '</tr>';
                         }

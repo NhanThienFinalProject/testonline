@@ -85,7 +85,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTablex"   width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>Select</th>
@@ -115,6 +115,21 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js" type="text/javascript" charset="utf-8"  >
+    
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript" charset="utf-8"  ></script>
+
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"  ></script>
+<script   type="text/javascript" charset="utf-8"  >
+   
+    $(document).ready(function () {
+        $('#dataTablex').DataTable({
+      "order": [[ 0, "desc" ]]
+      });
+        $('.dataTables_length').addClass('bs-select');
+      });
+</script>
 <script>
     function show() {
         var timeStartString = document.getElementById("timeStart").value;

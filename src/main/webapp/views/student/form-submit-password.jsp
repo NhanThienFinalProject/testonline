@@ -10,7 +10,7 @@
                     <h1 class="mb-3">“Be Yourself, But Be Your Best Self”</h1>
                     <p class="mb-5">Your exam is in <strong>Private</strong> status, so to jojn it please sign up for updates using the form below!</p>
                     <form action="student-submit-password-waitting-room" method="POST">
-                        <input hidden="true" name="stringExamId" value="${stringExamId}"/>
+                        <input hidden="true" name="examId" value="${stringExamId}"/>
                         <div class="input-group input-group-newsletter">
                             <c:if test="${message == null}">
                                 <input type="password" class="form-control" placeholder="Enter password..." name="password" aria-label="Enter password..." aria-describedby="submit-button">

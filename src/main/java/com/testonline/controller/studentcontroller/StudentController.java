@@ -117,6 +117,7 @@ public class StudentController {
                 if (examSV.checkIfCurrentStudentHaveSummittedYet(examNeedToJoin, currentStudentId)) {
                     theModel.addAttribute("student", currentStudent);
                     theModel.addAttribute("exam", examNeedToJoin);
+                    theModel.addAttribute("getTime", examSV.getCurrentDateTime());
                     view = "student/waitting-room";
                 } else {
                     theModel.addAttribute("stringExamId", stringExamId);
@@ -131,7 +132,7 @@ public class StudentController {
     }
 
     @PostMapping(value = "student-submit-password-waitting-room")
-    public String checkPasswordAndAddStudentToExam(Model theModel, @RequestParam("stringExamId") String md5ExamId, @RequestParam("password") String password) {
+    public String checkPasswordAndAddStudentToExam(Model theModel, @RequestParam("examId") String md5ExamId, @RequestParam("password") String password) {
         UserEntity currentStudent = userSV.getDetailUserCurrent();
         ExamEntity exam = examSV.getByStringMd5ExamId(md5ExamId);
         //  check password exam
@@ -142,6 +143,7 @@ public class StudentController {
             ExamtitleEntity newExamtitleSaved = examtitleSV.saveNewExamtitleForStudent(newExamtitle);
             theModel.addAttribute("student", userSV.getDetailUserCurrent());
             theModel.addAttribute("exam", exam);
+            theModel.addAttribute("getTime", examSV.getCurrentDateTime());
             return "student/waitting-room";
         } else {
             //  give data back to password form submit to exam when invalid password
@@ -155,6 +157,7 @@ public class StudentController {
         UserEntity currentStudent = userSV.getDetailUserCurrent();
         List<ExamEntity> listExam = examSV.getAllByStudentId(currentStudent.getUserId());
         theModel.addAttribute("listExam", listExam);
+        
         return "student/examwaiting";
     }
 
@@ -169,6 +172,7 @@ public class StudentController {
         }
         theModel.addAttribute("exam", exam);
         theModel.addAttribute("student", currentStudent);
+        theModel.addAttribute("getTime", examSV.getCurrentDateTime());
         return "student/waitting-room";
     }
 }
