@@ -15,7 +15,7 @@
         </div>
         <div class="col-12"><h5 class="text-success col-12 text-center mt-3" id="finish"></h5> </div>
         <div class="col-6 offset-3 " >
-            <h2 style="font-family: 'Times New Roman';"><c:out value="Welcome student ${student.fullName} to exam ${exam.content} is coming soon."/></h2>
+            <h2 style="font-family: 'Times New Roman';"><c:out value="Welcome ${student.fullName} to National Test Online. ${exam.content} is coming soon."/></h2>
         </div>
     </div>     
 </div>
@@ -34,7 +34,7 @@
         document.getElementById("second").innerHTML = seconds;
         if (t < 0) {
             clearInterval(x);
-            document.getElementById("finish").innerHTML = "Chuẩn bị vào thi chờ xíu nhé";
+            document.getElementById("finish").innerHTML = "Get ready and good luck!";
             document.getElementById("minute").innerHTML = '0';
             document.getElementById("second").innerHTML = '0';
             setTimeout(function () {

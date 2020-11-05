@@ -88,7 +88,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Select</th>
                                 <th>Content</th>
                                 <th>Start</th>
                                 <th>End</th>
@@ -99,7 +99,7 @@
                         <tbody>
                             <c:forEach var="exam" items="${listExam}">
                                 <tr>
-                                    <td><c:out value="${exam.examId}"/></td>
+                                    <td><a href="<c:url value="teacher-detail-exam?examid=${exam.examId}"/>" target="_Blank"><i class="far fa-sticky-note"></i></a></td>
                                     <td><a href="<c:url value="teacher-detail-exam?examid=${exam.examId}"/>" target="_Blank"><c:out value="${exam.content}"/></a></td>
                                     <td><c:out value="${exam.timeStart}"/></td>
                                     <td><c:out value="${exam.timeEnd}"/></td>

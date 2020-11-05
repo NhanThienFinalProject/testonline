@@ -137,4 +137,10 @@ public class ExamService implements IExamService {
         LocalDateTime now = LocalDateTime.now();
         return examRP.findFinishedExamOfCurrentTeacher(now, teacherId);
     }
+
+    @Override
+    public List<ExamEntity> getAllNotStartYetByTeacherId(int teacherId) {
+        LocalDateTime now = LocalDateTime.now();
+        return examRP.findNotStartYetExamOfCurrentTeacher(now, teacherId);
+    }
 }

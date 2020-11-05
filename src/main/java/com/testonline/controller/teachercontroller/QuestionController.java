@@ -6,6 +6,8 @@ import com.testonline.entity.UserEntity;
 import com.testonline.service.impl.CategoryService;
 import com.testonline.service.impl.QuestionService;
 import com.testonline.service.impl.UserService;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +31,8 @@ public class QuestionController {
     public String createQuestion(Model theModel) {
         UserEntity user = userSV.getDetailUserCurrent();
         //  get list questions for current user
-        List<QuestionEntity> listQuestionDB = questionSV.findQuestionByUserId(user.getUserId());
+        ArrayList<QuestionEntity> listQuestionDB = (ArrayList<QuestionEntity>) questionSV.findQuestionByUserId(user.getUserId());
+        Collections.reverse(listQuestionDB);
         theModel.addAttribute("listQuestionDB", listQuestionDB);
         //  get list category for current user
         List<CategoryEntity> listCategoryDB = categorySV.findListCategoryByUserId(user.getUserId());

@@ -10,6 +10,7 @@ import com.testonline.service.impl.MesageService;
 import com.testonline.service.impl.QuestionOfExamtitleService;
 import com.testonline.service.impl.UserService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +79,7 @@ public class StudentController {
     public String showListResult(Model theModel) {
         int currentUserId = userSV.getDetailUserCurrent().getUserId();
         List<ExamtitleEntity> listExamtitleOfCurrentStudent = examtitleSV.getListExamtitleByStudentId(currentUserId);
-        List<ExamtitleEntity> ListCompletedExamtitleOfCurrentStudent = new ArrayList<ExamtitleEntity>();
+        ArrayList<ExamtitleEntity> ListCompletedExamtitleOfCurrentStudent = new ArrayList<ExamtitleEntity>();
         HashMap<Integer, Double> listResult = new HashMap<Integer, Double>();
         //  check if the exam has finished yet
         for (ExamtitleEntity ex : listExamtitleOfCurrentStudent) {
@@ -89,6 +90,7 @@ public class StudentController {
                 listResult.put(ex.getExamtitleId(), point);
             }
         }
+        Collections.reverse(ListCompletedExamtitleOfCurrentStudent);
         theModel.addAttribute("listExamtitleOfCurrentStudent", ListCompletedExamtitleOfCurrentStudent);
         theModel.addAttribute("listResult", listResult);
         return "student/list-results";
@@ -160,7 +162,7 @@ public class StudentController {
     public String examWaitingCountdown(Model theModel, @RequestParam(value = "examId", required = true) int examId) {
 
         UserEntity currentStudent = userSV.getDetailUserCurrent();
-        ExamEntity exam = examSV.getById(examId); 
+        ExamEntity exam = examSV.getById(examId);
         if (exam == null) {
             mesage.putMesageWarning(theModel, "ExamId invalid!");
             return "student/examwaiting";

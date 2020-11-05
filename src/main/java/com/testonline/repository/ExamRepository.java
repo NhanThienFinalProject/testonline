@@ -23,4 +23,6 @@ public interface ExamRepository extends CrudRepository<ExamEntity,Integer>{
     public List<ExamEntity> findByAllExamEntityTimeStartGreaterThanEquaAndStudentId(LocalDateTime now,int studentId);
     @Query(value ="SELECT e.ID,e.CONTENT,e.STATUS,e.PASSWORD,e.TIMESTART,e.TIMEEND,e.POINT,e.MAXSTUDENT,e.CREATEBYID,e.CREATEDATE FROM exam as e inner join user as u on e.CREATEBYID = u.ID where e.TIMEEND < ?1 and u.ID  = ?2 ",nativeQuery = true)
     public List<ExamEntity> findFinishedExamOfCurrentTeacher(LocalDateTime now,int teacherId);
+    @Query(value ="SELECT e.ID,e.CONTENT,e.STATUS,e.PASSWORD,e.TIMESTART,e.TIMEEND,e.POINT,e.MAXSTUDENT,e.CREATEBYID,e.CREATEDATE FROM exam as e inner join user as u on e.CREATEBYID = u.ID where e.TIMESTART > ?1 and u.ID  = ?2 ",nativeQuery = true)
+    public List<ExamEntity> findNotStartYetExamOfCurrentTeacher(LocalDateTime now,int teacherId);
 }

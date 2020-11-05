@@ -9,6 +9,8 @@ import com.testonline.service.impl.ExamService;
 import com.testonline.service.impl.QuestionRandomService;
 import com.testonline.service.impl.UserService;
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -37,7 +39,9 @@ public class ExamController {
     public String showStudentHome(Model theModel) {
         theModel.addAttribute("examModel", new ExamEntity());
         PagedListHolder pagedListHolder = new PagedListHolder(examService.getAll());
-        theModel.addAttribute("listExam", examService.getAllByUserId(userService.getDetailUserCurrent().getUserId()));
+        ArrayList<ExamEntity> listExam = (ArrayList<ExamEntity>) examService.getAllNotStartYetByTeacherId(userService.getDetailUserCurrent().getUserId());
+        Collections.reverse(listExam);
+        theModel.addAttribute("listExam",listExam);
         return "teacher/exam-form";
 
     }

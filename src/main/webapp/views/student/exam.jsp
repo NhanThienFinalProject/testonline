@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-lg-3 col-12 mx-auto pt-lg-2">
                     <div class="row"> 
-                        <h5 class="text-danger col-12 text-center mt-3">Thời gian còn lại</h5>
+                        <h5 class="text-danger col-12 text-center mt-3">Time left</h5>
                         <div class="btn-group col-6 offset-3"> 
                             <span  class="btn btn-success" id="minute"></span><span class="btn btn-success" id="second"></span>    
                         </div> 
@@ -46,8 +46,8 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Câu</th>
-                                <th>Đáp án</th>
+                                <th>Question</th>
+                                <th>Your answer</th>
                             </tr>
                         </thead>
                         <tbody id="resultChooseAnswer">
@@ -78,7 +78,7 @@
                     getQuestion(listQuestion[nextTo],nextTo +1);
                    
                 }else{
-                     $("#loadQuestion").html('<div class="row mt-5 mb-5"> <div class="col-10 offset-1 text-center"><h2>Chúc mừng bạn đã hoàn tất bài kiểm tra của mình. Bạn vui lòng đợi hết giờ để xem kết quả nhé!</h2></div> <div class="col-4 offset-4 text-center mt-5"><h3 class="btn btn-primary btn-sm float-left" onclick="getQuestion('+listQuestion[nextTo]+','+(nextTo+1)+')">Xem lại</h3><h3 class="btn btn-outline-secondary btn-sm float-right disabled">Xem kết quả</h3></div> </div>');
+                     $("#loadQuestion").html('<div class="row mt-5 mb-5"> <div class="col-10 offset-1 text-center"><h2>You already finished your exam. Please wait untill time is up to check result!</h2></div> <div class="col-4 offset-4 text-center mt-5"><h3 class="btn btn-primary btn-sm float-left" onclick="getQuestion('+listQuestion[nextTo]+','+(nextTo+1)+')">Back</h3><h3 class="btn btn-outline-secondary btn-sm float-right disabled">Check your result</h3></div> </div>');
                 }
                 setTimeout(function(){
                    getAnswerStudent(examtitleId);
@@ -158,7 +158,7 @@
                         if(result.question.hinte != null){
                             hinte = 'Hinte: <i>' + result.question.hinte +'</i>';
                         }
-                        $("#loadQuestion").html('<div class="row p-3"> <div class="col-12 text-left border-bottom mb-3" > <h2 id="question"> Câu '+nextTo +': ' + result.question.content + '</h2> <p id="hinte">'+hinte+'</p> </div> ' + listTextAnswer + ' </div> <div class="row border-top pt-2 pb-2"> '+previous+next+' </div>');
+                        $("#loadQuestion").html('<div class="row p-3"> <div class="col-12 text-left border-bottom mb-3" > <h2 id="question"> Question '+nextTo +': ' + result.question.content + '</h2> <p id="hinte">'+hinte+'</p> </div> ' + listTextAnswer + ' </div> <div class="row border-top pt-2 pb-2"> '+previous+next+' </div>');
 
 
                     },
@@ -189,9 +189,9 @@
                          var   stringAnswer = "";
                             for (var j = 0; j < result.listQuestionOfExamtitle[i].question.listAnswer.length; j++) {
                                 if(result.listQuestionOfExamtitle[i].resultAnswerId == result.listQuestionOfExamtitle[i].question.listAnswer[j].answerId ){
-                                    listChooseAnswer = listChooseAnswer + '<tr><td><p class="btn btn-sm btn-info" onclick="getQuestion('+result.listQuestionOfExamtitle[i].questionOfExamtitleID+','+(i+1)+')">'+'Câu '+(i+1)+'</p></td><td>'+result.listQuestionOfExamtitle[i].question.listAnswer[j].answer+'</td></tr>';
+                                    listChooseAnswer = listChooseAnswer + '<tr><td><p class="btn btn-sm btn-info" onclick="getQuestion('+result.listQuestionOfExamtitle[i].questionOfExamtitleID+','+(i+1)+')">'+'Question '+(i+1)+'</p></td><td>'+result.listQuestionOfExamtitle[i].question.listAnswer[j].answer+'</td></tr>';
                                 }else if ((result.listQuestionOfExamtitle[i].resultAnswerId == -1 && j == result.listQuestionOfExamtitle[i].question.listAnswer.length - 1)|| (result.listQuestionOfExamtitle[i].resultAnswerId == 0 && j == result.listQuestionOfExamtitle[i].question.listAnswer.length - 1)) {
-                                    listChooseAnswer = listChooseAnswer + '<tr><td><p class="btn btn-sm btn-info" onclick="getQuestion('+result.listQuestionOfExamtitle[i].questionOfExamtitleID+','+(i+1)+')">'+'Câu '+(i+1)+'</p></td><td></td></tr>';
+                                    listChooseAnswer = listChooseAnswer + '<tr><td><p class="btn btn-sm btn-info" onclick="getQuestion('+result.listQuestionOfExamtitle[i].questionOfExamtitleID+','+(i+1)+')">'+'Question '+(i+1)+'</p></td><td></td></tr>';
                                 }
                             }
                         }
@@ -231,7 +231,7 @@
                 document.getElementById("second").innerHTML = seconds;
                 if (t < 0) {
                     clearInterval(x);
-                    document.getElementById("finish").innerHTML = "Hết Giờ";
+                    document.getElementById("finish").innerHTML = "Time's up";
                     document.getElementById("minute").innerHTML = '0';
                     document.getElementById("second").innerHTML = '0';
                     window.location.href = window.location.origin+'/NationalTestOnline/student-list-result';

@@ -46,25 +46,25 @@ public class DoTestController {
         try {
             examIdInt = Integer.parseInt(examId);
         } catch (Exception e) {
-            mesageSV.putMesageWarning(theModel, "Mã bài thi không hợp lệ");
+            mesageSV.putMesageWarning(theModel, "Invalid exam!");
             return "student/exam";
         }
         // kiểm tra student đã được add vào  kì thi này hay chưa
         ExamtitleEntity examtitle = examTitleSV.getExamtitleByExamIdAndStudentId(examIdInt, user.getUserId());
         if (examtitle == null) {
-            mesageSV.putMesageWarning(theModel, "Bạn không có tên trong bài thi này vui lòng liên hệ với giảng viên để biết thêm thông tin.");
+            mesageSV.putMesageWarning(theModel, "You are not in the exam list, contact your teacher for more information please!");
             return "student/exam";
         } else {
             //kiểm tra giờ thi
             String examStatus = examSV.statusExam(examIdInt);
             if (examStatus.equals("chuabatdau")) {
-                mesageSV.putMesageWarning(theModel, "Chưa đến giờ thi vui lòng quay lại trang chờ thi.");
+                mesageSV.putMesageWarning(theModel, "It is not on time, come back to the waitting room please!");
                 return "student/exam";
             } else if (examStatus.equals("hoanthanh")) {
-                mesageSV.putMesageWarning(theModel, "Bài thi này đã kết thúc.");
+                mesageSV.putMesageWarning(theModel, "This exam seems to be over!");
                 return "student/exam";
             } else if (examStatus.equals("dangthi")) {
-                mesageSV.putMesageSuccess(theModel, "Mẹo nhỏ: Hãy làm các câu dễ trước sau đó quay lại làm các câu khó sau");
+                mesageSV.putMesageSuccess(theModel, "Tips: You should do the easy ones first and then the hard ones later!");
                 theModel.addAttribute("examStatus", "active");
                 theModel.addAttribute("examDetail", examSV.getById(examIdInt));
                 theModel.addAttribute("userDetail", user);
@@ -78,7 +78,7 @@ public class DoTestController {
                 theModel.addAttribute("listExamTitleId", listQuestionId);
 
             } else {
-                mesageSV.putMesageWarning(theModel, "Lỗi giờ thi không xát định.");
+                mesageSV.putMesageWarning(theModel, "Unknow!");
                 return "student/exam";
             }
 
@@ -92,7 +92,7 @@ public class DoTestController {
         try {
             examIdInt = Integer.parseInt(examId);
         } catch (Exception e) {
-            mesageSV.putMesageWarning(theModel, "Mã bài thi không hợp lệ");
+            mesageSV.putMesageWarning(theModel, "Invalid exam!");
             return "student/exam";
         }
         // kiểm tra student đã được add vào  kì thi này hay chưa

@@ -10,6 +10,7 @@ import com.testonline.service.impl.QuestionService;
 import com.testonline.service.impl.UserService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,8 @@ public class TeacherController {
         int currentTeacherId = userSV.getDetailUserCurrent().getUserId();
         //  check if examId which current teacherId had
         if (examSV.checkIfCurrentTeacherHadRequireExam(currentTeacherId, examId)) {
-            List<ExamtitleEntity> listExamtitleOfExamIDCurrentTeacher = examtitleSV.getExamtitleByTeacherIdAndExamId(examId, currentTeacherId);
+            ArrayList<ExamtitleEntity> listExamtitleOfExamIDCurrentTeacher = (ArrayList<ExamtitleEntity>) examtitleSV.getExamtitleByTeacherIdAndExamId(examId, currentTeacherId);
+            Collections.reverse(listExamtitleOfExamIDCurrentTeacher);
             theModel.addAttribute("listExamtitleOfExamIDCurrentTeacher", listExamtitleOfExamIDCurrentTeacher);
             theModel.addAttribute("currentExam", examSV.getByIdAndUserId(examId, currentTeacherId));
             //  get  number of correct question of list of examtitle
@@ -81,7 +83,7 @@ public class TeacherController {
         UserEntity currentTeacher = userSV.getDetailUserCurrent();
         List<ExamEntity> listExamOfCurrentTeacher = examSV.getAllByUserId(currentTeacher.getUserId());
         //   get list completed exam vs list happing exam
-        List<ExamEntity> listFinishedExamOfCurrentTeacher = new ArrayList<ExamEntity>();
+        ArrayList<ExamEntity> listFinishedExamOfCurrentTeacher = new ArrayList<ExamEntity>();
         List<ExamEntity> listHappeningExamOfCurrentTeacher = new ArrayList<ExamEntity>();
         for (ExamEntity ex : listExamOfCurrentTeacher) {
             if (examSV.statusExam(ex.getExamId()).equals("hoanthanh")) {
@@ -91,6 +93,7 @@ public class TeacherController {
                 listHappeningExamOfCurrentTeacher.add(ex);
             }
         }
+        Collections.reverse(listFinishedExamOfCurrentTeacher);
         theModel.addAttribute("listFinishedExamOfCurrentTeacher", listFinishedExamOfCurrentTeacher);
         theModel.addAttribute("listHappeningExamOfCurrentTeacher", listHappeningExamOfCurrentTeacher);
         return "teacher/list-exam";
