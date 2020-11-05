@@ -19,4 +19,5 @@ public interface IExamService {
     List<ExamEntity> getAllByStudentId(int studentId);
     List<ExamEntity> getFinishedExamOfCurrentTeacher(int teacherId);
     boolean checkPasswordOfStringExamId(String password, String examId);
+    String getCurrentDateTime();
 }

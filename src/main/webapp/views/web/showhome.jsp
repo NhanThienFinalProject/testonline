@@ -95,8 +95,8 @@
           <a class="portfolio-item" href="#!">
             <div class="caption">
               <div class="caption-content">
-                <div class="h2">Tiện dụng</div>
-                <p class="mb-0">Cùng với những khó khăn trong thời gian dịch covid-19 thì thi online là một giải pháp tuyệt vời!</p>
+                <div class="h2">Comfortable</div>
+                <p class="mb-0">Along with the difficulties in the time of translating covid-19, the online exam is a great solution!</p>
               </div>
             </div>
             <img class="img-fluid" src="https://thumbnails.texastribune.org/2YDa4dGdvgfSpMFlwmt0VHVzqXg=/1200x804/smart/filters:quality(95)/static.texastribune.org/media/images/multiple-choice.jpg" alt="">
@@ -106,8 +106,8 @@
           <a class="portfolio-item" href="#!">
             <div class="caption">
               <div class="caption-content">
-                <div class="h2">Nhanh chóng</div>
-                <p class="mb-0">Cung cấp các giải pháp thi online tuyệt vời nhanh chóng tiện lợi và học sinh dễ dàng làm quen tiếp cận</p>
+                <div class="h2">Fast</div>
+                <p class="mb-0">Providing excellent online exam solutions, quickly and conveniently accessible to students</p>
               </div>
             </div>
             <img class="img-fluid" src="https://previews.123rf.com/images/smolaw11/smolaw111703/smolaw11170300006/73350570-student-testing-in-exercise-exams-answer-on-a-tablet-with-multiple-choice-questions-of-e-learning-by.jpg" alt="">
@@ -117,8 +117,8 @@
           <a class="portfolio-item" href="#!">
             <div class="caption">
               <div class="caption-content">
-                <div class="h2">Quản lý</div>
-                <p class="mb-0">Dễ dàng tổ chức cũng như quản lý bài thi</p>
+                <div class="h2">Manage</div>
+                <p class="mb-0">Organize and manage exams easily</p>
               </div>
             </div>
             <img class="img-fluid" src="https://www.middleweb.com/wp-content/uploads/2019/02/russell-overhead-testing.jpg" alt="">
@@ -128,8 +128,8 @@
           <a class="portfolio-item" href="#!">
             <div class="caption">
               <div class="caption-content">
-                <div class="h2">Ổn định</div>
-                <p class="mb-0">Hệ thống có mức ổn định cao.</p>
+                <div class="h2">Stability</div>
+                <p class="mb-0">The system has a high level of stability.</p>
               </div>
             </div>
             <img class="img-fluid" src="https://www.washingtonpost.com/rf/image_1484w/2010-2019/WashingtonPost/2015/09/02/Education/Images/Common_Core_Tests-03608-3595-567.jpg?t=20170517" alt="">

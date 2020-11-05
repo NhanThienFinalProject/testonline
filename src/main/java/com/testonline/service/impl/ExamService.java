@@ -137,4 +137,11 @@ public class ExamService implements IExamService {
         LocalDateTime now = LocalDateTime.now();
         return examRP.findFinishedExamOfCurrentTeacher(now, teacherId);
     }
+
+    @Override
+    public String getCurrentDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+         
+        return now.getMonth() + " " + now.getDayOfMonth() + ", " + now.getYear() + " " + now.getHour() + ":" + now.getMinute() + ":" + now.getSecond();
+    }
 }

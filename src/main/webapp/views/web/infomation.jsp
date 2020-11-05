@@ -13,7 +13,7 @@
         <table class="table col-6 offset-3 mt-5">
             <thead>
                 <tr>
-                    <th scope="col"><c:out value="${user.role.nameRole}"/>:</th>
+                    <th scope="col"><c:out value="${user.role.roleId}"/>:</th>
                     <th scope="col"><c:out value="${user.fullName}"/></th>
                 </tr>
             </thead>

@@ -120,7 +120,7 @@ public class TeacherController {
         ExamEntity requiredExam = examSV.getById(examId);
 
         // Sender's email ID needs to be mentioned.
-        String from = "thiennguyen15dt1@gmail.com";
+        String from = "truongquangnhan299@gmail.com";
 
         // Assuming you are sending email from through gmails smtp
         String host = "smtp.gmail.com";
@@ -139,7 +139,7 @@ public class TeacherController {
 
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                return new PasswordAuthentication("thiennguyen15dt1@gmail.com", "khanhdung0908");
+                return new PasswordAuthentication("truongquangnhan299@gmail.com", "Lloll010");
 
             }
 

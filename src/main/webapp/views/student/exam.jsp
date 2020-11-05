@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-lg-3 col-12 mx-auto pt-lg-2">
                     <div class="row"> 
-                        <h5 class="text-danger col-12 text-center mt-3">Thời gian còn lại</h5>
+                        <h5 class="text-danger col-12 text-center mt-3">Time remaining</h5>
                         <div class="btn-group col-6 offset-3"> 
                             <span  class="btn btn-success" id="minute"></span><span class="btn btn-success" id="second"></span>    
                         </div> 
@@ -46,8 +46,8 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Câu</th>
-                                <th>Đáp án</th>
+                                <th>Question</th>
+                                <th>your answer</th>
                             </tr>
                         </thead>
                         <tbody id="resultChooseAnswer">
@@ -217,11 +217,18 @@
         <script>
 
             var deadline = new Date("<c:out value="${examDetail.timeEndString }"/>");
-            console.log(deadline);
+            var datelocal =new Date();
+            //var now = time.getTime();
+            var second =1000;
+                var getTimeNow = setInterval(function () {
+                datelocal = new Date("<c:out value="${getTime}"/>");
+                datelocal = new Date(datelocal.getTime() + second);
+                second = second + 1000;
+            }, 1000);
             var x = setInterval(function () {
 
-                var now = new Date().getTime();
-                var t = deadline - now;
+                //var now = new Date("<c:out value="${getTime}"/>").getTime();
+                var t = deadline - datelocal;
                 //var days = Math.floor(t / (1000*60*60*24)); 
                 //var hours = Math.floor((t%(1000*60*60*24))/(1000 * 60 * 60)); 
                 // 
@@ -231,10 +238,14 @@
                 document.getElementById("second").innerHTML = seconds;
                 if (t < 0) {
                     clearInterval(x);
-                    document.getElementById("finish").innerHTML = "Hết Giờ";
+                    document.getElementById("finish").innerHTML = "Time out<br>Test online doing submit your test<br>Please wait a moment!";
                     document.getElementById("minute").innerHTML = '0';
                     document.getElementById("second").innerHTML = '0';
-                    window.location.href = window.location.origin+'/NationalTestOnline/student-list-result';
+                    setTimeout(function () {
+                var urlnext = window.location.origin+'/NationalTestOnline/student-list-result';
+                window.location.href = urlnext;
+            }, 3000);
+                    
                 }
             }, 1000);
         </script> 
